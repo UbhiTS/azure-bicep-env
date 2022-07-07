@@ -1,0 +1,87 @@
+{
+    "primaryRGName": "contoso-primary-rg",
+    "primaryRGLocation": "westus3",
+
+    "secondaryRGName": "contoso-secondary-rg",
+    "secondaryRGLocation": "eastus2",
+
+    "primaryNetwork": {
+        "nsgName": "default-nsg",
+        "hub": {
+            "name": "primary-hub-vnet",
+            "addressPrefix": "10.1.0.0/20",
+            "dmzSubnetName": "dmzSubnet",
+            "dmzSubnetCIDR": "10.1.0.0/24",
+            "gatewaySubnetName": "GatewaySubnet",
+            "gatewaySubnetCIDR": "10.1.1.0/27",
+            "routeServerSubnetName": "RouteServerSubnet",
+            "routeServerSubnetCIDR": "10.1.1.32/27",
+            "azureFirewallSubnetName": "AzureFirewallSubnet",
+            "azureFirewallSubnetCIDR": "10.1.1.64/26",
+            "azureFirewallManagementSubnetName":"AzureFirewallManagementSubnet",
+            "azureFirewallManagementSubnetCIDR":"10.1.1.128/26",
+            "azureBastionSubnetName": "AzureBastionSubnet",
+            "azureBastionSubnetCIDR": "10.1.1.192/26",
+            "azureVirtualWANHubName": "AzureVirtualWANHub",
+            "azureVirtualWANHubCIDR": "10.1.2.0/24"
+        },
+
+        "spoke1": {
+            "name": "primary-spoke1-vnet",
+            "addressPrefix": "10.1.16.0/23",
+            "managementSubnetName": "ManagementSubnet",
+            "managementSubnetCIDR": "10.1.16.0/24",
+            "workloadSubnetName": "WorkloadSubnet",
+            "workloadSubnetCIDR": "10.1.17.0/24"
+        },
+    
+        "spoke2": {
+            "name": "primary-spoke2-vnet",
+            "addressPrefix": "10.1.18.0/23",
+            "managementSubnetName": "ManagementSubnet",
+            "managementSubnetCIDR": "10.1.18.0/24",
+            "workloadSubnetName": "WorkloadSubnet",
+            "workloadSubnetCIDR": "10.1.19.0/24"
+        }
+    },
+
+    "secondaryNetwork": {
+        "nsgName": "default-nsg",
+        "hub": {
+            "name": "secondary-hub-vnet",
+            "addressPrefix": "10.2.0.0/20",
+            "dmzSubnetName": "dmzSubnet",
+            "dmzSubnetCIDR": "10.2.0.0/24",
+            "gatewaySubnetName": "GatewaySubnet",
+            "gatewaySubnetCIDR": "10.2.1.0/27",
+            "routeServerSubnetName": "RouteServerSubnet",
+            "routeServerSubnetCIDR": "10.2.1.32/27",
+            "azureFirewallSubnetName": "AzureFirewallSubnet",
+            "azureFirewallSubnetCIDR": "10.2.1.64/26",
+            "azureFirewallManagementSubnetName":"AzureFirewallManagementSubnet",
+            "azureFirewallManagementSubnetCIDR":"10.2.1.128/26",
+            "azureBastionSubnetName": "AzureBastionSubnet",
+            "azureBastionSubnetCIDR": "10.2.1.192/26",
+            "azureVirtualWANHubName": "AzureVirtualWANHub",
+            "azureVirtualWANHubCIDR": "10.2.2.0/24"
+        },
+
+        "spoke1": {
+            "name": "secondary-spoke1-vnet",
+            "addressPrefix": "10.2.16.0/23",
+            "managementSubnetName": "ManagementSubnet",
+            "managementSubnetCIDR": "10.2.16.0/24",
+            "workloadSubnetName": "WorkloadSubnet",
+            "workloadSubnetCIDR": "10.2.17.0/24"
+        },
+    
+        "spoke2": {
+            "name": "secondary-spoke2-vnet",
+            "addressPrefix": "10.2.18.0/23",
+            "managementSubnetName": "ManagementSubnet",
+            "managementSubnetCIDR": "10.2.18.0/24",
+            "workloadSubnetName": "WorkloadSubnet",
+            "workloadSubnetCIDR": "10.2.19.0/24"
+        }
+    }
+}
