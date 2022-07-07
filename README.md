@@ -1,4 +1,4 @@
-# azure-bicep-hub-spoke
+# azure-bicep-env
 
 This repo is the baseline Azure network infrastructure for your dev/test needs
 1. deploy-hub-spoke
@@ -12,5 +12,6 @@ Backlog
 
 Architecture Diagram (Deployed Components)
 ------------------------------------------
-![image](https://user-images.githubusercontent.com/3799525/175751487-40fda1ff-ef25-43aa-a455-4522b31447b0.png)
+![image](https://user-images.githubusercontent.com/3799525/177823635-e682998b-5a61-4c28-a72e-3b97835722a7.png)
+
 
