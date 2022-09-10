@@ -1,0 +1,10 @@
+{
+    "rg": {
+        "name":"contoso-primary-aadds-rg",
+        "location":"westus2"
+    },
+    "nsg": {
+        "name":"aadds-nsg"
+    },
+    "notificationRecipients": [ "tubhi@microsoft.com", "ubhits@outlook.com", "ubhits@gmail.com" ]
+}

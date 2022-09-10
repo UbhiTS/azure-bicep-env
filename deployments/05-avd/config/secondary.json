@@ -1,0 +1,22 @@
+{
+    "deploymentName": "secondary",
+    "avd": {
+        "hostPoolName": "marketing-designers-host-pool",
+        "hostPoolFriendlyName": "Marketing Designers Host Pool",
+        "appGroupName": "marketing-designers-app-group",
+        "appGroupFriendlyName": "Marketing Designers Application Group",
+        "workspaceName": "marketing-designers-workspace",
+        "workspaceFriendlyName": "Marketing Designers Workspace",
+        "appGroupType": "Desktop",
+        "preferredAppGroupType": "Desktop",
+        "hostPoolType": "pooled",
+        "loadBalancerType": "BreadthFirst"
+    },
+    "sessionHosts": {
+        "count": 1,
+        "vmSize": "Standard_D2s_v5",
+        "namePrefix": "mkt-vm",
+        "vmImageOffer": "Office-365",
+        "vmImageSku": "win11-21h2-avd-m365"
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "deploymentName": "secondary",
+    "rg": {
+        "name": "contoso-secondary-secured-rg",
+        "location": "eastus2"
+    },
+    "spokes": {
+        "spoke1": {
+            "name": "secured-spoke1-vnet",
+            "addressPrefix": "10.2.41.0/23",
+            "managementSubnetName": "ManagementSubnet",
+            "managementSubnetCIDR": "10.2.41.0/24",
+            "workloadSubnetName": "WorkloadSubnet",
+            "workloadSubnetCIDR": "10.2.42.0/24"
+        },
+
+        "spoke2": {
+            "name": "secured-spoke2-vnet",
+            "addressPrefix": "10.2.43.0/23",
+            "managementSubnetName": "ManagementSubnet",
+            "managementSubnetCIDR": "10.2.43.0/24",
+            "workloadSubnetName": "WorkloadSubnet",
+            "workloadSubnetCIDR": "10.2.44.0/24"
+        }
+    },
+    "firewall": {
+        "pip": {
+            "name":"secondary-fw-pip"
+        },
+        "firewall": {
+            "name": "secondary-fw"
+        }
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "rg": {
+        "name":"contoso-avd-rg",
+        "location":"westus2"
+    },
+    "storage": {
+        "accountName": "ubhitsavdstorageacc",
+        "kind": "FileStorage",
+        "redundancy": "Premium_LRS",
+        "fileShareFolderName": "profiles"
+    }
+}

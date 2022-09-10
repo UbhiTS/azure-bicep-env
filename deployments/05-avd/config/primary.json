@@ -1,0 +1,22 @@
+{
+    "deploymentName": "primary",
+    "avd": {
+        "hostPoolName": "dev-host-pool",
+        "hostPoolFriendlyName": "Developers Host Pool",
+        "appGroupName": "dev-app-group",
+        "appGroupFriendlyName": "Developers Application Group",
+        "workspaceName": "dev-workspace",
+        "workspaceFriendlyName": "Developer Workspace",
+        "appGroupType": "Desktop",
+        "preferredAppGroupType": "Desktop",
+        "hostPoolType": "pooled",
+        "loadBalancerType": "BreadthFirst"
+    },
+    "sessionHosts": {
+        "count": 1,
+        "vmSize": "Standard_D2s_v5",
+        "namePrefix": "dev-vm",
+        "vmImageOffer": "Office-365",
+        "vmImageSku": "win11-21h2-avd-m365"
+    }
+}

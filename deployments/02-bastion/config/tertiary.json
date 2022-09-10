@@ -1,0 +1,9 @@
+{
+    "deploymentName": "tertiary",
+    "pip": {
+        "name":"tertiary-bastion-pip"
+    },
+    "host": {
+        "name": "tertiary-bastion"
+    }
+}

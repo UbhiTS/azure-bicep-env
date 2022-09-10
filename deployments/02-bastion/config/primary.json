@@ -1,0 +1,9 @@
+{
+    "deploymentName": "primary",
+    "pip": {
+        "name":"primary-bastion-pip"
+    },
+    "host": {
+        "name": "primary-bastion"
+    }
+}

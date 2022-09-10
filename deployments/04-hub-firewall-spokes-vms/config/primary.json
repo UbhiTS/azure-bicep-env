@@ -1,0 +1,34 @@
+{
+    "deploymentName": "primary",
+    "rg": {
+        "name": "contoso-primary-secured-rg",
+        "location": "westus3"
+    },
+    "spokes": {
+        "spoke1": {
+            "name": "secured-spoke1-vnet",
+            "addressPrefix": "10.1.41.0/23",
+            "managementSubnetName": "ManagementSubnet",
+            "managementSubnetCIDR": "10.1.41.0/24",
+            "workloadSubnetName": "WorkloadSubnet",
+            "workloadSubnetCIDR": "10.1.42.0/24"
+        },
+
+        "spoke2": {
+            "name": "secured-spoke2-vnet",
+            "addressPrefix": "10.1.43.0/23",
+            "managementSubnetName": "ManagementSubnet",
+            "managementSubnetCIDR": "10.1.43.0/24",
+            "workloadSubnetName": "WorkloadSubnet",
+            "workloadSubnetCIDR": "10.1.44.0/24"
+        }
+    },
+    "firewall": {
+        "pip": {
+            "name":"primary-fw-pip"
+        },
+        "firewall": {
+            "name": "primary-fw"
+        }
+    }
+}

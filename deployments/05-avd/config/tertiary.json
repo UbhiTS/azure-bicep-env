@@ -1,0 +1,22 @@
+{
+    "deploymentName": "tertiary",
+    "avd": {
+        "hostPoolName": "vip-host-pool",
+        "hostPoolFriendlyName": "C-Suite Host Pool",
+        "appGroupName": "vip-app-group",
+        "appGroupFriendlyName": "C-Suite Application Group",
+        "workspaceName": "vip-workspace",
+        "workspaceFriendlyName": "C-Suite Workspace",
+        "appGroupType": "Desktop",
+        "preferredAppGroupType": "Desktop",
+        "hostPoolType": "Personal",
+        "loadBalancerType": "Automatic"
+    },
+    "sessionHosts": {
+        "count": 1,
+        "vmSize": "Standard_D2s_v5",
+        "namePrefix": "vip-vm",
+        "vmImageOffer": "Office-365",
+        "vmImageSku": "win11-21h2-avd-m365"
+    }
+}
