@@ -62,7 +62,7 @@ module tertiaryAVD './modules/backplane.bicep' = {
 }
 
 module vmLoginRolesAssignmentPrimary './modules/vm-login-roles-assignment.bicep' = [ for group in domainConfig.groups: if (group.type == 'avdAdmin' || group.type == 'user') {
-  name: 'deploy-vm-${group.type}-login-role-on-${baseConfigPrimary.rg.name}-for-${group.userPrefix}'
+  name: 'assign-vm-login-role-${group.userPrefix}-on-${baseConfigPrimary.rg.name}'
   dependsOn: [ rg ]
   scope: resourceGroup(baseConfigPrimary.rg.name)
   params: {
@@ -72,7 +72,7 @@ module vmLoginRolesAssignmentPrimary './modules/vm-login-roles-assignment.bicep'
 }]
 
 module vmLoginRolesAssignmentSecondary './modules/vm-login-roles-assignment.bicep' = [ for group in domainConfig.groups: if (group.type == 'avdAdmin' || group.type == 'user') {
-  name: 'deploy-vm-${group.type}-login-role-on-${baseConfigSecondary.rg.name}-for-${group.userPrefix}'
+  name: 'assign-vm-login-role-${group.userPrefix}-on-${baseConfigSecondary.rg.name}'
   dependsOn: [ rg ]
   scope: resourceGroup(baseConfigSecondary.rg.name)
   params: {
@@ -82,7 +82,7 @@ module vmLoginRolesAssignmentSecondary './modules/vm-login-roles-assignment.bice
 }]
 
 module vmLoginRolesAssignmentTertiary './modules/vm-login-roles-assignment.bicep' = [ for group in domainConfig.groups: if (group.type == 'avdAdmin' || group.type == 'user') {
-  name: 'deploy-vm-${group.type}-login-role-on-${baseConfigTertiary.rg.name}-for-${group.userPrefix}'
+  name: 'assign-vm-login-role-${group.userPrefix}-on-${baseConfigTertiary.rg.name}'
   dependsOn: [ rg ]
   scope: resourceGroup(baseConfigTertiary.rg.name)
   params: {
@@ -91,6 +91,9 @@ module vmLoginRolesAssignmentTertiary './modules/vm-login-roles-assignment.bicep
   }
 }]
 
+// =================================
+// TODO: Add AD Groups to App Groups
+// =================================
 
 //Create Diagnotic Setting for WVD components
 // module avdMonitor './modules/monitor.bicep' = {
