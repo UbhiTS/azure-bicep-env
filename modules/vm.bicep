@@ -41,14 +41,14 @@ param vmImagePublisher string = 'MicrosoftWindowsDesktop'
   'WindowsServer'
   'Office-365'
 ])
-param vmImageOffer string = 'Windows-10'
+param vmImageOffer string = 'Office-365'
 
 @allowed([
   '2019-datacenter-gensecond'
   'win10-21h2-pro'
   'win11-21h2-avd-m365'
 ])
-param vmImageSku string = 'win10-21h2-pro'
+param vmImageSku string = 'win11-21h2-avd-m365'
 
 @allowed([
   'Windows_Client'

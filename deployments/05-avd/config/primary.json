@@ -6,7 +6,7 @@
         "appGroupName": "dev-app-group",
         "appGroupFriendlyName": "Developers Application Group",
         "workspaceName": "dev-workspace",
-        "workspaceFriendlyName": "Developer Workspace",
+        "workspaceFriendlyName": "Developers Workspace",
         "appGroupType": "Desktop",
         "preferredAppGroupType": "Desktop",
         "hostPoolType": "pooled",

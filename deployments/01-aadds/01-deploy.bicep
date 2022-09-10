@@ -1,4 +1,6 @@
 // deployment time ~35 mins
+// + activation time ~35 mins
+// = total time ~110 mins
 
 // in case of service principal not found error:
 // go to Azure AD Domain Services in the portal and delete the domain services instance

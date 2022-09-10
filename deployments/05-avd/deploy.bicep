@@ -31,7 +31,7 @@ module profilesStorage './modules/storage.bicep' = {
 module primaryAVD './modules/backplane.bicep' = {
   name: 'deploy-avd-${configPrimary.deploymentName}'
   dependsOn: [ profilesStorage ]
-  scope: resourceGroup(avdConfig.rg.name)
+  scope: resourceGroup(baseConfigPrimary.rg.name)
   params: {
     baseConfig: baseConfigPrimary
     domainConfig: domainConfig
@@ -42,7 +42,7 @@ module primaryAVD './modules/backplane.bicep' = {
 module secondaryAVD './modules/backplane.bicep' = {
   name: 'deploy-avd-${configSecondary.deploymentName}'
   dependsOn: [ profilesStorage ]
-  scope: resourceGroup(avdConfig.rg.name)
+  scope: resourceGroup(baseConfigSecondary.rg.name)
   params: {
     baseConfig: baseConfigSecondary
     domainConfig: domainConfig
@@ -53,7 +53,7 @@ module secondaryAVD './modules/backplane.bicep' = {
 module tertiaryAVD './modules/backplane.bicep' = {
   name: 'deploy-avd-${configTertiary.deploymentName}'
   dependsOn: [ profilesStorage ]
-  scope: resourceGroup(avdConfig.rg.name)
+  scope: resourceGroup(baseConfigTertiary.rg.name)
   params: {
     baseConfig: baseConfigTertiary
     domainConfig: domainConfig
@@ -61,13 +61,33 @@ module tertiaryAVD './modules/backplane.bicep' = {
   }
 }
 
-module vmLoginRolesAssignment './modules/vm-login-roles-assignment.bicep' = [ for group in domainConfig.groups: {
-  name: 'deploy-vm-${group.type}-login-role-on-${avdConfig.rg.name}-for-${group.userPrefix}'
+module vmLoginRolesAssignmentPrimary './modules/vm-login-roles-assignment.bicep' = [ for group in domainConfig.groups: if (group.type == 'avdAdmin' || group.type == 'user') {
+  name: 'deploy-vm-${group.type}-login-role-on-${baseConfigPrimary.rg.name}-for-${group.userPrefix}'
   dependsOn: [ rg ]
-  scope: resourceGroup(avdConfig.rg.name)
+  scope: resourceGroup(baseConfigPrimary.rg.name)
   params: {
     adGroupId: group.objectId
-    isAdmin: group.type == 'admin'
+    isAdmin: group.type == 'avdAdmin'
+  }
+}]
+
+module vmLoginRolesAssignmentSecondary './modules/vm-login-roles-assignment.bicep' = [ for group in domainConfig.groups: if (group.type == 'avdAdmin' || group.type == 'user') {
+  name: 'deploy-vm-${group.type}-login-role-on-${baseConfigSecondary.rg.name}-for-${group.userPrefix}'
+  dependsOn: [ rg ]
+  scope: resourceGroup(baseConfigSecondary.rg.name)
+  params: {
+    adGroupId: group.objectId
+    isAdmin: group.type == 'avdAdmin'
+  }
+}]
+
+module vmLoginRolesAssignmentTertiary './modules/vm-login-roles-assignment.bicep' = [ for group in domainConfig.groups: if (group.type == 'avdAdmin' || group.type == 'user') {
+  name: 'deploy-vm-${group.type}-login-role-on-${baseConfigTertiary.rg.name}-for-${group.userPrefix}'
+  dependsOn: [ rg ]
+  scope: resourceGroup(baseConfigTertiary.rg.name)
+  params: {
+    adGroupId: group.objectId
+    isAdmin: group.type == 'avdAdmin'
   }
 }]
 
