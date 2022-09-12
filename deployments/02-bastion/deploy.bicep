@@ -2,8 +2,8 @@
 
 // -------------------------
 
-var deploySecondary = true
-var deployTertiary = true
+var deploySecondary = false
+var deployTertiary = false
 
 // =========================
 
