@@ -169,10 +169,49 @@ resource vm 'Microsoft.Compute/virtualMachines@2022-03-01' = {
   }
 }
 
-resource nvidiaDrivers 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = if (gpuNVIDIA) {
-  name: '${vmName}/NvidiaGpuDriverWindows'
+
+// Run this if we are not Azure AD joining the session hosts
+resource sessionHostDomainJoin 'Microsoft.Compute/virtualMachines/extensions@2020-06-01' = if (networkJoin == 'AD') {
+  name: '${vmName}/JoinDomain'
   location: location
   dependsOn: [ vm ]
+  properties: {
+    publisher: 'Microsoft.Compute'
+    type: 'JsonADDomainExtension'
+    typeHandlerVersion: '1.3'
+    autoUpgradeMinorVersion: true
+    settings: {
+      name: domainToJoin
+      ouPath: domainOUPath
+      user: domainUserName
+      options: domainJoinOptions
+      restart: true
+    }
+    protectedSettings: {
+      password: domainPassword
+    }
+  }
+}
+
+// Run this if we are Azure AD joining the session hosts - no intune support
+resource sessionHostAADLogin 'Microsoft.Compute/virtualMachines/extensions@2020-06-01' = if (networkJoin == 'AAD') {
+  name: '${vmName}/AADLoginForWindows'
+  location: location
+  dependsOn: [ vm ]
+  properties: {
+    publisher: 'Microsoft.Azure.ActiveDirectory'
+    type: 'AADLoginForWindows'
+    typeHandlerVersion: '1.0'
+    autoUpgradeMinorVersion: true
+  }
+}
+
+
+resource nvidiaDrivers 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = if (gpuNVIDIA) {
+  name: 'NvidiaGpuDriverWindows' // ${vmName}/
+  location: location
+  parent: vm
+  dependsOn: [ sessionHostDomainJoin, sessionHostAADLogin ]
   properties: {
     publisher: 'Microsoft.HpcCompute'
     type: 'NvidiaGpuDriverWindows'
@@ -184,9 +223,10 @@ resource nvidiaDrivers 'Microsoft.Compute/virtualMachines/extensions@2022-03-01'
 }
 
 resource amdDrivers 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = if (gpuAMD) {
-  name: '${vmName}/AmdGpuDriverWindows'
+  name: 'AmdGpuDriverWindows' // ${vmName}/
   location: location
-  dependsOn: [ vm ]
+  parent: vm
+  dependsOn: [ sessionHostDomainJoin, sessionHostAADLogin ]
   properties: {
     publisher: 'Microsoft.HpcCompute'
     type: 'AmdGpuDriverWindows'
@@ -212,21 +252,21 @@ resource enablePingIPv4 'Microsoft.Compute/virtualMachines/runCommands@2022-03-0
   }
 }
 
-// resource enablePingIPv6 'Microsoft.Compute/virtualMachines/runCommands@2022-03-01' = {
-//   name: 'enable-ping-icmp-v6'
-//   location: location
-//   dependsOn: [ nvidiaDrivers, amdDrivers ]
-//   parent: vm
-//   properties: {
-//     source: {
-//       script: 'netsh advfirewall firewall add rule name="ICMPv6 Echo (Ping)" protocol="icmpv6:8,any" dir=in action=allow'
-//     }
-//   }
-// }
+resource enablePingIPv6 'Microsoft.Compute/virtualMachines/runCommands@2022-03-01' = {
+  name: 'enable-ping-icmp-v6'
+  location: location
+  dependsOn: [ nvidiaDrivers, amdDrivers ]
+  parent: vm
+  properties: {
+    source: {
+      script: 'netsh advfirewall firewall add rule name="ICMPv6 Echo (Ping)" protocol="icmpv6:8,any" dir=in action=allow'
+    }
+  }
+}
 
 resource shutdownSchedule 'Microsoft.DevTestLab/schedules@2018-09-15' = if (autoShutDown) {
-  name: 'shutdown-computevm-${vmName}'
-  dependsOn: [ enablePingIPv4 ]
+  name: 'shutdown-computevm-${vmName}' // DO NOT change this name, it's required in this format only
+  dependsOn: [ enablePingIPv4, enablePingIPv6 ]
   location: location
   properties: {
     status: 'Enabled'
@@ -245,49 +285,10 @@ resource shutdownSchedule 'Microsoft.DevTestLab/schedules@2018-09-15' = if (auto
   }
 }
 
-
-
-
-// Run this if we are not Azure AD joining the session hosts
-resource sessionHostDomainJoin 'Microsoft.Compute/virtualMachines/extensions@2020-06-01' = if (networkJoin == 'AD') {
-  name: '${vmName}/JoinDomain'
-  location: location
-  dependsOn: [ shutdownSchedule ]
-  properties: {
-    publisher: 'Microsoft.Compute'
-    type: 'JsonADDomainExtension'
-    typeHandlerVersion: '1.3'
-    autoUpgradeMinorVersion: true
-    settings: {
-      name: domainToJoin
-      ouPath: domainOUPath
-      user: domainUserName
-      options: domainJoinOptions
-      restart: true
-    }
-    protectedSettings: {
-      password: domainPassword
-    }
-  }
-}
-
-// Run this if we are Azure AD joining the session hosts - no intune support
-resource sessionHostAADLogin 'Microsoft.Compute/virtualMachines/extensions@2020-06-01' = if (networkJoin == 'AAD') {
-  name: '${vmName}/AADLoginForWindows'
-  location: location
-  dependsOn: [ shutdownSchedule ]
-  properties: {
-    publisher: 'Microsoft.Azure.ActiveDirectory'
-    type: 'AADLoginForWindows'
-    typeHandlerVersion: '1.0'
-    autoUpgradeMinorVersion: true
-  }
-}
-
 resource sessionHostAVDAgent 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = if (installAVDAgent) {
   name: '${vmName}/AddSessionHost'
   location: location
-  dependsOn: [ sessionHostDomainJoin, sessionHostAADLogin ]
+  dependsOn: [ shutdownSchedule ]
   properties: {
     publisher: 'Microsoft.Powershell'
     type: 'DSC'

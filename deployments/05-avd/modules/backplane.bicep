@@ -76,7 +76,7 @@ module sessionHosts '../../../modules/vm.bicep' = [ for i in range(0, config.ses
     vmImageSku: config.sessionHosts.vmImageSku
     networkJoin: 'AD'
     domainToJoin: domainConfig.domain
-    domainUserName: domainConfig.aaddsAdminUsername
+    domainUserName: domainConfig.adAdminUsername
     domainPassword: domainConfig.defaultPassword
     hostPoolName: config.avd.hostPoolName
     hostPoolRegToken: hp.properties.registrationInfo.token

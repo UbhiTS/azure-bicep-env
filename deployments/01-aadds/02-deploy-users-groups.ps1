@@ -32,11 +32,13 @@ for ($i = 0; $i -lt $domainConfig.groups.Length; $i++) {
         }
 
         # this is to force a password sync between AADDS and AAD for users who existed prior to AADDS
-        $passwordUpdate = ConvertTo-SecureString "SomeOtherXYZPassword#1" -AsPlainText -Force
+        $passwordUpdate = ConvertTo-SecureString "CoolerBicep!1@2" -AsPlainText -Force
         Set-AzureADUserPassword -ObjectId $user.ObjectId -Password $passwordUpdate
+        Write-Host ("      Password changed to <temporary>")
 
         $passwordUpdate = ConvertTo-SecureString $domainConfig.defaultPassword -AsPlainText -Force
         Set-AzureADUserPassword -ObjectId $user.ObjectId -Password $passwordUpdate
+        Write-Host ("      Password changed back to {0}" -f $domainConfig.defaultPassword)
 
         $groupMember = Get-AzureADGroupMember -ObjectId $group.ObjectId | Where-Object {$_.UserPrincipalName -eq $userPrincipleName}
         if ($groupMember -eq $null) {

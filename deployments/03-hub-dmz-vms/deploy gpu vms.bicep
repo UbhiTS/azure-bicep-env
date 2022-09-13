@@ -37,7 +37,7 @@ module secondaryNVv3DMZVM '../../modules/vm.bicep' = if (deploySecondary) {
     vmSize: 'Standard_NV12s_v3'
     networkJoin: 'AD'
     domainToJoin: domainConfig.domain
-    domainUserName: domainConfig.aaddsAdminUsername
+    domainUserName: domainConfig.adAdminUsername
     domainPassword: domainConfig.defaultPassword
     adminUsername: domainConfig.localVMAdminUsername
     adminPassword: domainConfig.defaultPassword
@@ -56,7 +56,7 @@ module secondaryNVv4DMZVM '../../modules/vm.bicep' = if (deploySecondary) {
     vmSize: 'Standard_NV32as_v4'
     networkJoin: 'AD'
     domainToJoin: domainConfig.domain
-    domainUserName: domainConfig.aaddsAdminUsername
+    domainUserName: domainConfig.adAdminUsername
     domainPassword: domainConfig.defaultPassword
     adminUsername: domainConfig.localVMAdminUsername
     adminPassword: domainConfig.defaultPassword
@@ -75,7 +75,7 @@ module secondaryNVv4DMZVM '../../modules/vm.bicep' = if (deploySecondary) {
 //     vmSize: 'Standard_NV36ads_A10_v5'
 //     networkJoin: 'AD'
 //     domainToJoin: domainConfig.domain
-//     domainUserName: domainConfig.aaddsAdminUsername
+//     domainUserName: domainConfig.adAdminUsername
 //     domainPassword: domainConfig.defaultPassword
 //     adminUsername: domainConfig.localVMAdminUsername
 //     adminPassword: domainConfig.defaultPassword

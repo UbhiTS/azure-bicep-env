@@ -37,7 +37,7 @@ module primaryDMZVM '../../modules/vm.bicep' = {
     adminPassword: domainConfig.defaultPassword
     networkJoin: 'AD'
     domainToJoin: domainConfig.domain
-    domainUserName: domainConfig.aaddsAdminUsername
+    domainUserName: domainConfig.adAdminUsername
     domainPassword: domainConfig.defaultPassword
     autoShutDownNoticeEmail: domainConfig.defaultEmail
   }
@@ -55,7 +55,7 @@ module secondaryDMZVM '../../modules/vm.bicep' = if (deploySecondary) {
     adminPassword: domainConfig.defaultPassword
     networkJoin: 'AD'
     domainToJoin: domainConfig.domain
-    domainUserName: domainConfig.aaddsAdminUsername
+    domainUserName: domainConfig.adAdminUsername
     domainPassword: domainConfig.defaultPassword
     autoShutDownNoticeEmail: domainConfig.defaultEmail
   }
@@ -73,7 +73,7 @@ module tertiaryDMZVM '../../modules/vm.bicep' = if (deployTertiary) {
     adminPassword: domainConfig.defaultPassword
     networkJoin: 'AD'
     domainToJoin: domainConfig.domain
-    domainUserName: domainConfig.aaddsAdminUsername
+    domainUserName: domainConfig.adAdminUsername
     domainPassword: domainConfig.defaultPassword
     autoShutDownNoticeEmail: domainConfig.defaultEmail
   }
