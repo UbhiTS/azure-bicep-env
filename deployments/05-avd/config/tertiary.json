@@ -23,7 +23,7 @@
                 "type": "Desktop",
                 "name": "contoso-vip-desktop",
                 "friendlyName": "Contoso VIP Desktop",
-                "assignedToGroup": ["UbhiMS VIP Users"],
+                "assignToGroups": ["UbhiMS VIP Users"],
                 "apps": []
             }
         ]

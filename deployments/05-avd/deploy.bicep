@@ -29,7 +29,7 @@ module profilesStorage './modules/storage.bicep' = {
 }
 
 module primaryAVD './modules/avd-control-plane.bicep' = {
-  name: 'deploy-avd-${configPrimary.deploymentName}'
+  name: 'deploy-avd-control-plane-${configPrimary.deploymentName}'
   dependsOn: [ profilesStorage ]
   scope: resourceGroup(baseConfigPrimary.rg.name)
   params: {
@@ -40,7 +40,7 @@ module primaryAVD './modules/avd-control-plane.bicep' = {
 }
 
 module secondaryAVD './modules/avd-control-plane.bicep' = {
-  name: 'deploy-avd-${configSecondary.deploymentName}'
+  name: 'deploy-avd-control-plane-${configSecondary.deploymentName}'
   dependsOn: [ profilesStorage ]
   scope: resourceGroup(baseConfigSecondary.rg.name)
   params: {
@@ -51,7 +51,7 @@ module secondaryAVD './modules/avd-control-plane.bicep' = {
 }
 
 module tertiaryAVD './modules/avd-control-plane.bicep' = {
-  name: 'deploy-avd-${configTertiary.deploymentName}'
+  name: 'deploy-avd-control-plane-${configTertiary.deploymentName}'
   dependsOn: [ profilesStorage ]
   scope: resourceGroup(baseConfigTertiary.rg.name)
   params: {

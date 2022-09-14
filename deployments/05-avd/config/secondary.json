@@ -23,21 +23,21 @@
                 "type": "Desktop",
                 "name": "contoso-marketing-designers-desktop",
                 "friendlyName": "Contoso Marketing Designers Desktop",
-                "assignedToGroup": ["UbhiMS AVD Admins", "UbhiMS Marketing Designers"],
+                "assignToGroups": ["UbhiMS AVD Admins", "UbhiMS Marketing Designers"],
                 "apps": []
             },
             {
                 "type": "RemoteApp",
                 "name": "contoso-marketing-designers-admin-apps",
                 "friendlyName": "Contoso Marketing Designers Admin Apps",
-                "assignedToGroup": ["UbhiMS AVD Admins"],
+                "assignToGroups": ["UbhiMS AVD Admins"],
                 "apps": [ "admin" ]
             },
             {
                 "type": "RemoteApp",
                 "name": "contoso-marketing-designers-apps",
                 "friendlyName": "Contoso Marketing Designers Apps",
-                "assignedToGroup": ["UbhiMS Marketing Designers"],
+                "assignToGroups": ["UbhiMS Marketing Designers"],
                 "apps": [ "marketing" ]
             }
         ]

@@ -80,25 +80,18 @@ resource ws 'Microsoft.DesktopVirtualization/workspaces@2022-04-01-preview' = {
   dependsOn: [ appGroups ]
   location: location
   properties: {
-      friendlyName: 'sdfs'
+      friendlyName: config.avd.workspace.friendlyName
       applicationGroupReferences: appGroupIds
   }
 }
 
-// // Assign RBAC permissions to the application group
 
-// var roles = [ for i in range(0, length(config.avd.workspace.desktopAppGroup.assignedToGroup)): {
-//   id: config.avd.workspace.desktopAppGroup.assignedToGroup[i]
-// }]
-
-// resource roleAssignmentDesktopAppGroup 'Microsoft.Authorization/roleAssignments@2020-10-01-preview' = [ for i in range(0, length(config.avd.workspace.desktopAppGroup.assignedToGroup)): {
-//   name: guid(subscription().id, resourceGroup().id, config.avd.workspace.desktopAppGroup.assignedToGroup[i], agDesktop.id)
-//   scope: agDesktop
-//   properties: {
-//     roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/1d18fff3-a72a-46b5-b4a9-0b38a3cd7e63' // Desktop Virtualization User
-//     principalId: 'aef8331c-ea85-47a9-843b-1bc59e111999'
-//     principalType: 'Group'
-//   }
-// }]
-
-
+module appGroupRoleAssignments './avd-app-group-role-assigments.bicep' = [for appGroup in config.avd.appGroups: {
+  name: 'deploy-${appGroup.name}-role-assignments'
+  dependsOn: [ appGroups ]
+  params: {
+    appGroupName: appGroup.Name
+    assignToGroups: appGroup.assignToGroups
+    domainConfig: domainConfig
+  }
+}]

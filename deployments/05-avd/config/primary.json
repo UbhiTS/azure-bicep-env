@@ -23,21 +23,21 @@
                 "type": "Desktop",
                 "name": "contoso-dev-desktop",
                 "friendlyName": "Contoso Developers Desktop",
-                "assignedToGroup": ["UbhiMS AVD Admins", "UbhiMS Developers"],
+                "assignToGroups": ["UbhiMS AVD Admins", "UbhiMS Developers"],
                 "apps": []
             },
             {
                 "type": "RemoteApp",
                 "name": "contoso-dev-admin-apps",
                 "friendlyName": "Contoso Developers Admin Apps",
-                "assignedToGroup": ["UbhiMS AVD Admins"],
+                "assignToGroups": ["UbhiMS AVD Admins"],
                 "apps": [ "admin" ]
             },
             {
                 "type": "RemoteApp",
                 "name": "contoso-dev-apps",
                 "friendlyName": "Contoso Developers Apps",
-                "assignedToGroup": ["UbhiMS Developers"],
+                "assignToGroups": ["UbhiMS Developers"],
                 "apps": [ "developer" ]
             }
         ]
