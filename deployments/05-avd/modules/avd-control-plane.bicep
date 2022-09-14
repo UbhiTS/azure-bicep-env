@@ -69,19 +69,21 @@ module appGroups './avd-app-group.bicep' = [for appGroup in config.avd.appGroups
     hostPoolId: hp.id
     location: location
   }
-  
 }]
 
 // create workspace
 
-// resource ws 'Microsoft.DesktopVirtualization/workspaces@2022-04-01-preview' = {
-//   name: config.avd.workspace.name
-//   location: location
-//   properties: {
-//       friendlyName: config.avd.workspace.friendlyName
-//       applicationGroupReferences: appGroups.
-//   }
-// }
+var appGroupIds = [for appGroup in config.avd.appGroups: resourceId('Microsoft.DesktopVirtualization/applicationGroups', appGroup.name)]
+
+resource ws 'Microsoft.DesktopVirtualization/workspaces@2022-04-01-preview' = {
+  name: config.avd.workspace.name
+  dependsOn: [ appGroups ]
+  location: location
+  properties: {
+      friendlyName: 'sdfs'
+      applicationGroupReferences: appGroupIds
+  }
+}
 
 // // Assign RBAC permissions to the application group
 

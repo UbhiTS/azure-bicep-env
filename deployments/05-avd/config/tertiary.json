@@ -23,22 +23,8 @@
                 "type": "Desktop",
                 "name": "contoso-vip-desktop",
                 "friendlyName": "Contoso VIP Desktop",
-                "assignedToGroup": ["UbhiMS AVD Admins", "UbhiMS VIP Users"],
+                "assignedToGroup": ["UbhiMS VIP Users"],
                 "apps": []
-            },
-            {
-                "type": "RemoteApp",
-                "name": "contoso-vip-admin-apps",
-                "friendlyName": "Contoso VIP Admin Apps",
-                "assignedToGroup": ["UbhiMS AVD Admins"],
-                "apps": [ "admin" ]
-            },
-            {
-                "type": "RemoteApp",
-                "name": "contoso-vip-apps",
-                "friendlyName": "Contoso VIP Apps",
-                "assignedToGroup": ["UbhiMS Developers"],
-                "apps": [ "vip" ]
             }
         ]
     }
