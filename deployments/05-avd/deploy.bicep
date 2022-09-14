@@ -1,4 +1,7 @@
+// deployment time ~11 mins
+
 // https://github.com/pauldotyu/azure-virtual-desktop-bicep/tree/main/modules
+
 
 var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
 var baseConfigSecondary = loadJsonContent('../../base/config/base-secondary.json')
@@ -90,10 +93,6 @@ module vmLoginRolesAssignmentTertiary './modules/vm-login-roles-assignment.bicep
     isAdmin: group.type == 'avdAdmin'
   }
 }]
-
-// =================================
-// TODO: Add AD Groups to App Groups
-// =================================
 
 //Create Diagnotic Setting for WVD components
 // module avdMonitor './modules/monitor.bicep' = {

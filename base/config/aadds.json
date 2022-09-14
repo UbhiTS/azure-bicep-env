@@ -6,5 +6,5 @@
     "nsg": {
         "name":"aadds-nsg"
     },
-    "notificationRecipients": [ "tubhi@microsoft.com", "ubhits@outlook.com", "ubhits@gmail.com" ]
+    "notificationRecipients": [ "tubhi@microsoft.com" ]
 }

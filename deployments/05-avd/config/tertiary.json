@@ -11,12 +11,12 @@
             "count": 1,
             "vmSize": "Standard_D2s_v5",
             "namePrefix": "vip-host-vm",
-            "vmImageOffer": "Office-365",
-            "vmImageSku": "win11-21h2-avd-m365"
+            "vmImageOffer": "Windows-10",
+            "vmImageSku": "win10-21h2-pro"
         },
         "workspace": {
             "name": "contoso-vip-workspace",
-            "friendlyName": "Contoso VIP Workspace"
+            "friendlyName": "Contoso VIP Workspace - South Central US"
         },
         "appGroups": [
             {
