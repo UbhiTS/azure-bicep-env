@@ -1,22 +1,45 @@
 {
     "deploymentName": "tertiary",
     "avd": {
-        "hostPoolName": "vip-host-pool",
-        "hostPoolFriendlyName": "VIP Host Pool",
-        "appGroupName": "vip-app-group",
-        "appGroupFriendlyName": "VIP Application Group",
-        "workspaceName": "vip-workspace",
-        "workspaceFriendlyName": "VIP Workspace",
-        "appGroupType": "Desktop",
-        "preferredAppGroupType": "Desktop",
-        "hostPoolType": "Personal",
-        "loadBalancerType": ""
-    },
-    "sessionHosts": {
-        "count": 1,
-        "vmSize": "Standard_D2s_v5",
-        "namePrefix": "vip-vm",
-        "vmImageOffer": "Office-365",
-        "vmImageSku": "win11-21h2-avd-m365"
+        "hostPool": {
+            "type": "Personal",
+            "name": "contoso-vip-personal-hosts",
+            "friendlyName": "Contoso VIP Hosts",
+            "loadBalancerType": "Persistent"
+        },
+        "sessionHosts": {
+            "count": 1,
+            "vmSize": "Standard_D2s_v5",
+            "namePrefix": "vip-host-vm",
+            "vmImageOffer": "Office-365",
+            "vmImageSku": "win11-21h2-avd-m365"
+        },
+        "workspace": {
+            "name": "contoso-vip-workspace",
+            "friendlyName": "Contoso VIP Workspace"
+        },
+        "appGroups": [
+            {
+                "type": "Desktop",
+                "name": "contoso-vip-desktop",
+                "friendlyName": "Contoso VIP Desktop",
+                "assignedToGroup": ["UbhiMS AVD Admins", "UbhiMS VIP Users"],
+                "apps": []
+            },
+            {
+                "type": "RemoteApp",
+                "name": "contoso-vip-admin-apps",
+                "friendlyName": "Contoso VIP Admin Apps",
+                "assignedToGroup": ["UbhiMS AVD Admins"],
+                "apps": [ "admin" ]
+            },
+            {
+                "type": "RemoteApp",
+                "name": "contoso-vip-apps",
+                "friendlyName": "Contoso VIP Apps",
+                "assignedToGroup": ["UbhiMS Developers"],
+                "apps": [ "vip" ]
+            }
+        ]
     }
 }

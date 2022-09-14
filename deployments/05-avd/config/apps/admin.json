@@ -1,0 +1,110 @@
+[
+    {
+        "name": "defragment-and-optimize-drives",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Defragment and Optimize Drives",
+        "description": "",
+        "filePath": "C:\\Windows\\system32\\dfrgui.exe",
+        "iconPath": "C:\\Windows\\system32\\dfrgui.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "disk-cleanup",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Disk Cleanup",
+        "description": "",
+        "filePath": "C:\\Windows\\system32\\cleanmgr.exe",
+        "iconPath": "C:\\Windows\\system32\\cleanmgr.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "recovery-drive",
+        "applicationType": "Inbuilt",
+        "friendlyName": "",
+        "description": "",
+        "filePath": "C:\\Windows\\system32\\RecoveryDrive.exe",
+        "iconPath": "C:\\Windows\\system32\\RecoveryDrive.exe",
+        "iconIndex": -100,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "registry-editor",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Registry Editor",
+        "description": "",
+        "filePath": "C:\\Windows\\regedit.exe",
+        "iconPath": "C:\\Windows\\regedit.exe",
+        "iconIndex": -100,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "resource-monitor",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Resource Monitor",
+        "description": "",
+        "filePath": "C:\\Windows\\system32\\perfmon.exe",
+        "iconPath": "C:\\Windows\\system32\\perfmon.exe",
+        "iconIndex": -108,
+        "commandLineSetting": "Require",
+        "commandLineArguments": "/res",
+        "showInPortal": true
+    },
+    {
+        "name": "system-configuration",
+        "applicationType": "Inbuilt",
+        "friendlyName": "System Configuration",
+        "description": "",
+        "filePath": "C:\\Windows\\system32\\msconfig.exe",
+        "iconPath": "C:\\Windows\\system32\\msconfig.exe",
+        "iconIndex": -3000,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "system-information",
+        "applicationType": "Inbuilt",
+        "friendlyName": "System Information",
+        "description": "",
+        "filePath": "C:\\Windows\\system32\\msinfo32.exe",
+        "iconPath": "C:\\Windows\\system32\\msinfo32.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "task-manager",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Task Manager",
+        "description": "",
+        "filePath": "C:\\Windows\\system32\\taskmgr.exe",
+        "iconPath": "C:\\Windows\\system32\\taskmgr.exe",
+        "iconIndex": -30651,
+        "commandLineSetting": "Require",
+        "commandLineArguments": "/7",
+        "showInPortal": true
+    },
+    {
+        "name": "windows-memory-diagnostic",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Windows Memory Diagnostic",
+        "description": "",
+        "filePath": "C:\\Windows\\system32\\MdSched.exe",
+        "iconPath": "C:\\Windows\\system32\\MdSched.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    }
+]

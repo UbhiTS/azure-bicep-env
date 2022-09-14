@@ -1,0 +1,14 @@
+[
+    {
+        "name": "paint",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Paint",
+        "description": "",
+        "filePath": "C:\\Windows\\System32\\mspaint.exe",
+        "iconPath": "C:\\Windows\\System32\\mspaint.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    }
+]
