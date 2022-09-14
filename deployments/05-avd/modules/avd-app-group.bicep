@@ -22,6 +22,7 @@ resource appGroup 'Microsoft.DesktopVirtualization/applicationGroups@2022-04-01-
 
 module appGroupApps './avd-app-group-apps.bicep' =  [for app in appGroupConfig.apps: if (appGroupConfig.type == 'RemoteApp') {
   name: 'deploy-${appGroupConfig.name}-apps-${app}'
+  dependsOn: [ appGroup ]
   params: {
     appGroupName: appGroupConfig.name
     config: appsConfig[app]
