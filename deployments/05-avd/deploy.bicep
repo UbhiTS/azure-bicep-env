@@ -2,6 +2,17 @@
 
 // https://github.com/pauldotyu/azure-virtual-desktop-bicep/tree/main/modules
 
+// https://learn.microsoft.com/en-us/azure/virtual-desktop/environment-setup#app-groups
+// We don't support assigning both the RemoteApp and desktop app groups in a single host pool to the same user. 
+// Doing so will cause a single user to have two user sessions in a single host pool. 
+// Users aren't supposed to have two active user sessions at the same time, as this can cause the following things to happen:
+// - The session hosts become overloaded
+// - Users get stuck when trying to login
+// - Connections won't work
+// - The screen turns black
+// - The application crashes
+// - Other negative effects on end-user experience and session performance
+
 
 var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
 var baseConfigSecondary = loadJsonContent('../../base/config/base-secondary.json')

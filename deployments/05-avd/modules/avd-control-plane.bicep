@@ -28,7 +28,7 @@ resource hp 'Microsoft.DesktopVirtualization/hostPools@2022-04-01-preview' = {
     loadBalancerType : config.avd.hostPool.loadBalancerType
     preferredAppGroupType: 'Desktop'
     validationEnvironment: true
-    customRdpProperty: 'drivestoredirect:s:*;audiomode:i:0;videoplaybackmode:i:1;redirectclipboard:i:1;redirectprinters:i:1;devicestoredirect:s:*;redirectcomports:i:1;redirectsmartcards:i:1;usbdevicestoredirect:s:*;enablecredsspsupport:i:1;use multimon:i:1'
+    customRdpProperty: 'drivestoredirect:s:*;audiomode:i:0;videoplaybackmode:i:1;redirectclipboard:i:1;redirectprinters:i:1;devicestoredirect:s:*;redirectcomports:i:1;redirectsmartcards:i:1;usbdevicestoredirect:s:*;enablecredsspsupport:i:1;use multimon:i:0;bandwidthautodetect:i:1;networkautodetect:i:1;compression:i:1;audiocapturemode:i:1;encode redirected video capture:i:1;redirected video capture encoding quality:i:2;camerastoredirect:s:*;screen mode id:i:1;smart sizing:i:1;dynamic resolution:i:1;autoreconnection enabled:i:1;redirectlocation:i:1;redirectwebauthn:i:1;desktopheight:i:900;desktopwidth:i:1600;desktopscalefactor:i:100'
     registrationInfo: {
       expirationTime: expirationTime
       registrationTokenOperation: 'Update'
@@ -64,6 +64,7 @@ module sessionHosts '../../../modules/vm.bicep' = [ for i in range(0, config.avd
 
 module appGroups './avd-app-group.bicep' = [for appGroup in config.avd.appGroups: {
   name: 'deploy-${appGroup.name}'
+  dependsOn: [ sessionHosts ]
   params: {
     appGroupConfig: appGroup
     hostPoolId: hp.id

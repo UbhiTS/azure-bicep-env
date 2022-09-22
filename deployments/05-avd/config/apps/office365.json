@@ -1,0 +1,110 @@
+[
+    {
+        "name": "access",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Access",
+        "description": "",
+        "filePath": "C:\\Program Files\\Microsoft Office\\root\\Office16\\MSACCESS.EXE",
+        "iconPath": "C:\\Program Files\\Microsoft Office\\Root\\VFS\\Windows\\Installer\\{90160000-000F-0000-1000-0000000FF1CE}\\accicons.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "database_compare",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Database Compare",
+        "description": "",
+        "filePath": "C:\\Program Files\\Microsoft Office\\root\\Client\\AppVLP.exe",
+        "iconPath": "C:\\Program Files\\Microsoft Office\\Root\\VFS\\Windows\\Installer\\{90160000-000F-0000-1000-0000000FF1CE}\\dbcicons.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "Require",
+        "commandLineArguments": "C:\\Program Files (x86)\\Microsoft Office\\Office16\\DCF\\DATABASECOMPARE.EXE",
+        "showInPortal": true
+    },
+    {
+        "name": "excel",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Excel",
+        "description": "",
+        "filePath": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE",
+        "iconPath": "C:\\Program Files\\Microsoft Office\\Root\\VFS\\Windows\\Installer\\{90160000-000F-0000-1000-0000000FF1CE}\\xlicons.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "onedrive",
+        "applicationType": "Inbuilt",
+        "friendlyName": "OneDrive",
+        "description": "",
+        "filePath": "C:\\Program Files\\Microsoft OneDrive\\OneDrive.exe",
+        "iconPath": "C:\\Program Files\\Microsoft OneDrive\\OneDrive.exe",
+        "iconIndex": 1,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "onenote",
+        "applicationType": "Inbuilt",
+        "friendlyName": "OneNote",
+        "description": "",
+        "filePath": "C:\\Program Files\\Microsoft Office\\root\\Office16\\ONENOTE.EXE",
+        "iconPath": "C:\\Program Files\\Microsoft Office\\Root\\VFS\\Windows\\Installer\\{90160000-000F-0000-1000-0000000FF1CE}\\joticon.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "outlook",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Outlook",
+        "description": "",
+        "filePath": "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE",
+        "iconPath": "C:\\Program Files\\Microsoft Office\\Root\\VFS\\Windows\\Installer\\{90160000-000F-0000-1000-0000000FF1CE}\\outicon.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "powerpoint",
+        "applicationType": "Inbuilt",
+        "friendlyName": "PowerPoint",
+        "description": "",
+        "filePath": "C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE",
+        "iconPath": "C:\\Program Files\\Microsoft Office\\Root\\VFS\\Windows\\Installer\\{90160000-000F-0000-1000-0000000FF1CE}\\pptico.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "publisher",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Publisher",
+        "description": "",
+        "filePath": "C:\\Program Files\\Microsoft Office\\root\\Office16\\MSPUB.EXE",
+        "iconPath": "C:\\Program Files\\Microsoft Office\\Root\\VFS\\Windows\\Installer\\{90160000-000F-0000-1000-0000000FF1CE}\\pubs.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "spreadsheet_compare",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Spreadsheet Compare",
+        "description": "",
+        "filePath": "C:\\Program Files\\Microsoft Office\\root\\Client\\AppVLP.exe",
+        "iconPath": "C:\\Program Files\\Microsoft Office\\Root\\VFS\\Windows\\Installer\\{90160000-000F-0000-1000-0000000FF1CE}\\sscicons.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    }
+]

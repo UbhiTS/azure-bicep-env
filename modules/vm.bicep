@@ -210,7 +210,7 @@ resource sessionHostAADLogin 'Microsoft.Compute/virtualMachines/extensions@2020-
 
 
 resource nvidiaDrivers 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = if (gpuNVIDIA) {
-  name: 'NvidiaGpuDriverWindows' // ${vmName}/
+  name: 'NvidiaGpuDriverWindows'
   location: location
   parent: vm
   dependsOn: [ sessionHostDomainJoin, sessionHostAADLogin ]
@@ -225,7 +225,7 @@ resource nvidiaDrivers 'Microsoft.Compute/virtualMachines/extensions@2022-03-01'
 }
 
 resource amdDrivers 'Microsoft.Compute/virtualMachines/extensions@2022-03-01' = if (gpuAMD) {
-  name: 'AmdGpuDriverWindows' // ${vmName}/
+  name: 'AmdGpuDriverWindows'
   location: location
   parent: vm
   dependsOn: [ sessionHostDomainJoin, sessionHostAADLogin ]

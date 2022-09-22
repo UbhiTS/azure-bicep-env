@@ -4,11 +4,47 @@
         "applicationType": "Inbuilt",
         "friendlyName": "Paint",
         "description": "",
-        "filePath": "C:\\Windows\\System32\\mspaint.exe",
-        "iconPath": "C:\\Windows\\System32\\mspaint.exe",
+        "filePath": "C:\\Program Files\\WindowsApps\\Microsoft.Paint_10.2104.17.0_x64__8wekyb3d8bbwe\\PaintApp\\mspaint.exe",
+        "iconPath": "C:\\Program Files\\WindowsApps\\Microsoft.Paint_10.2104.17.0_x64__8wekyb3d8bbwe\\PaintApp\\mspaint.exe",
         "iconIndex": 0,
         "commandLineSetting": "DoNotAllow",
         "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "heaven_benchmark",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Heaven Benchmark 4.0",
+        "description": "",
+        "filePath": "C:\\Program Files (x86)\\Unigine\\Heaven Benchmark 4.0\\heaven.bat",
+        "iconPath": "C:\\Program Files (x86)\\Unigine\\Heaven Benchmark 4.0\\heaven.ico",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "nvidia_demo_gsync",
+        "applicationType": "Inbuilt",
+        "friendlyName": "NVIDIA Demo G-Sync",
+        "description": "",
+        "filePath": "C:\\Program Files (x86)\\NVIDIA Corporation\\NVIDIA Demos\\G-SYNC\\bin32\\DemoLauncher.exe",
+        "iconPath": "C:\\Program Files (x86)\\NVIDIA Corporation\\NVIDIA Demos\\G-SYNC\\bin32\\DemoLauncher.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
+    },
+    {
+        "name": "windows_media_player",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Windows Media Player",
+        "description": "",
+        "filePath": "C:\\Program Files (x86)\\Windows Media Player\\wmplayer.exe",
+        "iconPath": "C:\\Program Files (x86)\\Windows Media Player\\wmplayer.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "Require",
+        "commandLineArguments": "/prefetch:1",
         "showInPortal": true
     }
 ]

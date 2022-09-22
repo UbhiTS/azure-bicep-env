@@ -2,7 +2,7 @@ var appsConfig = {
   admin: loadJsonContent('../config/apps/admin.json')
   developer: loadJsonContent('../config/apps/developer.json')
   marketing: loadJsonContent('../config/apps/marketing.json')
-  vip: loadJsonContent('../config/apps/vip.json')
+  office365: loadJsonContent('../config/apps/office365.json')
 }
 
 param appGroupConfig object
@@ -14,7 +14,7 @@ resource appGroup 'Microsoft.DesktopVirtualization/applicationGroups@2022-04-01-
   name: appGroupConfig.name
   location: location
   properties: {
-    friendlyName: appGroupConfig.friendlyName
+      friendlyName: appGroupConfig.friendlyName
       applicationGroupType: appGroupConfig.type
       hostPoolArmPath: hostPoolId
   }

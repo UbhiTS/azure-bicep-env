@@ -11,8 +11,8 @@
             "count": 1,
             "vmSize": "Standard_D2s_v5",
             "namePrefix": "dev-host-vm",
-            "vmImageOffer": "Windows-10",
-            "vmImageSku": "win10-21h2-avd-g2"
+            "vmImageOffer": "Office-365",
+            "vmImageSku": "win11-21h2-avd-m365"
         },
         "workspace": {
             "name": "contoso-dev-workspace",
@@ -20,18 +20,18 @@
         },
         "appGroups": [
             {
-                "type": "Desktop",
-                "name": "contoso-dev-desktop",
-                "friendlyName": "Contoso Developers Desktop",
-                "assignToGroups": ["UbhiMS AVD Admins", "UbhiMS Developers"],
-                "apps": []
-            },
-            {
                 "type": "RemoteApp",
                 "name": "contoso-dev-admin-apps",
                 "friendlyName": "Contoso Developers Admin Apps",
                 "assignToGroups": ["UbhiMS AVD Admins"],
                 "apps": [ "admin" ]
+            },
+            {
+                "type": "RemoteApp",
+                "name": "contoso-dev-office-apps",
+                "friendlyName": "Contoso Developers Office 365 Apps",
+                "assignToGroups": ["UbhiMS Developers"],
+                "apps": [ "office365" ]
             },
             {
                 "type": "RemoteApp",
