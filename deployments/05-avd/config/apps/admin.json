@@ -106,5 +106,17 @@
         "commandLineSetting": "DoNotAllow",
         "commandLineArguments": "",
         "showInPortal": true
+    },
+    {
+        "name": "quick-assist",
+        "applicationType": "Inbuilt",
+        "friendlyName": "Quick Assist",
+        "description": "",
+        "filePath": "C:\\Windows\\system32\\quickassist.exe",
+        "iconPath": "C:\\Windows\\system32\\quickassist.exe",
+        "iconIndex": 0,
+        "commandLineSetting": "DoNotAllow",
+        "commandLineArguments": "",
+        "showInPortal": true
     }
 ]
