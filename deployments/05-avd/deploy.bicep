@@ -38,6 +38,7 @@ module profilesStorage './modules/storage.bicep' = {
   dependsOn: [ rg ]
   scope: resourceGroup(avdConfig.rg.name)
   params: {
+    domainConfig: domainConfig
     config: avdConfig
   }
 }
@@ -75,35 +76,25 @@ module tertiaryAVD './modules/avd-control-plane.bicep' = {
   }
 }
 
-module vmLoginRolesAssignmentPrimary './modules/vm-login-roles-assignment.bicep' = [ for group in domainConfig.groups: if (group.type == 'avdAdmin' || group.type == 'user') {
-  name: 'assign-vm-login-role-${group.userPrefix}-on-${baseConfigPrimary.rg.name}'
-  dependsOn: [ rg ]
-  scope: resourceGroup(baseConfigPrimary.rg.name)
-  params: {
-    adGroupId: group.objectId
-    isAdmin: group.type == 'avdAdmin'
-  }
-}]
+// module saNTFSPermissions './modules/avd-storage-account-ntfs-permissions.bicep' = {
+//   name: 'sa-ntfs-permissions'
+//   dependsOn: [ primaryAVD ]
+//   scope: resourceGroup(baseConfigPrimary.rg.name)
+//   params: {
+//     sessionHostName: primaryAVD.outputs.sessionHostVM1Name
+//   }
+// }
 
-module vmLoginRolesAssignmentSecondary './modules/vm-login-roles-assignment.bicep' = [ for group in domainConfig.groups: if (group.type == 'avdAdmin' || group.type == 'user') {
-  name: 'assign-vm-login-role-${group.userPrefix}-on-${baseConfigSecondary.rg.name}'
+module vmLoginRoles './modules/avd-vm-login-roles-assignment.bicep' = {
+  name: 'deploy-vm-login-roles-assignment'
   dependsOn: [ rg ]
-  scope: resourceGroup(baseConfigSecondary.rg.name)
   params: {
-    adGroupId: group.objectId
-    isAdmin: group.type == 'avdAdmin'
+    baseConfigPrimary: baseConfigPrimary
+    baseConfigTertiary: baseConfigSecondary
+    baseConfigSecondary: baseConfigTertiary
+    domainConfig: domainConfig
   }
-}]
-
-module vmLoginRolesAssignmentTertiary './modules/vm-login-roles-assignment.bicep' = [ for group in domainConfig.groups: if (group.type == 'avdAdmin' || group.type == 'user') {
-  name: 'assign-vm-login-role-${group.userPrefix}-on-${baseConfigTertiary.rg.name}'
-  dependsOn: [ rg ]
-  scope: resourceGroup(baseConfigTertiary.rg.name)
-  params: {
-    adGroupId: group.objectId
-    isAdmin: group.type == 'avdAdmin'
-  }
-}]
+}
 
 //Create Diagnotic Setting for WVD components
 // module avdMonitor './modules/monitor.bicep' = {

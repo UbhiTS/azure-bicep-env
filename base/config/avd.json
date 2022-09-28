@@ -4,9 +4,7 @@
         "location":"westus2"
     },
     "storage": {
-        "accountName": "ubhitsavdstorageacc",
-        "kind": "FileStorage",
-        "redundancy": "Premium_LRS",
+        "accountName": "ubhimsavdstorageacc",
         "fileShareFolderName": "profiles"
     }
 }

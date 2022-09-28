@@ -7,20 +7,20 @@
     "spokes": {
         "spoke1": {
             "name": "secured-spoke1-vnet",
-            "addressPrefix": "10.3.41.0/23",
+            "addressPrefix": "10.3.8.0/23",
             "managementSubnetName": "ManagementSubnet",
-            "managementSubnetCIDR": "10.3.41.0/24",
+            "managementSubnetCIDR": "10.3.8.0/24",
             "workloadSubnetName": "WorkloadSubnet",
-            "workloadSubnetCIDR": "10.3.42.0/24"
+            "workloadSubnetCIDR": "10.3.9.0/24"
         },
 
         "spoke2": {
             "name": "secured-spoke2-vnet",
-            "addressPrefix": "10.3.43.0/23",
+            "addressPrefix": "10.3.10.0/23",
             "managementSubnetName": "ManagementSubnet",
-            "managementSubnetCIDR": "10.3.43.0/24",
+            "managementSubnetCIDR": "10.3.10.0/24",
             "workloadSubnetName": "WorkloadSubnet",
-            "workloadSubnetCIDR": "10.3.44.0/24"
+            "workloadSubnetCIDR": "10.3.11.0/24"
         }
     },
     "firewall": {

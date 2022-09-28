@@ -96,3 +96,6 @@ module appGroupRoleAssignments './avd-app-group-role-assigments.bicep' = [for ap
     domainConfig: domainConfig
   }
 }]
+
+output sessionHostVM1Id string = sessionHosts[0].outputs.id
+output sessionHostVM1Name string = sessionHosts[0].outputs.name

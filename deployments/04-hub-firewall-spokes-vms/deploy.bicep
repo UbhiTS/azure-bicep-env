@@ -5,15 +5,15 @@
 var deploySecondary = true
 var deployTertiary = true
 
-var deploySpokeVMs = false
+var deploySpokeVMs = true
 
 // =========================
-
-
 
 var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
 var baseConfigSecondary = loadJsonContent('../../base/config/base-secondary.json')
 var baseConfigTertiary = loadJsonContent('../../base/config/base-tertiary.json')
+
+var domainConfig = loadJsonContent('../../base/config/domain.json')
 
 var configPrimary = loadJsonContent('./config/primary.json')
 var configSecondary = loadJsonContent('./config/secondary.json')
@@ -53,6 +53,7 @@ module primarySecuredNetworkDeployment './modules/blueprint.bicep' = {
   dependsOn: [ primarySecuredRG ]
   params:{
     baseConfig: baseConfigPrimary
+    domainConfig: domainConfig
     config: configPrimary
     extHub1Config: configSecondary
     extHub2Config: configTertiary
@@ -66,6 +67,7 @@ module secondarySecuredNetworkDeployment './modules/blueprint.bicep' = if (deplo
   dependsOn: [ secondarySecuredRG ]
   params:{
     baseConfig: baseConfigSecondary
+    domainConfig: domainConfig
     config: configSecondary
     extHub1Config: configPrimary
     extHub2Config: configTertiary
@@ -79,6 +81,7 @@ module tertiarySecuredNetworkDeployment './modules/blueprint.bicep' = if (deploy
   dependsOn: [ tertiarySecuredRG ]
   params:{
     baseConfig: baseConfigTertiary
+    domainConfig: domainConfig
     config: configTertiary
     extHub1Config: configPrimary
     extHub2Config: configSecondary

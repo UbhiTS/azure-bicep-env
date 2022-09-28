@@ -1,15 +1,15 @@
 // dev
 // ------------------------------------------------------------------------
-var baseConfig = loadJsonContent('../../../base/config/base-primary.json')
-var domainConfig = loadJsonContent('../../../base/config/domain.json')
-var config = loadJsonContent('../config/primary.json')
+// var baseConfig = loadJsonContent('../../../base/config/base-primary.json')
+// var domainConfig = loadJsonContent('../../../base/config/domain.json')
+// var config = loadJsonContent('../config/primary.json')
 // ========================================================================
 
 // prod
 // ------------------------------------------------------------------------
-// param baseConfig object
-// param domainConfig object
-// param config object
+param baseConfig object
+param domainConfig object
+param config object
 // ========================================================================
 
 param deploySpokeWorkloadVMs bool
