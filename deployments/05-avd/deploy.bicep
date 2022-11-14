@@ -1,10 +1,8 @@
 // deployment time ~11 mins
 
-// in case of AAD or service principal errors, see the aadds deploy.bicep file
-
 // always rebuild this file after you deploy (or redeploy) users in the aadds module so that the latest ids of the groups and users are picked up from the domain.json file
-
-// https://github.com/pauldotyu/azure-virtual-desktop-bicep/tree/main/modules
+// in case of AAD or service principal errors, see the aadds deploy.bicep file
+// deploy this file again to refresh the icons on the remote desktop client once the host (pool) VMs are up and running
 
 // https://learn.microsoft.com/en-us/azure/virtual-desktop/environment-setup#app-groups
 // We don't support assigning both the RemoteApp and desktop app groups in a single host pool to the same user. 
@@ -17,6 +15,7 @@
 // - The application crashes
 // - Other negative effects on end-user experience and session performance
 
+// https://github.com/pauldotyu/azure-virtual-desktop-bicep/tree/main/modules
 
 var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
 var baseConfigSecondary = loadJsonContent('../../base/config/base-secondary.json')
