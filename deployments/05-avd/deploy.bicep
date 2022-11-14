@@ -1,5 +1,9 @@
 // deployment time ~11 mins
 
+// in case of AAD or service principal errors, see the aadds deploy.bicep file
+
+// always rebuild this file after you deploy (or redeploy) users in the aadds module so that the latest ids of the groups and users are picked up from the domain.json file
+
 // https://github.com/pauldotyu/azure-virtual-desktop-bicep/tree/main/modules
 
 // https://learn.microsoft.com/en-us/azure/virtual-desktop/environment-setup#app-groups
