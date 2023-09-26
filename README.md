@@ -13,3 +13,4 @@ Deployment Scenarios
 
 Architecture Diagram (Deployed Components)
 ------------------------------------------
+![azure-bicep-hub-spoke](https://github.com/UbhiTS/azure-bicep-env/assets/3799525/0a0fb2d4-6c30-4bb4-93d4-b2a8b17c2f1f)
