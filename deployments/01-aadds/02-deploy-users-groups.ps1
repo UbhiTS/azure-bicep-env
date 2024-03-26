@@ -3,7 +3,7 @@
 # Connect-AzureAD -TenantId 5798e0c9-74ff-4e3a-995e-a14a330c5616, this will hang the VSCode Terminal, press alt-tab for the login screen
 
 
-$domainConfig = Get-Content './base/config/domain.json' | Out-String | ConvertFrom-Json
+$domainConfig = Get-Content '../../base/config/domain.json' | Out-String | ConvertFrom-Json
 
 for ($i = 0; $i -lt $domainConfig.groups.Length; $i++) {
 
@@ -50,4 +50,4 @@ for ($i = 0; $i -lt $domainConfig.groups.Length; $i++) {
     Write-Host
 }
 
-$domainConfig | ConvertTo-Json -depth 99 | Out-File './base/config/domain.json'
+$domainConfig | ConvertTo-Json -depth 99 | Out-File '../../base/config/domain.json'

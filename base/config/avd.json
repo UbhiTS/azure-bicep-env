@@ -1,6 +1,6 @@
 {
     "rg": {
-        "name":"contoso-avd-rg",
+        "name":"ubhims-avd-rg",
         "location":"westus2"
     },
     "storage": {

@@ -1,0 +1,1004 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.26.54.24096",
+      "templateHash": "7902307707107655943"
+    }
+  },
+  "variables": {
+    "$fxv#0": {
+      "deploymentName": "primary",
+      "addressPrefix": "10.1.0.0/16",
+      "rg": {
+        "name": "ubhims-primary-rg",
+        "location": "westus2"
+      },
+      "nsg": {
+        "name": "default-nsg"
+      },
+      "hub": {
+        "name": "primary-hub-vnet",
+        "addressPrefixes": [
+          "10.1.0.0/20"
+        ],
+        "addressPrefixInfo": "https://jodies.de/ipcalc?host=10.1.0.0&mask1=20&mask2=",
+        "subnets": {
+          "aaddsSubnet": {
+            "name": "aadds-subnet",
+            "CIDR": "10.1.0.0/24"
+          },
+          "gatewaySubnet": {
+            "name": "GatewaySubnet",
+            "CIDR": "10.1.1.0/27"
+          },
+          "routeServerSubnet": {
+            "name": "RouteServerSubnet",
+            "CIDR": "10.1.1.32/27"
+          },
+          "azureFirewallSubnet": {
+            "name": "AzureFirewallSubnet",
+            "CIDR": "10.1.1.64/26"
+          },
+          "azureFirewallManagementSubnet": {
+            "name": "AzureFirewallManagementSubnet",
+            "CIDR": "10.1.1.128/26"
+          },
+          "azureBastionSubnet": {
+            "name": "AzureBastionSubnet",
+            "CIDR": "10.1.1.192/26"
+          },
+          "azureVirtualWANHub": {
+            "name": "AzureVirtualWANHub",
+            "CIDR": "10.1.2.0/24"
+          },
+          "dmzSubnet": {
+            "name": "dmz-subnet",
+            "CIDR": "10.1.3.0/24"
+          }
+        }
+      }
+    },
+    "$fxv#1": {
+      "deploymentName": "secondary",
+      "addressPrefix": "10.2.0.0/16",
+      "rg": {
+        "name": "ubhims-secondary-rg",
+        "location": "eastus2"
+      },
+      "nsg": {
+        "name": "default-nsg"
+      },
+      "hub": {
+        "name": "secondary-hub-vnet",
+        "addressPrefixes": [
+          "10.2.0.0/20"
+        ],
+        "addressPrefixInfo": "https://jodies.de/ipcalc?host=10.2.0.0&mask1=20&mask2=",
+        "subnets": {
+          "aaddsSubnet": {
+            "name": "aadds-subnet",
+            "CIDR": "10.2.0.0/24"
+          },
+          "gatewaySubnet": {
+            "name": "GatewaySubnet",
+            "CIDR": "10.2.1.0/27"
+          },
+          "routeServerSubnet": {
+            "name": "RouteServerSubnet",
+            "CIDR": "10.2.1.32/27"
+          },
+          "azureFirewallSubnet": {
+            "name": "AzureFirewallSubnet",
+            "CIDR": "10.2.1.64/26"
+          },
+          "azureFirewallManagementSubnet": {
+            "name": "AzureFirewallManagementSubnet",
+            "CIDR": "10.2.1.128/26"
+          },
+          "azureBastionSubnet": {
+            "name": "AzureBastionSubnet",
+            "CIDR": "10.2.1.192/26"
+          },
+          "azureVirtualWANHub": {
+            "name": "AzureVirtualWANHub",
+            "CIDR": "10.2.2.0/24"
+          },
+          "dmzSubnet": {
+            "name": "dmz-subnet",
+            "CIDR": "10.2.3.0/24"
+          }
+        }
+      }
+    },
+    "$fxv#2": {
+      "deploymentName": "tertiary",
+      "addressPrefix": "10.3.0.0/16",
+      "rg": {
+        "name": "ubhims-tertiary-rg",
+        "location": "southcentralus"
+      },
+      "nsg": {
+        "name": "default-nsg"
+      },
+      "hub": {
+        "name": "tertiary-hub-vnet",
+        "addressPrefixes": [
+          "10.3.0.0/20"
+        ],
+        "addressPrefixInfo": "https://jodies.de/ipcalc?host=10.3.0.0&mask1=20&mask2=",
+        "subnets": {
+          "aaddsSubnet": {
+            "name": "aadds-subnet",
+            "CIDR": "10.3.0.0/24"
+          },
+          "gatewaySubnet": {
+            "name": "GatewaySubnet",
+            "CIDR": "10.3.1.0/27"
+          },
+          "routeServerSubnet": {
+            "name": "RouteServerSubnet",
+            "CIDR": "10.3.1.32/27"
+          },
+          "azureFirewallSubnet": {
+            "name": "AzureFirewallSubnet",
+            "CIDR": "10.3.1.64/26"
+          },
+          "azureFirewallManagementSubnet": {
+            "name": "AzureFirewallManagementSubnet",
+            "CIDR": "10.3.1.128/26"
+          },
+          "azureBastionSubnet": {
+            "name": "AzureBastionSubnet",
+            "CIDR": "10.3.1.192/26"
+          },
+          "azureVirtualWANHub": {
+            "name": "AzureVirtualWANHub",
+            "CIDR": "10.3.2.0/24"
+          },
+          "dmzSubnet": {
+            "name": "dmz-subnet",
+            "CIDR": "10.3.3.0/24"
+          }
+        }
+      }
+    },
+    "$fxv#3": {
+      "rg": {
+        "name": "ubhims-primary-rg",
+        "location": "westus2"
+      },
+      "nsg": {
+        "name": "aadds-nsg"
+      },
+      "notificationRecipients": [
+        "tubhi@microsoft.com"
+      ]
+    },
+    "$fxv#4": {
+      "domain": "ubhims.com",
+      "numUsers": 2,
+      "groups": [
+        {
+          "name": "AAD DC Administrators",
+          "userPrefix": "adadmin",
+          "type": "adAdmin",
+          "objectId": "f57ebeca-270c-4b48-97f1-d22b3cbb915f"
+        },
+        {
+          "name": "UbhiMS AVD Admins",
+          "userPrefix": "avdadmin",
+          "type": "avdAdmin",
+          "objectId": "8809dd30-b9a6-4d33-bea4-6f14ebf063e8"
+        },
+        {
+          "name": "UbhiMS Developers",
+          "userPrefix": "devuser",
+          "type": "user",
+          "objectId": "d49ce92a-bdf2-4ac2-bdff-bd8bbe17581f"
+        },
+        {
+          "name": "UbhiMS Marketing Designers",
+          "userPrefix": "mktuser",
+          "type": "user",
+          "objectId": "e5181340-7a6a-4aec-b53f-a23abeb3a295"
+        },
+        {
+          "name": "UbhiMS VIP Users",
+          "userPrefix": "vipuser",
+          "type": "user",
+          "objectId": "9c1a8406-1dd4-4dad-8ddf-3dc49f23a6d9"
+        }
+      ],
+      "adAdminUsername": "adadmin0@ubhims.com",
+      "localVMAdminUsername": "vmadmin",
+      "defaultPassword": "CoolBicep!1@2",
+      "defaultEmail": "tubhi@microsoft.com"
+    },
+    "baseConfigPrimary": "[variables('$fxv#0')]",
+    "baseConfigSecondary": "[variables('$fxv#1')]",
+    "baseConfigTertiary": "[variables('$fxv#2')]",
+    "aaddsConfig": "[variables('$fxv#3')]",
+    "domainConfig": "[variables('$fxv#4')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "deploy-aadds-rg",
+      "subscriptionId": "[subscription().subscriptionId]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "config": {
+            "value": "[variables('aaddsConfig')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.26.54.24096",
+              "templateHash": "8073040163020644457"
+            }
+          },
+          "parameters": {
+            "config": {
+              "type": "object"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Resources/resourceGroups",
+              "apiVersion": "2021-01-01",
+              "name": "[parameters('config').rg.name]",
+              "location": "[parameters('config').rg.location]"
+            }
+          ],
+          "outputs": {
+            "id": {
+              "type": "string",
+              "value": "[subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('config').rg.name)]"
+            },
+            "name": {
+              "type": "string",
+              "value": "[parameters('config').rg.name]"
+            },
+            "location": {
+              "type": "string",
+              "value": "[reference(subscriptionResourceId('Microsoft.Resources/resourceGroups', parameters('config').rg.name), '2021-01-01', 'full').location]"
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "deploy-aadds-nsg",
+      "resourceGroup": "[variables('aaddsConfig').rg.name]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "aaddsConfig": {
+            "value": "[variables('aaddsConfig')]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.26.54.24096",
+              "templateHash": "16877182751315470830"
+            }
+          },
+          "parameters": {
+            "aaddsConfig": {
+              "type": "object"
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/networkSecurityGroups",
+              "apiVersion": "2021-02-01",
+              "name": "[parameters('aaddsConfig').nsg.name]",
+              "location": "[parameters('aaddsConfig').rg.location]",
+              "properties": {
+                "securityRules": [
+                  {
+                    "name": "AllowPSRemoting",
+                    "properties": {
+                      "access": "Allow",
+                      "priority": 301,
+                      "direction": "Inbound",
+                      "protocol": "Tcp",
+                      "sourceAddressPrefix": "AzureActiveDirectoryDomainServices",
+                      "sourcePortRange": "*",
+                      "destinationAddressPrefix": "*",
+                      "destinationPortRange": "5986"
+                    }
+                  },
+                  {
+                    "name": "AllowRD",
+                    "properties": {
+                      "access": "Allow",
+                      "priority": 201,
+                      "direction": "Inbound",
+                      "protocol": "Tcp",
+                      "sourceAddressPrefix": "CorpNetSaw",
+                      "sourcePortRange": "*",
+                      "destinationAddressPrefix": "*",
+                      "destinationPortRange": "3389"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "outputs": {
+            "id": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('aaddsConfig').nsg.name)]"
+            },
+            "name": {
+              "type": "string",
+              "value": "[parameters('aaddsConfig').nsg.name]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[subscriptionResourceId('Microsoft.Resources/deployments', 'deploy-aadds-rg')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "deploy-primary-hub-aadds-subnet-nsg-update",
+      "resourceGroup": "[variables('baseConfigPrimary').rg.name]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "config": {
+            "value": "[variables('baseConfigPrimary')]"
+          },
+          "aaadsNsgId": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds-nsg'), '2022-09-01').outputs.id.value]"
+          },
+          "dmzNsgId": {
+            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigPrimary').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigPrimary').nsg.name)]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.26.54.24096",
+              "templateHash": "16888846045655135642"
+            }
+          },
+          "parameters": {
+            "config": {
+              "type": "object"
+            },
+            "dmzNsgId": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "aaadsNsgId": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "dnsServerIps": {
+              "type": "array",
+              "defaultValue": []
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2022-01-01",
+              "name": "[parameters('config').hub.name]",
+              "location": "[parameters('config').rg.location]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": "[parameters('config').hub.addressPrefixes]"
+                },
+                "dhcpOptions": {
+                  "dnsServers": "[if(greater(length(parameters('dnsServerIps')), 0), parameters('dnsServerIps'), null())]"
+                },
+                "subnets": [
+                  {
+                    "name": "[parameters('config').hub.subnets.aaddsSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.aaddsSubnet.CIDR]",
+                      "networkSecurityGroup": "[if(equals(parameters('aaadsNsgId'), ''), null(), createObject('id', parameters('aaadsNsgId')))]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.gatewaySubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.gatewaySubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.routeServerSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.routeServerSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureFirewallSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureFirewallSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureFirewallManagementSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureFirewallManagementSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureBastionSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureBastionSubnet.CIDR]",
+                      "privateEndpointNetworkPolicies": "Disabled",
+                      "privateLinkServiceNetworkPolicies": "Disabled"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureVirtualWANHub.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureVirtualWANHub.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.dmzSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.dmzSubnet.CIDR]",
+                      "networkSecurityGroup": "[if(equals(parameters('dmzNsgId'), ''), null(), createObject('id', parameters('dmzNsgId')))]"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "outputs": {
+            "id": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('config').hub.name)]"
+            },
+            "name": {
+              "type": "string",
+              "value": "[parameters('config').hub.name]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds-nsg')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "deploy-aadds",
+      "resourceGroup": "[variables('aaddsConfig').rg.name]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "baseConfig": {
+            "value": "[variables('baseConfigPrimary')]"
+          },
+          "domainConfig": {
+            "value": "[variables('domainConfig')]"
+          },
+          "aaddsConfig": {
+            "value": "[variables('aaddsConfig')]"
+          },
+          "aaddsSubnetId": {
+            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigPrimary').rg.name), 'Microsoft.Network/virtualNetworks/subnets', variables('baseConfigPrimary').hub.name, variables('baseConfigPrimary').hub.subnets.aaddsSubnet.name)]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.26.54.24096",
+              "templateHash": "17808849184800095056"
+            }
+          },
+          "parameters": {
+            "baseConfig": {
+              "type": "object"
+            },
+            "aaddsConfig": {
+              "type": "object"
+            },
+            "domainConfig": {
+              "type": "object"
+            },
+            "aaddsSubnetId": {
+              "type": "string"
+            }
+          },
+          "variables": {
+            "location": "[parameters('baseConfig').rg.location]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.AAD/domainServices",
+              "apiVersion": "2021-05-01",
+              "name": "[parameters('domainConfig').domain]",
+              "location": "[variables('location')]",
+              "properties": {
+                "domainName": "[parameters('domainConfig').domain]",
+                "filteredSync": "Disabled",
+                "domainConfigurationType": "FullySynced",
+                "notificationSettings": {
+                  "additionalRecipients": "[parameters('aaddsConfig').notificationRecipients]",
+                  "notifyDcAdmins": "Enabled",
+                  "notifyGlobalAdmins": "Enabled"
+                },
+                "replicaSets": [
+                  {
+                    "location": "[variables('location')]",
+                    "subnetId": "[parameters('aaddsSubnetId')]"
+                  }
+                ],
+                "domainSecuritySettings": {
+                  "kerberosArmoring": "Disabled",
+                  "kerberosRc4Encryption": "Enabled",
+                  "ntlmV1": "Disabled",
+                  "syncNtlmPasswords": "Enabled",
+                  "syncOnPremPasswords": "Enabled",
+                  "tlsV1": "Enabled"
+                },
+                "sku": "Standard"
+              }
+            }
+          ],
+          "outputs": {
+            "aaddsServerIps": {
+              "type": "array",
+              "value": "[reference(resourceId('Microsoft.AAD/domainServices', parameters('domainConfig').domain), '2021-05-01').replicaSets[0].domainControllerIpAddress]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds-nsg')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "deploy-primary-hub-update",
+      "resourceGroup": "[variables('baseConfigPrimary').rg.name]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "config": {
+            "value": "[variables('baseConfigPrimary')]"
+          },
+          "dnsServerIps": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds'), '2022-09-01').outputs.aaddsServerIps.value]"
+          },
+          "aaadsNsgId": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds-nsg'), '2022-09-01').outputs.id.value]"
+          },
+          "dmzNsgId": {
+            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigPrimary').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigPrimary').nsg.name)]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.26.54.24096",
+              "templateHash": "16888846045655135642"
+            }
+          },
+          "parameters": {
+            "config": {
+              "type": "object"
+            },
+            "dmzNsgId": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "aaadsNsgId": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "dnsServerIps": {
+              "type": "array",
+              "defaultValue": []
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2022-01-01",
+              "name": "[parameters('config').hub.name]",
+              "location": "[parameters('config').rg.location]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": "[parameters('config').hub.addressPrefixes]"
+                },
+                "dhcpOptions": {
+                  "dnsServers": "[if(greater(length(parameters('dnsServerIps')), 0), parameters('dnsServerIps'), null())]"
+                },
+                "subnets": [
+                  {
+                    "name": "[parameters('config').hub.subnets.aaddsSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.aaddsSubnet.CIDR]",
+                      "networkSecurityGroup": "[if(equals(parameters('aaadsNsgId'), ''), null(), createObject('id', parameters('aaadsNsgId')))]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.gatewaySubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.gatewaySubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.routeServerSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.routeServerSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureFirewallSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureFirewallSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureFirewallManagementSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureFirewallManagementSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureBastionSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureBastionSubnet.CIDR]",
+                      "privateEndpointNetworkPolicies": "Disabled",
+                      "privateLinkServiceNetworkPolicies": "Disabled"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureVirtualWANHub.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureVirtualWANHub.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.dmzSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.dmzSubnet.CIDR]",
+                      "networkSecurityGroup": "[if(equals(parameters('dmzNsgId'), ''), null(), createObject('id', parameters('dmzNsgId')))]"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "outputs": {
+            "id": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('config').hub.name)]"
+            },
+            "name": {
+              "type": "string",
+              "value": "[parameters('config').hub.name]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds')]",
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds-nsg')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "deploy-secondary-hub-update",
+      "resourceGroup": "[variables('baseConfigSecondary').rg.name]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "config": {
+            "value": "[variables('baseConfigSecondary')]"
+          },
+          "dnsServerIps": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds'), '2022-09-01').outputs.aaddsServerIps.value]"
+          },
+          "dmzNsgId": {
+            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigSecondary').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigSecondary').nsg.name)]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.26.54.24096",
+              "templateHash": "16888846045655135642"
+            }
+          },
+          "parameters": {
+            "config": {
+              "type": "object"
+            },
+            "dmzNsgId": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "aaadsNsgId": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "dnsServerIps": {
+              "type": "array",
+              "defaultValue": []
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2022-01-01",
+              "name": "[parameters('config').hub.name]",
+              "location": "[parameters('config').rg.location]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": "[parameters('config').hub.addressPrefixes]"
+                },
+                "dhcpOptions": {
+                  "dnsServers": "[if(greater(length(parameters('dnsServerIps')), 0), parameters('dnsServerIps'), null())]"
+                },
+                "subnets": [
+                  {
+                    "name": "[parameters('config').hub.subnets.aaddsSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.aaddsSubnet.CIDR]",
+                      "networkSecurityGroup": "[if(equals(parameters('aaadsNsgId'), ''), null(), createObject('id', parameters('aaadsNsgId')))]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.gatewaySubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.gatewaySubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.routeServerSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.routeServerSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureFirewallSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureFirewallSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureFirewallManagementSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureFirewallManagementSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureBastionSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureBastionSubnet.CIDR]",
+                      "privateEndpointNetworkPolicies": "Disabled",
+                      "privateLinkServiceNetworkPolicies": "Disabled"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureVirtualWANHub.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureVirtualWANHub.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.dmzSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.dmzSubnet.CIDR]",
+                      "networkSecurityGroup": "[if(equals(parameters('dmzNsgId'), ''), null(), createObject('id', parameters('dmzNsgId')))]"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "outputs": {
+            "id": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('config').hub.name)]"
+            },
+            "name": {
+              "type": "string",
+              "value": "[parameters('config').hub.name]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds')]"
+      ]
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "deploy-tertiary-hub-update",
+      "resourceGroup": "[variables('baseConfigTertiary').rg.name]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "config": {
+            "value": "[variables('baseConfigTertiary')]"
+          },
+          "dnsServerIps": {
+            "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds'), '2022-09-01').outputs.aaddsServerIps.value]"
+          },
+          "dmzNsgId": {
+            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigTertiary').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigTertiary').nsg.name)]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.26.54.24096",
+              "templateHash": "16888846045655135642"
+            }
+          },
+          "parameters": {
+            "config": {
+              "type": "object"
+            },
+            "dmzNsgId": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "aaadsNsgId": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "dnsServerIps": {
+              "type": "array",
+              "defaultValue": []
+            }
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/virtualNetworks",
+              "apiVersion": "2022-01-01",
+              "name": "[parameters('config').hub.name]",
+              "location": "[parameters('config').rg.location]",
+              "properties": {
+                "addressSpace": {
+                  "addressPrefixes": "[parameters('config').hub.addressPrefixes]"
+                },
+                "dhcpOptions": {
+                  "dnsServers": "[if(greater(length(parameters('dnsServerIps')), 0), parameters('dnsServerIps'), null())]"
+                },
+                "subnets": [
+                  {
+                    "name": "[parameters('config').hub.subnets.aaddsSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.aaddsSubnet.CIDR]",
+                      "networkSecurityGroup": "[if(equals(parameters('aaadsNsgId'), ''), null(), createObject('id', parameters('aaadsNsgId')))]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.gatewaySubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.gatewaySubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.routeServerSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.routeServerSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureFirewallSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureFirewallSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureFirewallManagementSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureFirewallManagementSubnet.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureBastionSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureBastionSubnet.CIDR]",
+                      "privateEndpointNetworkPolicies": "Disabled",
+                      "privateLinkServiceNetworkPolicies": "Disabled"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.azureVirtualWANHub.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.azureVirtualWANHub.CIDR]"
+                    }
+                  },
+                  {
+                    "name": "[parameters('config').hub.subnets.dmzSubnet.name]",
+                    "properties": {
+                      "addressPrefix": "[parameters('config').hub.subnets.dmzSubnet.CIDR]",
+                      "networkSecurityGroup": "[if(equals(parameters('dmzNsgId'), ''), null(), createObject('id', parameters('dmzNsgId')))]"
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "outputs": {
+            "id": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('config').hub.name)]"
+            },
+            "name": {
+              "type": "string",
+              "value": "[parameters('config').hub.name]"
+            }
+          }
+        }
+      },
+      "dependsOn": [
+        "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds')]"
+      ]
+    }
+  ]
+}

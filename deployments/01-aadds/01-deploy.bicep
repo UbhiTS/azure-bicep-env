@@ -2,6 +2,11 @@
 // + activation time ~35 mins
 // = total time ~110 mins
 
+// ####################################################################################
+// make sure your custom domain is registered in Azure AD before running this script
+// make sure you run the below by signing-in with a admin@ubhims.onmicrosoft.com
+// ####################################################################################
+
 // in case of service principal not found error:
 // go to Azure AD Domain Services in the portal and delete the domain services instance
 // follow: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/alert-service-principal

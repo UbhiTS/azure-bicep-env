@@ -2,7 +2,7 @@
     "deploymentName": "secondary",
     "addressPrefix": "10.2.0.0/16",
     "rg": {
-        "name": "contoso-secondary-rg",
+        "name": "ubhims-secondary-rg",
         "location": "eastus2"
     },
     "nsg": {

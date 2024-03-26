@@ -1,6 +1,6 @@
 {
     "rg": {
-        "name":"contoso-primary-aadds-rg",
+        "name":"ubhims-primary-rg",
         "location":"westus2"
     },
     "nsg": {

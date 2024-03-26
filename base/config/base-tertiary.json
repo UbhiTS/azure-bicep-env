@@ -2,7 +2,7 @@
     "deploymentName": "tertiary",
     "addressPrefix": "10.3.0.0/16",
     "rg": {
-        "name": "contoso-tertiary-rg",
+        "name": "ubhims-tertiary-rg",
         "location": "southcentralus"
     },
     "nsg": {
