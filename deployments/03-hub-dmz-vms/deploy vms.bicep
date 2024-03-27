@@ -30,12 +30,12 @@ module primaryDMZVM '../../modules/vm.bicep' = {
   scope: resourceGroup(baseConfigPrimary.rg.name)
   params: {
     vNetName: baseConfigPrimary.hub.name
-    sNetName: baseConfigPrimary.hub.subnets.dmzSubnet.name
+    sNetName: baseConfigPrimary.hub.subnets.aaddsSubnet.name
     location: baseConfigPrimary.rg.location
-    vmName: 'pri-dmz-vm1' // maxlength = 15
+    vmName: 'aadds-proxy-vm1' // maxlength = 15
     adminUsername: domainConfig.localVMAdminUsername
     adminPassword: domainConfig.defaultPassword
-    networkJoin: 'AD'
+    networkJoin: 'None'
     domainToJoin: domainConfig.domain
     domainUserName: domainConfig.adAdminUsername
     domainPassword: domainConfig.defaultPassword

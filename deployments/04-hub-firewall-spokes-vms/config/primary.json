@@ -1,25 +1,25 @@
 {
     "deploymentName": "primary",
     "rg": {
-        "name": "contoso-primary-secured-rg",
+        "name": "ubhims-primary-workload-rg",
         "location": "westus2"
     },
     "spokes": {
         "spoke1": {
-            "name": "secured-spoke1-vnet",
+            "name": "spoke1-secure-vnet",
             "addressPrefix": "10.1.24.0/23",
-            "managementSubnetName": "ManagementSubnet",
+            "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.1.24.0/24",
-            "workloadSubnetName": "WorkloadSubnet",
+            "workloadSubnetName": "workload-subnet",
             "workloadSubnetCIDR": "10.1.25.0/24"
         },
 
         "spoke2": {
-            "name": "secured-spoke2-vnet",
+            "name": "spoke2-secure-vnet",
             "addressPrefix": "10.1.26.0/23",
-            "managementSubnetName": "ManagementSubnet",
+            "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.1.26.0/24",
-            "workloadSubnetName": "WorkloadSubnet",
+            "workloadSubnetName": "workload-subnet",
             "workloadSubnetCIDR": "10.1.27.0/24"
         }
     },

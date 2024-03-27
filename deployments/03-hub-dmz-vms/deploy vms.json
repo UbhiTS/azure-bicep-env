@@ -1,0 +1,1566 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.26.54.24096",
+      "templateHash": "6817220826737638127"
+    }
+  },
+  "variables": {
+    "$fxv#0": {
+      "deploymentName": "primary",
+      "addressPrefix": "10.1.0.0/16",
+      "rg": {
+        "name": "ubhims-primary-rg",
+        "location": "westus2"
+      },
+      "nsg": {
+        "name": "default-nsg"
+      },
+      "hub": {
+        "name": "primary-hub-vnet",
+        "addressPrefixes": [
+          "10.1.0.0/20"
+        ],
+        "addressPrefixInfo": "https://jodies.de/ipcalc?host=10.1.0.0&mask1=20&mask2=",
+        "subnets": {
+          "aaddsSubnet": {
+            "name": "aadds-subnet",
+            "CIDR": "10.1.0.0/24"
+          },
+          "gatewaySubnet": {
+            "name": "GatewaySubnet",
+            "CIDR": "10.1.1.0/27"
+          },
+          "routeServerSubnet": {
+            "name": "RouteServerSubnet",
+            "CIDR": "10.1.1.32/27"
+          },
+          "azureFirewallSubnet": {
+            "name": "AzureFirewallSubnet",
+            "CIDR": "10.1.1.64/26"
+          },
+          "azureFirewallManagementSubnet": {
+            "name": "AzureFirewallManagementSubnet",
+            "CIDR": "10.1.1.128/26"
+          },
+          "azureBastionSubnet": {
+            "name": "AzureBastionSubnet",
+            "CIDR": "10.1.1.192/26"
+          },
+          "azureVirtualWANHub": {
+            "name": "AzureVirtualWANHub",
+            "CIDR": "10.1.2.0/24"
+          },
+          "dmzSubnet": {
+            "name": "dmz-subnet",
+            "CIDR": "10.1.3.0/24"
+          }
+        }
+      }
+    },
+    "$fxv#1": {
+      "deploymentName": "secondary",
+      "addressPrefix": "10.2.0.0/16",
+      "rg": {
+        "name": "ubhims-secondary-rg",
+        "location": "eastus2"
+      },
+      "nsg": {
+        "name": "default-nsg"
+      },
+      "hub": {
+        "name": "secondary-hub-vnet",
+        "addressPrefixes": [
+          "10.2.0.0/20"
+        ],
+        "addressPrefixInfo": "https://jodies.de/ipcalc?host=10.2.0.0&mask1=20&mask2=",
+        "subnets": {
+          "aaddsSubnet": {
+            "name": "aadds-subnet",
+            "CIDR": "10.2.0.0/24"
+          },
+          "gatewaySubnet": {
+            "name": "GatewaySubnet",
+            "CIDR": "10.2.1.0/27"
+          },
+          "routeServerSubnet": {
+            "name": "RouteServerSubnet",
+            "CIDR": "10.2.1.32/27"
+          },
+          "azureFirewallSubnet": {
+            "name": "AzureFirewallSubnet",
+            "CIDR": "10.2.1.64/26"
+          },
+          "azureFirewallManagementSubnet": {
+            "name": "AzureFirewallManagementSubnet",
+            "CIDR": "10.2.1.128/26"
+          },
+          "azureBastionSubnet": {
+            "name": "AzureBastionSubnet",
+            "CIDR": "10.2.1.192/26"
+          },
+          "azureVirtualWANHub": {
+            "name": "AzureVirtualWANHub",
+            "CIDR": "10.2.2.0/24"
+          },
+          "dmzSubnet": {
+            "name": "dmz-subnet",
+            "CIDR": "10.2.3.0/24"
+          }
+        }
+      }
+    },
+    "$fxv#2": {
+      "deploymentName": "tertiary",
+      "addressPrefix": "10.3.0.0/16",
+      "rg": {
+        "name": "ubhims-tertiary-rg",
+        "location": "southcentralus"
+      },
+      "nsg": {
+        "name": "default-nsg"
+      },
+      "hub": {
+        "name": "tertiary-hub-vnet",
+        "addressPrefixes": [
+          "10.3.0.0/20"
+        ],
+        "addressPrefixInfo": "https://jodies.de/ipcalc?host=10.3.0.0&mask1=20&mask2=",
+        "subnets": {
+          "aaddsSubnet": {
+            "name": "aadds-subnet",
+            "CIDR": "10.3.0.0/24"
+          },
+          "gatewaySubnet": {
+            "name": "GatewaySubnet",
+            "CIDR": "10.3.1.0/27"
+          },
+          "routeServerSubnet": {
+            "name": "RouteServerSubnet",
+            "CIDR": "10.3.1.32/27"
+          },
+          "azureFirewallSubnet": {
+            "name": "AzureFirewallSubnet",
+            "CIDR": "10.3.1.64/26"
+          },
+          "azureFirewallManagementSubnet": {
+            "name": "AzureFirewallManagementSubnet",
+            "CIDR": "10.3.1.128/26"
+          },
+          "azureBastionSubnet": {
+            "name": "AzureBastionSubnet",
+            "CIDR": "10.3.1.192/26"
+          },
+          "azureVirtualWANHub": {
+            "name": "AzureVirtualWANHub",
+            "CIDR": "10.3.2.0/24"
+          },
+          "dmzSubnet": {
+            "name": "dmz-subnet",
+            "CIDR": "10.3.3.0/24"
+          }
+        }
+      }
+    },
+    "$fxv#3": {
+      "domain": "ubhims.com",
+      "numUsers": 2,
+      "groups": [
+        {
+          "name": "AAD DC Administrators",
+          "userPrefix": "adadmin",
+          "type": "adAdmin",
+          "objectId": "f57ebeca-270c-4b48-97f1-d22b3cbb915f"
+        },
+        {
+          "name": "UbhiMS AVD Admins",
+          "userPrefix": "avdadmin",
+          "type": "avdAdmin",
+          "objectId": "8809dd30-b9a6-4d33-bea4-6f14ebf063e8"
+        },
+        {
+          "name": "UbhiMS Developers",
+          "userPrefix": "devuser",
+          "type": "user",
+          "objectId": "d49ce92a-bdf2-4ac2-bdff-bd8bbe17581f"
+        },
+        {
+          "name": "UbhiMS Marketing Designers",
+          "userPrefix": "mktuser",
+          "type": "user",
+          "objectId": "e5181340-7a6a-4aec-b53f-a23abeb3a295"
+        },
+        {
+          "name": "UbhiMS VIP Users",
+          "userPrefix": "vipuser",
+          "type": "user",
+          "objectId": "9c1a8406-1dd4-4dad-8ddf-3dc49f23a6d9"
+        }
+      ],
+      "adAdminUsername": "adadmin0@ubhims.com",
+      "localVMAdminUsername": "vmadmin",
+      "defaultPassword": "CoolBicep!1@2",
+      "defaultEmail": "tubhi@microsoft.com"
+    },
+    "deploySecondary": false,
+    "deployTertiary": false,
+    "baseConfigPrimary": "[variables('$fxv#0')]",
+    "baseConfigSecondary": "[variables('$fxv#1')]",
+    "baseConfigTertiary": "[variables('$fxv#2')]",
+    "domainConfig": "[variables('$fxv#3')]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "deploy-primary-hub-dmz-vm",
+      "resourceGroup": "[variables('baseConfigPrimary').rg.name]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "vNetName": {
+            "value": "[variables('baseConfigPrimary').hub.name]"
+          },
+          "sNetName": {
+            "value": "[variables('baseConfigPrimary').hub.subnets.aaddsSubnet.name]"
+          },
+          "location": {
+            "value": "[variables('baseConfigPrimary').rg.location]"
+          },
+          "vmName": {
+            "value": "aadds-proxy-vm1"
+          },
+          "adminUsername": {
+            "value": "[variables('domainConfig').localVMAdminUsername]"
+          },
+          "adminPassword": {
+            "value": "[variables('domainConfig').defaultPassword]"
+          },
+          "networkJoin": {
+            "value": "None"
+          },
+          "domainToJoin": {
+            "value": "[variables('domainConfig').domain]"
+          },
+          "domainUserName": {
+            "value": "[variables('domainConfig').adAdminUsername]"
+          },
+          "domainPassword": {
+            "value": "[variables('domainConfig').defaultPassword]"
+          },
+          "autoShutDownNoticeEmail": {
+            "value": "[variables('domainConfig').defaultEmail]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.26.54.24096",
+              "templateHash": "6872845522402341420"
+            }
+          },
+          "parameters": {
+            "vmName": {
+              "type": "string",
+              "maxLength": 15
+            },
+            "location": {
+              "type": "string"
+            },
+            "vNetName": {
+              "type": "string"
+            },
+            "sNetName": {
+              "type": "string"
+            },
+            "vmSize": {
+              "type": "string",
+              "defaultValue": "Standard_D2s_v5",
+              "allowedValues": [
+                "Standard_B1s",
+                "Standard_B2s",
+                "Standard_B2ms",
+                "Standard_B4ms",
+                "Standard_D2s_v5",
+                "Standard_D4s_v5",
+                "Standard_NV12s_v3",
+                "Standard_NV32as_v4",
+                "Standard_NV36ads_A10_v5"
+              ]
+            },
+            "vmOSDiskStorageAccountType": {
+              "type": "string",
+              "defaultValue": "Premium_LRS",
+              "allowedValues": [
+                "Standard_LRS",
+                "StandardSSD_LRS",
+                "Premium_LRS"
+              ]
+            },
+            "adminUsername": {
+              "type": "string"
+            },
+            "adminPassword": {
+              "type": "securestring",
+              "minLength": 12
+            },
+            "vmImagePublisher": {
+              "type": "string",
+              "defaultValue": "MicrosoftWindowsDesktop",
+              "allowedValues": [
+                "MicrosoftWindowsDesktop",
+                "MicrosoftWindowsServer"
+              ]
+            },
+            "vmImageOffer": {
+              "type": "string",
+              "defaultValue": "Windows-10",
+              "allowedValues": [
+                "Windows-10",
+                "WindowsServer",
+                "Office-365"
+              ]
+            },
+            "vmImageSku": {
+              "type": "string",
+              "defaultValue": "win10-21h2-avd-g2",
+              "allowedValues": [
+                "2019-datacenter-gensecond",
+                "win10-21h2-pro",
+                "win10-21h2-avd-g2",
+                "win10-21h2-avd-m365-g2",
+                "win11-21h2-avd-m365"
+              ]
+            },
+            "osAHBLicenseType": {
+              "type": "string",
+              "defaultValue": "Windows_Client",
+              "allowedValues": [
+                "Windows_Client",
+                "Windows_Server",
+                "RHEL_BYOS",
+                "SLES_BYOS"
+              ]
+            },
+            "autoShutDown": {
+              "type": "bool",
+              "defaultValue": true
+            },
+            "autoShutDownNoticeEmail": {
+              "type": "string"
+            },
+            "networkJoin": {
+              "type": "string",
+              "defaultValue": "None",
+              "allowedValues": [
+                "None",
+                "AD",
+                "AAD"
+              ]
+            },
+            "domainToJoin": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "domainJoinOptions": {
+              "type": "int",
+              "defaultValue": 3,
+              "metadata": {
+                "description": "Set of bit flags that define the join options. Default value of 3 is a combination of NETSETUP_JOIN_DOMAIN (0x00000001) & NETSETUP_ACCT_CREATE (0x00000002) i.e. will join the domain and create the account on the domain. For more information see https://msdn.microsoft.com/en-us/library/aa392154(v=vs.85).aspx"
+              }
+            },
+            "domainOUPath": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "domainUserName": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "domainPassword": {
+              "type": "securestring",
+              "defaultValue": ""
+            },
+            "hostPoolName": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "hostPoolRegToken": {
+              "type": "string",
+              "defaultValue": ""
+            }
+          },
+          "variables": {
+            "gpuNVIDIA": "[or(equals(parameters('vmSize'), 'Standard_NV12s_v3'), equals(parameters('vmSize'), 'Standard_NV36ads_A10_v5'))]",
+            "gpuAMD": "[equals(parameters('vmSize'), 'Standard_NV32as_v4')]",
+            "installAVDAgent": "[not(equals(parameters('hostPoolName'), ''))]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/networkInterfaces",
+              "apiVersion": "2021-03-01",
+              "name": "[format('{0}_nic', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "enableAcceleratedNetworking": true,
+                "enableIPForwarding": false,
+                "ipConfigurations": [
+                  {
+                    "name": "[format('{0}-nic-ipconfig1', parameters('vmName'))]",
+                    "properties": {
+                      "privateIPAllocationMethod": "Dynamic",
+                      "subnet": {
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vNetName'), parameters('sNetName'))]"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines",
+              "apiVersion": "2022-03-01",
+              "name": "[parameters('vmName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "hardwareProfile": {
+                  "vmSize": "[parameters('vmSize')]"
+                },
+                "storageProfile": {
+                  "osDisk": {
+                    "name": "[format('{0}_osdisk', parameters('vmName'))]",
+                    "createOption": "FromImage",
+                    "deleteOption": "Delete",
+                    "managedDisk": {
+                      "storageAccountType": "[parameters('vmOSDiskStorageAccountType')]"
+                    }
+                  },
+                  "imageReference": {
+                    "publisher": "[parameters('vmImagePublisher')]",
+                    "offer": "[parameters('vmImageOffer')]",
+                    "sku": "[parameters('vmImageSku')]",
+                    "version": "latest"
+                  }
+                },
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}_nic', parameters('vmName')))]",
+                      "properties": {
+                        "deleteOption": "Delete"
+                      }
+                    }
+                  ]
+                },
+                "osProfile": {
+                  "computerName": "[parameters('vmName')]",
+                  "adminUsername": "[parameters('adminUsername')]",
+                  "adminPassword": "[parameters('adminPassword')]",
+                  "windowsConfiguration": {
+                    "enableAutomaticUpdates": true,
+                    "provisionVMAgent": true,
+                    "patchSettings": {
+                      "enableHotpatching": false,
+                      "patchMode": "AutomaticByOS"
+                    }
+                  }
+                },
+                "licenseType": "[parameters('osAHBLicenseType')]"
+              },
+              "identity": {
+                "type": "SystemAssigned"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', format('{0}_nic', parameters('vmName')))]"
+              ]
+            },
+            {
+              "condition": "[equals(parameters('networkJoin'), 'AD')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2020-06-01",
+              "name": "[format('{0}/JoinDomain', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Compute",
+                "type": "JsonADDomainExtension",
+                "typeHandlerVersion": "1.3",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                  "name": "[parameters('domainToJoin')]",
+                  "ouPath": "[parameters('domainOUPath')]",
+                  "user": "[parameters('domainUserName')]",
+                  "options": "[parameters('domainJoinOptions')]",
+                  "restart": true
+                },
+                "protectedSettings": {
+                  "password": "[parameters('domainPassword')]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[equals(parameters('networkJoin'), 'AAD')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2020-06-01",
+              "name": "[format('{0}/AADLoginForWindows', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Azure.ActiveDirectory",
+                "type": "AADLoginForWindows",
+                "typeHandlerVersion": "1.0",
+                "autoUpgradeMinorVersion": true
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[variables('gpuNVIDIA')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'NvidiaGpuDriverWindows')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.HpcCompute",
+                "type": "NvidiaGpuDriverWindows",
+                "typeHandlerVersion": "1.4",
+                "autoUpgradeMinorVersion": true,
+                "settings": {}
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[0], split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/JoinDomain', parameters('vmName')), '/')[0], split(format('{0}/JoinDomain', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[variables('gpuAMD')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'AmdGpuDriverWindows')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.HpcCompute",
+                "type": "AmdGpuDriverWindows",
+                "typeHandlerVersion": "1.1",
+                "autoUpgradeMinorVersion": true,
+                "settings": {}
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[0], split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/JoinDomain', parameters('vmName')), '/')[0], split(format('{0}/JoinDomain', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/runCommands",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'enable-ping-icmp-v4')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "source": {
+                  "script": "netsh advfirewall firewall add rule name=\"ICMPv4 Echo (Ping)\" protocol=\"icmpv4:8,any\" dir=in action=allow"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'AmdGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'NvidiaGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/runCommands",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'enable-ping-icmp-v6')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "source": {
+                  "script": "netsh advfirewall firewall add rule name=\"ICMPv6 Echo (Ping)\" protocol=\"icmpv6:8,any\" dir=in action=allow"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'AmdGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'NvidiaGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[parameters('autoShutDown')]",
+              "type": "Microsoft.DevTestLab/schedules",
+              "apiVersion": "2018-09-15",
+              "name": "[format('shutdown-computevm-{0}', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "status": "Enabled",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                  "time": "04:00"
+                },
+                "timeZoneId": "Pacific Standard Time",
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]",
+                "notificationSettings": {
+                  "status": "Enabled",
+                  "notificationLocale": "en",
+                  "timeInMinutes": 30,
+                  "emailRecipient": "[parameters('autoShutDownNoticeEmail')]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/runCommands', parameters('vmName'), 'enable-ping-icmp-v4')]",
+                "[resourceId('Microsoft.Compute/virtualMachines/runCommands', parameters('vmName'), 'enable-ping-icmp-v6')]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[variables('installAVDAgent')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/AddSessionHost', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Powershell",
+                "type": "DSC",
+                "typeHandlerVersion": "2.73",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                  "modulesUrl": "https://wvdportalstorageblob.blob.core.windows.net/galleryartifacts/Configuration_08-10-2022.zip",
+                  "configurationFunction": "Configuration.ps1\\AddSessionHost",
+                  "properties": {
+                    "hostPoolName": "[parameters('hostPoolName')]",
+                    "registrationInfoToken": "[parameters('hostPoolRegToken')]",
+                    "aadJoin": "[equals(parameters('networkJoin'), 'AAD')]",
+                    "UseAgentDownloadEndpoint": true
+                  }
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.DevTestLab/schedules', format('shutdown-computevm-{0}', parameters('vmName')))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "id": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+            },
+            "name": {
+              "type": "string",
+              "value": "[parameters('vmName')]"
+            }
+          }
+        }
+      }
+    },
+    {
+      "condition": "[variables('deploySecondary')]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "deploy-secondary-hub-dmz-vm",
+      "resourceGroup": "[variables('baseConfigSecondary').rg.name]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "vNetName": {
+            "value": "[variables('baseConfigSecondary').hub.name]"
+          },
+          "sNetName": {
+            "value": "[variables('baseConfigSecondary').hub.subnets.dmzSubnet.name]"
+          },
+          "location": {
+            "value": "[variables('baseConfigSecondary').rg.location]"
+          },
+          "vmName": {
+            "value": "sec-dmz-vm1"
+          },
+          "adminUsername": {
+            "value": "[variables('domainConfig').localVMAdminUsername]"
+          },
+          "adminPassword": {
+            "value": "[variables('domainConfig').defaultPassword]"
+          },
+          "networkJoin": {
+            "value": "AD"
+          },
+          "domainToJoin": {
+            "value": "[variables('domainConfig').domain]"
+          },
+          "domainUserName": {
+            "value": "[variables('domainConfig').adAdminUsername]"
+          },
+          "domainPassword": {
+            "value": "[variables('domainConfig').defaultPassword]"
+          },
+          "autoShutDownNoticeEmail": {
+            "value": "[variables('domainConfig').defaultEmail]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.26.54.24096",
+              "templateHash": "6872845522402341420"
+            }
+          },
+          "parameters": {
+            "vmName": {
+              "type": "string",
+              "maxLength": 15
+            },
+            "location": {
+              "type": "string"
+            },
+            "vNetName": {
+              "type": "string"
+            },
+            "sNetName": {
+              "type": "string"
+            },
+            "vmSize": {
+              "type": "string",
+              "defaultValue": "Standard_D2s_v5",
+              "allowedValues": [
+                "Standard_B1s",
+                "Standard_B2s",
+                "Standard_B2ms",
+                "Standard_B4ms",
+                "Standard_D2s_v5",
+                "Standard_D4s_v5",
+                "Standard_NV12s_v3",
+                "Standard_NV32as_v4",
+                "Standard_NV36ads_A10_v5"
+              ]
+            },
+            "vmOSDiskStorageAccountType": {
+              "type": "string",
+              "defaultValue": "Premium_LRS",
+              "allowedValues": [
+                "Standard_LRS",
+                "StandardSSD_LRS",
+                "Premium_LRS"
+              ]
+            },
+            "adminUsername": {
+              "type": "string"
+            },
+            "adminPassword": {
+              "type": "securestring",
+              "minLength": 12
+            },
+            "vmImagePublisher": {
+              "type": "string",
+              "defaultValue": "MicrosoftWindowsDesktop",
+              "allowedValues": [
+                "MicrosoftWindowsDesktop",
+                "MicrosoftWindowsServer"
+              ]
+            },
+            "vmImageOffer": {
+              "type": "string",
+              "defaultValue": "Windows-10",
+              "allowedValues": [
+                "Windows-10",
+                "WindowsServer",
+                "Office-365"
+              ]
+            },
+            "vmImageSku": {
+              "type": "string",
+              "defaultValue": "win10-21h2-avd-g2",
+              "allowedValues": [
+                "2019-datacenter-gensecond",
+                "win10-21h2-pro",
+                "win10-21h2-avd-g2",
+                "win10-21h2-avd-m365-g2",
+                "win11-21h2-avd-m365"
+              ]
+            },
+            "osAHBLicenseType": {
+              "type": "string",
+              "defaultValue": "Windows_Client",
+              "allowedValues": [
+                "Windows_Client",
+                "Windows_Server",
+                "RHEL_BYOS",
+                "SLES_BYOS"
+              ]
+            },
+            "autoShutDown": {
+              "type": "bool",
+              "defaultValue": true
+            },
+            "autoShutDownNoticeEmail": {
+              "type": "string"
+            },
+            "networkJoin": {
+              "type": "string",
+              "defaultValue": "None",
+              "allowedValues": [
+                "None",
+                "AD",
+                "AAD"
+              ]
+            },
+            "domainToJoin": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "domainJoinOptions": {
+              "type": "int",
+              "defaultValue": 3,
+              "metadata": {
+                "description": "Set of bit flags that define the join options. Default value of 3 is a combination of NETSETUP_JOIN_DOMAIN (0x00000001) & NETSETUP_ACCT_CREATE (0x00000002) i.e. will join the domain and create the account on the domain. For more information see https://msdn.microsoft.com/en-us/library/aa392154(v=vs.85).aspx"
+              }
+            },
+            "domainOUPath": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "domainUserName": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "domainPassword": {
+              "type": "securestring",
+              "defaultValue": ""
+            },
+            "hostPoolName": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "hostPoolRegToken": {
+              "type": "string",
+              "defaultValue": ""
+            }
+          },
+          "variables": {
+            "gpuNVIDIA": "[or(equals(parameters('vmSize'), 'Standard_NV12s_v3'), equals(parameters('vmSize'), 'Standard_NV36ads_A10_v5'))]",
+            "gpuAMD": "[equals(parameters('vmSize'), 'Standard_NV32as_v4')]",
+            "installAVDAgent": "[not(equals(parameters('hostPoolName'), ''))]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/networkInterfaces",
+              "apiVersion": "2021-03-01",
+              "name": "[format('{0}_nic', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "enableAcceleratedNetworking": true,
+                "enableIPForwarding": false,
+                "ipConfigurations": [
+                  {
+                    "name": "[format('{0}-nic-ipconfig1', parameters('vmName'))]",
+                    "properties": {
+                      "privateIPAllocationMethod": "Dynamic",
+                      "subnet": {
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vNetName'), parameters('sNetName'))]"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines",
+              "apiVersion": "2022-03-01",
+              "name": "[parameters('vmName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "hardwareProfile": {
+                  "vmSize": "[parameters('vmSize')]"
+                },
+                "storageProfile": {
+                  "osDisk": {
+                    "name": "[format('{0}_osdisk', parameters('vmName'))]",
+                    "createOption": "FromImage",
+                    "deleteOption": "Delete",
+                    "managedDisk": {
+                      "storageAccountType": "[parameters('vmOSDiskStorageAccountType')]"
+                    }
+                  },
+                  "imageReference": {
+                    "publisher": "[parameters('vmImagePublisher')]",
+                    "offer": "[parameters('vmImageOffer')]",
+                    "sku": "[parameters('vmImageSku')]",
+                    "version": "latest"
+                  }
+                },
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}_nic', parameters('vmName')))]",
+                      "properties": {
+                        "deleteOption": "Delete"
+                      }
+                    }
+                  ]
+                },
+                "osProfile": {
+                  "computerName": "[parameters('vmName')]",
+                  "adminUsername": "[parameters('adminUsername')]",
+                  "adminPassword": "[parameters('adminPassword')]",
+                  "windowsConfiguration": {
+                    "enableAutomaticUpdates": true,
+                    "provisionVMAgent": true,
+                    "patchSettings": {
+                      "enableHotpatching": false,
+                      "patchMode": "AutomaticByOS"
+                    }
+                  }
+                },
+                "licenseType": "[parameters('osAHBLicenseType')]"
+              },
+              "identity": {
+                "type": "SystemAssigned"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', format('{0}_nic', parameters('vmName')))]"
+              ]
+            },
+            {
+              "condition": "[equals(parameters('networkJoin'), 'AD')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2020-06-01",
+              "name": "[format('{0}/JoinDomain', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Compute",
+                "type": "JsonADDomainExtension",
+                "typeHandlerVersion": "1.3",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                  "name": "[parameters('domainToJoin')]",
+                  "ouPath": "[parameters('domainOUPath')]",
+                  "user": "[parameters('domainUserName')]",
+                  "options": "[parameters('domainJoinOptions')]",
+                  "restart": true
+                },
+                "protectedSettings": {
+                  "password": "[parameters('domainPassword')]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[equals(parameters('networkJoin'), 'AAD')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2020-06-01",
+              "name": "[format('{0}/AADLoginForWindows', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Azure.ActiveDirectory",
+                "type": "AADLoginForWindows",
+                "typeHandlerVersion": "1.0",
+                "autoUpgradeMinorVersion": true
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[variables('gpuNVIDIA')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'NvidiaGpuDriverWindows')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.HpcCompute",
+                "type": "NvidiaGpuDriverWindows",
+                "typeHandlerVersion": "1.4",
+                "autoUpgradeMinorVersion": true,
+                "settings": {}
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[0], split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/JoinDomain', parameters('vmName')), '/')[0], split(format('{0}/JoinDomain', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[variables('gpuAMD')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'AmdGpuDriverWindows')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.HpcCompute",
+                "type": "AmdGpuDriverWindows",
+                "typeHandlerVersion": "1.1",
+                "autoUpgradeMinorVersion": true,
+                "settings": {}
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[0], split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/JoinDomain', parameters('vmName')), '/')[0], split(format('{0}/JoinDomain', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/runCommands",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'enable-ping-icmp-v4')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "source": {
+                  "script": "netsh advfirewall firewall add rule name=\"ICMPv4 Echo (Ping)\" protocol=\"icmpv4:8,any\" dir=in action=allow"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'AmdGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'NvidiaGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/runCommands",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'enable-ping-icmp-v6')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "source": {
+                  "script": "netsh advfirewall firewall add rule name=\"ICMPv6 Echo (Ping)\" protocol=\"icmpv6:8,any\" dir=in action=allow"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'AmdGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'NvidiaGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[parameters('autoShutDown')]",
+              "type": "Microsoft.DevTestLab/schedules",
+              "apiVersion": "2018-09-15",
+              "name": "[format('shutdown-computevm-{0}', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "status": "Enabled",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                  "time": "04:00"
+                },
+                "timeZoneId": "Pacific Standard Time",
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]",
+                "notificationSettings": {
+                  "status": "Enabled",
+                  "notificationLocale": "en",
+                  "timeInMinutes": 30,
+                  "emailRecipient": "[parameters('autoShutDownNoticeEmail')]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/runCommands', parameters('vmName'), 'enable-ping-icmp-v4')]",
+                "[resourceId('Microsoft.Compute/virtualMachines/runCommands', parameters('vmName'), 'enable-ping-icmp-v6')]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[variables('installAVDAgent')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/AddSessionHost', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Powershell",
+                "type": "DSC",
+                "typeHandlerVersion": "2.73",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                  "modulesUrl": "https://wvdportalstorageblob.blob.core.windows.net/galleryartifacts/Configuration_08-10-2022.zip",
+                  "configurationFunction": "Configuration.ps1\\AddSessionHost",
+                  "properties": {
+                    "hostPoolName": "[parameters('hostPoolName')]",
+                    "registrationInfoToken": "[parameters('hostPoolRegToken')]",
+                    "aadJoin": "[equals(parameters('networkJoin'), 'AAD')]",
+                    "UseAgentDownloadEndpoint": true
+                  }
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.DevTestLab/schedules', format('shutdown-computevm-{0}', parameters('vmName')))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "id": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+            },
+            "name": {
+              "type": "string",
+              "value": "[parameters('vmName')]"
+            }
+          }
+        }
+      }
+    },
+    {
+      "condition": "[variables('deployTertiary')]",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2022-09-01",
+      "name": "deploy-tertiary-hub-dmz-vm",
+      "resourceGroup": "[variables('baseConfigTertiary').rg.name]",
+      "properties": {
+        "expressionEvaluationOptions": {
+          "scope": "inner"
+        },
+        "mode": "Incremental",
+        "parameters": {
+          "vNetName": {
+            "value": "[variables('baseConfigTertiary').hub.name]"
+          },
+          "sNetName": {
+            "value": "[variables('baseConfigTertiary').hub.subnets.dmzSubnet.name]"
+          },
+          "location": {
+            "value": "[variables('baseConfigTertiary').rg.location]"
+          },
+          "vmName": {
+            "value": "ter-dmz-vm1"
+          },
+          "adminUsername": {
+            "value": "[variables('domainConfig').localVMAdminUsername]"
+          },
+          "adminPassword": {
+            "value": "[variables('domainConfig').defaultPassword]"
+          },
+          "networkJoin": {
+            "value": "AD"
+          },
+          "domainToJoin": {
+            "value": "[variables('domainConfig').domain]"
+          },
+          "domainUserName": {
+            "value": "[variables('domainConfig').adAdminUsername]"
+          },
+          "domainPassword": {
+            "value": "[variables('domainConfig').defaultPassword]"
+          },
+          "autoShutDownNoticeEmail": {
+            "value": "[variables('domainConfig').defaultEmail]"
+          }
+        },
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "metadata": {
+            "_generator": {
+              "name": "bicep",
+              "version": "0.26.54.24096",
+              "templateHash": "6872845522402341420"
+            }
+          },
+          "parameters": {
+            "vmName": {
+              "type": "string",
+              "maxLength": 15
+            },
+            "location": {
+              "type": "string"
+            },
+            "vNetName": {
+              "type": "string"
+            },
+            "sNetName": {
+              "type": "string"
+            },
+            "vmSize": {
+              "type": "string",
+              "defaultValue": "Standard_D2s_v5",
+              "allowedValues": [
+                "Standard_B1s",
+                "Standard_B2s",
+                "Standard_B2ms",
+                "Standard_B4ms",
+                "Standard_D2s_v5",
+                "Standard_D4s_v5",
+                "Standard_NV12s_v3",
+                "Standard_NV32as_v4",
+                "Standard_NV36ads_A10_v5"
+              ]
+            },
+            "vmOSDiskStorageAccountType": {
+              "type": "string",
+              "defaultValue": "Premium_LRS",
+              "allowedValues": [
+                "Standard_LRS",
+                "StandardSSD_LRS",
+                "Premium_LRS"
+              ]
+            },
+            "adminUsername": {
+              "type": "string"
+            },
+            "adminPassword": {
+              "type": "securestring",
+              "minLength": 12
+            },
+            "vmImagePublisher": {
+              "type": "string",
+              "defaultValue": "MicrosoftWindowsDesktop",
+              "allowedValues": [
+                "MicrosoftWindowsDesktop",
+                "MicrosoftWindowsServer"
+              ]
+            },
+            "vmImageOffer": {
+              "type": "string",
+              "defaultValue": "Windows-10",
+              "allowedValues": [
+                "Windows-10",
+                "WindowsServer",
+                "Office-365"
+              ]
+            },
+            "vmImageSku": {
+              "type": "string",
+              "defaultValue": "win10-21h2-avd-g2",
+              "allowedValues": [
+                "2019-datacenter-gensecond",
+                "win10-21h2-pro",
+                "win10-21h2-avd-g2",
+                "win10-21h2-avd-m365-g2",
+                "win11-21h2-avd-m365"
+              ]
+            },
+            "osAHBLicenseType": {
+              "type": "string",
+              "defaultValue": "Windows_Client",
+              "allowedValues": [
+                "Windows_Client",
+                "Windows_Server",
+                "RHEL_BYOS",
+                "SLES_BYOS"
+              ]
+            },
+            "autoShutDown": {
+              "type": "bool",
+              "defaultValue": true
+            },
+            "autoShutDownNoticeEmail": {
+              "type": "string"
+            },
+            "networkJoin": {
+              "type": "string",
+              "defaultValue": "None",
+              "allowedValues": [
+                "None",
+                "AD",
+                "AAD"
+              ]
+            },
+            "domainToJoin": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "domainJoinOptions": {
+              "type": "int",
+              "defaultValue": 3,
+              "metadata": {
+                "description": "Set of bit flags that define the join options. Default value of 3 is a combination of NETSETUP_JOIN_DOMAIN (0x00000001) & NETSETUP_ACCT_CREATE (0x00000002) i.e. will join the domain and create the account on the domain. For more information see https://msdn.microsoft.com/en-us/library/aa392154(v=vs.85).aspx"
+              }
+            },
+            "domainOUPath": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "domainUserName": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "domainPassword": {
+              "type": "securestring",
+              "defaultValue": ""
+            },
+            "hostPoolName": {
+              "type": "string",
+              "defaultValue": ""
+            },
+            "hostPoolRegToken": {
+              "type": "string",
+              "defaultValue": ""
+            }
+          },
+          "variables": {
+            "gpuNVIDIA": "[or(equals(parameters('vmSize'), 'Standard_NV12s_v3'), equals(parameters('vmSize'), 'Standard_NV36ads_A10_v5'))]",
+            "gpuAMD": "[equals(parameters('vmSize'), 'Standard_NV32as_v4')]",
+            "installAVDAgent": "[not(equals(parameters('hostPoolName'), ''))]"
+          },
+          "resources": [
+            {
+              "type": "Microsoft.Network/networkInterfaces",
+              "apiVersion": "2021-03-01",
+              "name": "[format('{0}_nic', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "enableAcceleratedNetworking": true,
+                "enableIPForwarding": false,
+                "ipConfigurations": [
+                  {
+                    "name": "[format('{0}-nic-ipconfig1', parameters('vmName'))]",
+                    "properties": {
+                      "privateIPAllocationMethod": "Dynamic",
+                      "subnet": {
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vNetName'), parameters('sNetName'))]"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines",
+              "apiVersion": "2022-03-01",
+              "name": "[parameters('vmName')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "hardwareProfile": {
+                  "vmSize": "[parameters('vmSize')]"
+                },
+                "storageProfile": {
+                  "osDisk": {
+                    "name": "[format('{0}_osdisk', parameters('vmName'))]",
+                    "createOption": "FromImage",
+                    "deleteOption": "Delete",
+                    "managedDisk": {
+                      "storageAccountType": "[parameters('vmOSDiskStorageAccountType')]"
+                    }
+                  },
+                  "imageReference": {
+                    "publisher": "[parameters('vmImagePublisher')]",
+                    "offer": "[parameters('vmImageOffer')]",
+                    "sku": "[parameters('vmImageSku')]",
+                    "version": "latest"
+                  }
+                },
+                "networkProfile": {
+                  "networkInterfaces": [
+                    {
+                      "id": "[resourceId('Microsoft.Network/networkInterfaces', format('{0}_nic', parameters('vmName')))]",
+                      "properties": {
+                        "deleteOption": "Delete"
+                      }
+                    }
+                  ]
+                },
+                "osProfile": {
+                  "computerName": "[parameters('vmName')]",
+                  "adminUsername": "[parameters('adminUsername')]",
+                  "adminPassword": "[parameters('adminPassword')]",
+                  "windowsConfiguration": {
+                    "enableAutomaticUpdates": true,
+                    "provisionVMAgent": true,
+                    "patchSettings": {
+                      "enableHotpatching": false,
+                      "patchMode": "AutomaticByOS"
+                    }
+                  }
+                },
+                "licenseType": "[parameters('osAHBLicenseType')]"
+              },
+              "identity": {
+                "type": "SystemAssigned"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', format('{0}_nic', parameters('vmName')))]"
+              ]
+            },
+            {
+              "condition": "[equals(parameters('networkJoin'), 'AD')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2020-06-01",
+              "name": "[format('{0}/JoinDomain', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Compute",
+                "type": "JsonADDomainExtension",
+                "typeHandlerVersion": "1.3",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                  "name": "[parameters('domainToJoin')]",
+                  "ouPath": "[parameters('domainOUPath')]",
+                  "user": "[parameters('domainUserName')]",
+                  "options": "[parameters('domainJoinOptions')]",
+                  "restart": true
+                },
+                "protectedSettings": {
+                  "password": "[parameters('domainPassword')]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[equals(parameters('networkJoin'), 'AAD')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2020-06-01",
+              "name": "[format('{0}/AADLoginForWindows', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Azure.ActiveDirectory",
+                "type": "AADLoginForWindows",
+                "typeHandlerVersion": "1.0",
+                "autoUpgradeMinorVersion": true
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[variables('gpuNVIDIA')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'NvidiaGpuDriverWindows')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.HpcCompute",
+                "type": "NvidiaGpuDriverWindows",
+                "typeHandlerVersion": "1.4",
+                "autoUpgradeMinorVersion": true,
+                "settings": {}
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[0], split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/JoinDomain', parameters('vmName')), '/')[0], split(format('{0}/JoinDomain', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[variables('gpuAMD')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'AmdGpuDriverWindows')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.HpcCompute",
+                "type": "AmdGpuDriverWindows",
+                "typeHandlerVersion": "1.1",
+                "autoUpgradeMinorVersion": true,
+                "settings": {}
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[0], split(format('{0}/AADLoginForWindows', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', split(format('{0}/JoinDomain', parameters('vmName')), '/')[0], split(format('{0}/JoinDomain', parameters('vmName')), '/')[1])]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/runCommands",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'enable-ping-icmp-v4')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "source": {
+                  "script": "netsh advfirewall firewall add rule name=\"ICMPv4 Echo (Ping)\" protocol=\"icmpv4:8,any\" dir=in action=allow"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'AmdGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'NvidiaGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "type": "Microsoft.Compute/virtualMachines/runCommands",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/{1}', parameters('vmName'), 'enable-ping-icmp-v6')]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "source": {
+                  "script": "netsh advfirewall firewall add rule name=\"ICMPv6 Echo (Ping)\" protocol=\"icmpv6:8,any\" dir=in action=allow"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'AmdGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('vmName'), 'NvidiaGpuDriverWindows')]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[parameters('autoShutDown')]",
+              "type": "Microsoft.DevTestLab/schedules",
+              "apiVersion": "2018-09-15",
+              "name": "[format('shutdown-computevm-{0}', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "status": "Enabled",
+                "taskType": "ComputeVmShutdownTask",
+                "dailyRecurrence": {
+                  "time": "04:00"
+                },
+                "timeZoneId": "Pacific Standard Time",
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]",
+                "notificationSettings": {
+                  "status": "Enabled",
+                  "notificationLocale": "en",
+                  "timeInMinutes": 30,
+                  "emailRecipient": "[parameters('autoShutDownNoticeEmail')]"
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachines/runCommands', parameters('vmName'), 'enable-ping-icmp-v4')]",
+                "[resourceId('Microsoft.Compute/virtualMachines/runCommands', parameters('vmName'), 'enable-ping-icmp-v6')]",
+                "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+              ]
+            },
+            {
+              "condition": "[variables('installAVDAgent')]",
+              "type": "Microsoft.Compute/virtualMachines/extensions",
+              "apiVersion": "2022-03-01",
+              "name": "[format('{0}/AddSessionHost', parameters('vmName'))]",
+              "location": "[parameters('location')]",
+              "properties": {
+                "publisher": "Microsoft.Powershell",
+                "type": "DSC",
+                "typeHandlerVersion": "2.73",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                  "modulesUrl": "https://wvdportalstorageblob.blob.core.windows.net/galleryartifacts/Configuration_08-10-2022.zip",
+                  "configurationFunction": "Configuration.ps1\\AddSessionHost",
+                  "properties": {
+                    "hostPoolName": "[parameters('hostPoolName')]",
+                    "registrationInfoToken": "[parameters('hostPoolRegToken')]",
+                    "aadJoin": "[equals(parameters('networkJoin'), 'AAD')]",
+                    "UseAgentDownloadEndpoint": true
+                  }
+                }
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.DevTestLab/schedules', format('shutdown-computevm-{0}', parameters('vmName')))]"
+              ]
+            }
+          ],
+          "outputs": {
+            "id": {
+              "type": "string",
+              "value": "[resourceId('Microsoft.Compute/virtualMachines', parameters('vmName'))]"
+            },
+            "name": {
+              "type": "string",
+              "value": "[parameters('vmName')]"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

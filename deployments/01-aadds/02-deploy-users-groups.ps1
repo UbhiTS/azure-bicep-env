@@ -1,3 +1,6 @@
+# run this on a powershell desktop window, not the VSCode Terminal!
+# you do not need to deploy a VM for aadds, that comes later, that's the next script 03-deploy-aadds-proxy-vm.bicep
+
 # Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 # Install-Module -Name AzureAD
 # Connect-AzureAD -TenantId 5798e0c9-74ff-4e3a-995e-a14a330c5616, this will hang the VSCode Terminal, press alt-tab for the login screen
