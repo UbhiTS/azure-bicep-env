@@ -1,7 +1,7 @@
 {
     "rg": {
         "name":"ubhims-avd-rg",
-        "location":"westus2"
+        "location":"eastus"
     },
     "storage": {
         "accountName": "ubhimsavdstorageacc",

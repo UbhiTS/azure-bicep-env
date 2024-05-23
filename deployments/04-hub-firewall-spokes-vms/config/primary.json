@@ -2,7 +2,7 @@
     "deploymentName": "primary",
     "rg": {
         "name": "ubhims-primary-workload-rg",
-        "location": "westus2"
+        "location": "eastus"
     },
     "spokes": {
         "spoke1": {

@@ -12,7 +12,8 @@
 // in case of service principal not found error:
 // go to Azure AD Domain Services in the portal and delete the domain services instance
 // follow: https://docs.microsoft.com/en-us/azure/active-directory-domain-services/alert-service-principal
-// but instead of "re-register", click "unregister" and then "register"
+// To recreate Service Principle, use Connect-MgGraph -Scopes "Application.ReadWrite.All" and then New-MgServicePrincipal -AppId "2565bd9d-da50-47d4-8b85-4c97f669dc36"
+// For the Microsoft.AAD resource provider instead of "re-register", click "unregister" and then "register"
 
 // NOTE* - After you deploy your domain, any user principal you will use to join VMs to the AD domain, needs to have the password reset in Azure AD
 // https://docs.microsoft.com/en-us/azure/active-directory-domain-services/tutorial-create-instance-advanced#enable-user-accounts-for-azure-ad-ds

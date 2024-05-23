@@ -3,7 +3,7 @@
     "addressPrefix": "10.1.0.0/16",
     "rg": {
         "name": "ubhims-primary-rg",
-        "location": "westus2"
+        "location": "eastus"
     },
     "nsg": {
         "name": "default-nsg"
