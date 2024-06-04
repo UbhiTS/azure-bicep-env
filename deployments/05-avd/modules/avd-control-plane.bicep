@@ -19,7 +19,7 @@ var location = baseConfig.rg.location
 
 // create WVD hostpool
 
-resource hp 'Microsoft.DesktopVirtualization/hostPools@2022-04-01-preview' = {
+resource hp 'Microsoft.DesktopVirtualization/hostPools@2023-11-01-preview' = {
   name: config.avd.hostPool.name
   location: location
   properties: {
@@ -55,7 +55,7 @@ module sessionHosts '../../../modules/vm.bicep' = [ for i in range(0, config.avd
     domainUserName: domainConfig.adAdminUsername
     domainPassword: domainConfig.defaultPassword
     hostPoolName: config.avd.hostPool.name
-    hostPoolRegToken: hp.properties.registrationInfo.token
+    hostPoolRegToken: reference(hp.id).registrationInfo.token // workaround for bicep hostpool token issue https://github.com/Azure/bicep-types-az/issues/2023
     autoShutDownNoticeEmail: domainConfig.defaultEmail
   }
 }]
