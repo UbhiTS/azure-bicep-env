@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.26.54.24096",
-      "templateHash": "11565583547922285699"
+      "version": "0.28.1.47646",
+      "templateHash": "11669072261989757547"
     }
   },
   "variables": {
@@ -14,7 +14,7 @@
       "addressPrefix": "10.1.0.0/16",
       "rg": {
         "name": "ubhims-primary-rg",
-        "location": "westus2"
+        "location": "eastus"
       },
       "nsg": {
         "name": "default-nsg"
@@ -156,8 +156,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.26.54.24096",
-              "templateHash": "6872845522402341420"
+              "version": "0.28.1.47646",
+              "templateHash": "6756700814392860637"
             }
           },
           "parameters": {

@@ -2,45 +2,31 @@
     "deploymentName": "secondary",
     "avd": {
         "hostPool": {
-            "type": "Pooled",
-            "name": "contoso-marketing-designers-host-pool",
-            "friendlyName": "Contoso Marketing Designers Host Pool",
-            "loadBalancerType": "BreadthFirst"
+            "type": "Personal",
+            "name": "contoso-vip-personal-hosts",
+            "friendlyName": "Contoso VIP Hosts",
+            "loadBalancerType": "Persistent"
         },
         "sessionHosts": {
             "count": 1,
             "vmSize": "Standard_D2s_v5",
-            "DUMMY_vmSizeGPU_ForReference": "Standard_NV12s_v3",
-            "namePrefix": "mkt-host-vm",
+            "namePrefix": "vip-host-vm",
             "vmImageOffer": "Office-365",
             "vmImageSku": "win11-21h2-avd-m365"
         },
         "workspace": {
-            "name": "contoso-marketing-designers-workspace",
-            "friendlyName": "Contoso Marketing Designers Workspace - WestUS"
+            "name": "contoso-vip-workspace",
+            "friendlyName": "Contoso VIP Workspace - WestUS"
         },
         "appGroups": [
             {
-                "type": "RemoteApp",
-                "name": "contoso-marketing-designers-admin-apps",
-                "friendlyName": "Contoso Marketing Designers Admin Apps",
-                "assignToGroups": ["UbhiMS AVD Admins"],
-                "apps": [ "admin" ]
-            },
-            {
-                "type": "RemoteApp",
-                "name": "contoso-marketing-designers-office-apps",
-                "friendlyName": "Contoso Marketing Designers Office 365 Apps",
-                "assignToGroups": ["UbhiMS Marketing Designers"],
-                "apps": [ "office365" ]
-            },
-            {
-                "type": "RemoteApp",
-                "name": "contoso-marketing-designers-apps",
-                "friendlyName": "Contoso Marketing Designers Apps",
-                "assignToGroups": ["UbhiMS Marketing Designers"],
-                "apps": [ "marketing" ]
+                "type": "Desktop",
+                "name": "contoso-vip-desktop",
+                "friendlyName": "Contoso VIP Desktop",
+                "assignToGroups": ["UbhiMS VIP Users"],
+                "apps": []
             }
         ]
     }
 }
+
