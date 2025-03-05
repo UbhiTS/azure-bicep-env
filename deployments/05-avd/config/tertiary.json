@@ -1,5 +1,5 @@
 {
-    "deploymentName": "tertiary",
+    "deploymentName": "southcentralus",
     "avd": {
         "hostPool": {
             "type": "Pooled",

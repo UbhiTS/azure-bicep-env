@@ -1,5 +1,5 @@
 {
-    "deploymentName": "primary",
+    "deploymentName": "eastus",
     "avd": {
         "hostPool": {
             "type": "Pooled",

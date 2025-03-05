@@ -1,49 +1,49 @@
 {
-    "deploymentName": "tertiary",
-    "addressPrefix": "10.3.0.0/16",
+    "deploymentName": "eastus",
+    "addressPrefix": "10.1.0.0/16",
     "rg": {
-        "name": "ubhims-tertiary-rg",
-        "location": "southcentralus"
+        "name": "ubhims-eastus-rg",
+        "location": "eastus"
     },
     "nsg": {
-        "name": "default-nsg"
+        "name": "ubhims-eastus-default-nsg"
     },
     "hub": {
-        "name": "tertiary-hub-vnet",
-        "addressPrefixes": [ "10.3.0.0/20" ],
-        "addressPrefixInfo": "https://jodies.de/ipcalc?host=10.3.0.0&mask1=20&mask2=",
+        "name": "ubhims-eastus-hub-vnet",
+        "addressPrefixes": [ "10.1.0.0/20" ],
+        "addressPrefixInfo": "https://jodies.de/ipcalc?host=10.1.0.0&mask1=20&mask2=",
         "subnets": {
             "aaddsSubnet": {
                 "name": "aadds-subnet",
-                "CIDR": "10.3.0.0/24"
+                "CIDR": "10.1.0.0/24"
             },
             "gatewaySubnet": {
                 "name": "GatewaySubnet",
-                "CIDR": "10.3.1.0/27"
+                "CIDR": "10.1.1.0/27"
             },
             "routeServerSubnet": {
                 "name": "RouteServerSubnet",
-                "CIDR": "10.3.1.32/27"
+                "CIDR": "10.1.1.32/27"
             },
             "azureFirewallSubnet": {
                 "name": "AzureFirewallSubnet",
-                "CIDR": "10.3.1.64/26"
+                "CIDR": "10.1.1.64/26"
             },
             "azureFirewallManagementSubnet": {
                 "name":"AzureFirewallManagementSubnet",
-                "CIDR":"10.3.1.128/26"
+                "CIDR":"10.1.1.128/26"
             },
             "azureBastionSubnet": {
                 "name": "AzureBastionSubnet",
-                "CIDR": "10.3.1.192/26"
+                "CIDR": "10.1.1.192/26"
             },
             "azureVirtualWANHub": {
                 "name": "AzureVirtualWANHub",
-                "CIDR": "10.3.2.0/24"
+                "CIDR": "10.1.2.0/24"
             },
             "dmzSubnet": {
                 "name": "dmz-subnet",
-                "CIDR": "10.3.3.0/24"
+                "CIDR": "10.1.3.0/24"
             }
         }
     }

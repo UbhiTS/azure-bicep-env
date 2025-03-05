@@ -2,7 +2,7 @@ var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
 var domainConfig = loadJsonContent('../../base/config/domain.json')
 
 module primaryDMZVM '../../modules/vm.bicep' = {
-  name: 'deploy-primary-hub-aadds-proxy-vm'
+  name: 'deploy-eastus-hub-aadds-proxy-vm'
   scope: resourceGroup(baseConfigPrimary.rg.name)
   params: {
     vNetName: baseConfigPrimary.hub.name

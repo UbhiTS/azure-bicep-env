@@ -1,12 +1,12 @@
 {
-    "deploymentName": "primary",
+    "deploymentName": "eastus",
     "rg": {
-        "name": "ubhims-primary-workload-rg",
+        "name": "ubhims-eastus-workload-rg",
         "location": "eastus"
     },
     "spokes": {
         "spoke1": {
-            "name": "spoke1-secure-vnet",
+            "name": "eastus-spoke1-secure-vnet",
             "addressPrefix": "10.1.24.0/23",
             "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.1.24.0/24",
@@ -15,7 +15,7 @@
         },
 
         "spoke2": {
-            "name": "spoke2-secure-vnet",
+            "name": "eastus-spoke2-secure-vnet",
             "addressPrefix": "10.1.26.0/23",
             "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.1.26.0/24",
@@ -25,10 +25,10 @@
     },
     "firewall": {
         "pip": {
-            "name":"primary-fw-pip"
+            "name":"eastus-fw-pip"
         },
         "firewall": {
-            "name": "primary-fw"
+            "name": "eastus-fw"
         }
     }
 }

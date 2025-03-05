@@ -3,164 +3,164 @@
 
 // -------------------------
 
-var deploySecondary = true
-var deployTertiary = true
+var deployWestUS = true
+var deploySouthCentralUS = true
 
 var deploySpokeVMs = true
 
 // =========================
 
-var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
-var baseConfigSecondary = loadJsonContent('../../base/config/base-secondary.json')
-var baseConfigTertiary = loadJsonContent('../../base/config/base-tertiary.json')
+var baseConfigEastUS = loadJsonContent('../../base/config/base-eastus.json')
+var baseConfigWestUS = loadJsonContent('../../base/config/base-westus.json')
+var baseConfigSouthCentralUS = loadJsonContent('../../base/config/base-southcentralus.json')
 
 var domainConfig = loadJsonContent('../../base/config/domain.json')
 
-var configPrimary = loadJsonContent('./config/primary.json')
-var configSecondary = loadJsonContent('./config/secondary.json')
-var configTertiary = loadJsonContent('./config/tertiary.json')
+var configEastUS = loadJsonContent('./config/eastus.json')
+var configWestUS = loadJsonContent('./config/westus.json')
+var configSouthCentralUS = loadJsonContent('./config/southcentralus.json')
 
 // resource groups
 
-module primarySecuredRG '../../modules/rg.bicep' = {
-  name: 'deploy-primary-secured-rg'
+module eastusSecuredRG '../../modules/rg.bicep' = {
+  name: 'deploy-eastus-secured-rg'
   scope: subscription()
   params: {
-    config: configPrimary
+    config: configEastUS
   }
 }
 
-module secondarySecuredRG '../../modules/rg.bicep' = if (deploySecondary) {
-  name: 'deploy-secondary-secured-rg'
+module westusSecuredRG '../../modules/rg.bicep' = if (deployWestUS) {
+  name: 'deploy-westus-secured-rg'
   scope: subscription()
   params: {
-    config: configSecondary
+    config: configWestUS
   }
 }
 
-module tertiarySecuredRG '../../modules/rg.bicep' = if (deployTertiary) {
-  name: 'deploy-tertiary-secured-rg'
+module southcentralusSecuredRG '../../modules/rg.bicep' = if (deploySouthCentralUS) {
+  name: 'deploy-southcentralus-secured-rg'
   scope: subscription()
   params: {
-    config: configTertiary
+    config: configSouthCentralUS
   }
 }
 
 // network - hub firewalls, secured spokes
 
-module primarySecuredNetworkDeployment './modules/blueprint.bicep' = {
-  name: 'deploy-primary-secured-network'
-  scope: resourceGroup(configPrimary.rg.name)
-  dependsOn: [ primarySecuredRG ]
+module eastusSecuredNetworkDeployment './modules/blueprint.bicep' = {
+  name: 'deploy-eastus-secured-network'
+  scope: resourceGroup(configEastUS.rg.name)
+  dependsOn: [ eastusSecuredRG ]
   params:{
-    baseConfig: baseConfigPrimary
+    baseConfig: baseConfigEastUS
     domainConfig: domainConfig
-    config: configPrimary
-    extHub1Config: configSecondary
-    extHub2Config: configTertiary
+    config: configEastUS
+    extHub1Config: configWestUS
+    extHub2Config: configSouthCentralUS
     deploySpokeWorkloadVMs: deploySpokeVMs
   }
 }
 
-module secondarySecuredNetworkDeployment './modules/blueprint.bicep' = if (deploySecondary) {
-  name: 'deploy-secondary-secured-network'
-  scope: resourceGroup(configSecondary.rg.name)
-  dependsOn: [ secondarySecuredRG ]
+module westusSecuredNetworkDeployment './modules/blueprint.bicep' = if (deployWestUS) {
+  name: 'deploy-westus-secured-network'
+  scope: resourceGroup(configWestUS.rg.name)
+  dependsOn: [ westusSecuredRG ]
   params:{
-    baseConfig: baseConfigSecondary
+    baseConfig: baseConfigWestUS
     domainConfig: domainConfig
-    config: configSecondary
-    extHub1Config: configPrimary
-    extHub2Config: configTertiary
+    config: configWestUS
+    extHub1Config: configEastUS
+    extHub2Config: configSouthCentralUS
     deploySpokeWorkloadVMs: deploySpokeVMs
   }
 }
 
-module tertiarySecuredNetworkDeployment './modules/blueprint.bicep' = if (deployTertiary) {
-  name: 'deploy-tertiary-secured-network'
-  scope: resourceGroup(configTertiary.rg.name)
-  dependsOn: [ tertiarySecuredRG ]
+module southcentralusSecuredNetworkDeployment './modules/blueprint.bicep' = if (deploySouthCentralUS) {
+  name: 'deploy-southcentralus-secured-network'
+  scope: resourceGroup(configSouthCentralUS.rg.name)
+  dependsOn: [ southcentralusSecuredRG ]
   params:{
-    baseConfig: baseConfigTertiary
+    baseConfig: baseConfigSouthCentralUS
     domainConfig: domainConfig
-    config: configTertiary
-    extHub1Config: configPrimary
-    extHub2Config: configSecondary
+    config: configSouthCentralUS
+    extHub1Config: configEastUS
+    extHub2Config: configWestUS
     deploySpokeWorkloadVMs: deploySpokeVMs
   }
 }
 
 // inter hub route tables
 
-module primaryInterHubRouteTableDeployment './modules/hub-rt.bicep' = {
-  name: 'deploy-primary-fw-subnet-interhub-rt'
-  scope: resourceGroup(baseConfigPrimary.rg.name)
-  dependsOn: [ primarySecuredNetworkDeployment ]
+module eastusInterHubRouteTableDeployment './modules/hub-rt.bicep' = {
+  name: 'deploy-eastus-fw-subnet-interhub-rt'
+  scope: resourceGroup(baseConfigEastUS.rg.name)
+  dependsOn: [ eastusSecuredNetworkDeployment ]
   params:{
-    baseConfig: baseConfigPrimary
-    config: configPrimary
-    extHub1Config: configSecondary
-    extHub1FWPvtIpAddress: secondarySecuredNetworkDeployment.outputs.hubFWPvtIPAddress
-    extHub2Config: configTertiary
-    extHub2FWPvtIpAddress: tertiarySecuredNetworkDeployment.outputs.hubFWPvtIPAddress
+    baseConfig: baseConfigEastUS
+    config: configEastUS
+    extHub1Config: configWestUS
+    extHub1FWPvtIpAddress: westusSecuredNetworkDeployment.outputs.hubFWPvtIPAddress
+    extHub2Config: configSouthCentralUS
+    extHub2FWPvtIpAddress: southcentralusSecuredNetworkDeployment.outputs.hubFWPvtIPAddress
   }
 }
 
-module primaryHubRTAttachment './modules/hub-rt-attachment.bicep' = {
-  name: 'deploy-primary-fw-subnet-interhub-rt-attachment'
-  scope: resourceGroup(baseConfigPrimary.rg.name)
-  dependsOn: [ primaryInterHubRouteTableDeployment ]
+module eastusHubRTAttachment './modules/hub-rt-attachment.bicep' = {
+  name: 'deploy-eastus-fw-subnet-interhub-rt-attachment'
+  scope: resourceGroup(baseConfigEastUS.rg.name)
+  dependsOn: [ eastusInterHubRouteTableDeployment ]
   params:{
-    baseConfig: baseConfigPrimary
-    interHubRouteTableId: primaryInterHubRouteTableDeployment.outputs.id
+    baseConfig: baseConfigEastUS
+    interHubRouteTableId: eastusInterHubRouteTableDeployment.outputs.id
   }
 }
 
-module secondaryInterHubRouteTableDeployment './modules/hub-rt.bicep' = if (deploySecondary) {
-  name: 'deploy-secondary-fw-subnet-interhub-rt'
-  scope: resourceGroup(baseConfigSecondary.rg.name)
-  dependsOn: [ secondarySecuredNetworkDeployment ]
+module westusInterHubRouteTableDeployment './modules/hub-rt.bicep' = if (deployWestUS) {
+  name: 'deploy-westus-fw-subnet-interhub-rt'
+  scope: resourceGroup(baseConfigWestUS.rg.name)
+  dependsOn: [ westusSecuredNetworkDeployment ]
   params:{
-    baseConfig: baseConfigSecondary
-    config: configSecondary
-    extHub1Config: configPrimary
-    extHub1FWPvtIpAddress: primarySecuredNetworkDeployment.outputs.hubFWPvtIPAddress
-    extHub2Config: configTertiary
-    extHub2FWPvtIpAddress: tertiarySecuredNetworkDeployment.outputs.hubFWPvtIPAddress
+    baseConfig: baseConfigWestUS
+    config: configWestUS
+    extHub1Config: configEastUS
+    extHub1FWPvtIpAddress: eastusSecuredNetworkDeployment.outputs.hubFWPvtIPAddress
+    extHub2Config: configSouthCentralUS
+    extHub2FWPvtIpAddress: southcentralusSecuredNetworkDeployment.outputs.hubFWPvtIPAddress
   }
 }
 
-module secondaryHubRTAttachment './modules/hub-rt-attachment.bicep' = if (deploySecondary) {
-  name: 'deploy-secondary-fw-subnet-interhub-rt-attachment'
-  scope: resourceGroup(baseConfigSecondary.rg.name)
-  dependsOn: [ secondaryInterHubRouteTableDeployment ]
+module westusHubRTAttachment './modules/hub-rt-attachment.bicep' = if (deployWestUS) {
+  name: 'deploy-westus-fw-subnet-interhub-rt-attachment'
+  scope: resourceGroup(baseConfigWestUS.rg.name)
+  dependsOn: [ westusInterHubRouteTableDeployment ]
   params:{
-    baseConfig: baseConfigSecondary
-    interHubRouteTableId: secondaryInterHubRouteTableDeployment.outputs.id
+    baseConfig: baseConfigWestUS
+    interHubRouteTableId: westusInterHubRouteTableDeployment.outputs.id
   }
 }
 
-module tertiaryInterHubRouteTableDeployment './modules/hub-rt.bicep' = if (deployTertiary) {
-  name: 'deploy-tertiary-fw-subnet-interhub-rt'
-  scope: resourceGroup(baseConfigTertiary.rg.name)
-  dependsOn: [ tertiarySecuredNetworkDeployment ]
+module southcentralusInterHubRouteTableDeployment './modules/hub-rt.bicep' = if (deploySouthCentralUS) {
+  name: 'deploy-southcentralus-fw-subnet-interhub-rt'
+  scope: resourceGroup(baseConfigSouthCentralUS.rg.name)
+  dependsOn: [ southcentralusSecuredNetworkDeployment ]
   params:{
-    baseConfig: baseConfigTertiary
-    config: configTertiary
-    extHub1Config: configPrimary
-    extHub1FWPvtIpAddress: primarySecuredNetworkDeployment.outputs.hubFWPvtIPAddress
-    extHub2Config: configSecondary
-    extHub2FWPvtIpAddress: secondarySecuredNetworkDeployment.outputs.hubFWPvtIPAddress
+    baseConfig: baseConfigSouthCentralUS
+    config: configSouthCentralUS
+    extHub1Config: configEastUS
+    extHub1FWPvtIpAddress: eastusSecuredNetworkDeployment.outputs.hubFWPvtIPAddress
+    extHub2Config: configWestUS
+    extHub2FWPvtIpAddress: westusSecuredNetworkDeployment.outputs.hubFWPvtIPAddress
   }
 }
 
 
-module tertiaryHubRTAttachment './modules/hub-rt-attachment.bicep' = if (deployTertiary) {
-  name: 'deploy-tertiary-fw-subnet-interhub-rt-attachment'
-  scope: resourceGroup(baseConfigTertiary.rg.name)
-  dependsOn: [ tertiaryInterHubRouteTableDeployment ]
+module southcentralusHubRTAttachment './modules/hub-rt-attachment.bicep' = if (deploySouthCentralUS) {
+  name: 'deploy-southcentralus-fw-subnet-interhub-rt-attachment'
+  scope: resourceGroup(baseConfigSouthCentralUS.rg.name)
+  dependsOn: [ southcentralusInterHubRouteTableDeployment ]
   params:{
-    baseConfig: baseConfigTertiary
-    interHubRouteTableId: tertiaryInterHubRouteTableDeployment.outputs.id
+    baseConfig: baseConfigSouthCentralUS
+    interHubRouteTableId: southcentralusInterHubRouteTableDeployment.outputs.id
   }
 }

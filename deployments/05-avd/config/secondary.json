@@ -1,5 +1,5 @@
 {
-    "deploymentName": "secondary",
+    "deploymentName": "westus",
     "avd": {
         "hostPool": {
             "type": "Personal",

@@ -10,29 +10,29 @@
 
 // -------------------------
 
-var deploySecondary = false
-var deployTertiary = false
+var deployWestUS = false
+var deploySouthCentralUS = false
 
 // =========================
 
 
 
-var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
-var baseConfigSecondary = loadJsonContent('../../base/config/base-secondary.json')
-var baseConfigTertiary = loadJsonContent('../../base/config/base-tertiary.json')
+var baseConfigEastUS = loadJsonContent('../../base/config/base-eastus.json')
+var baseConfigWestUS = loadJsonContent('../../base/config/base-westus.json')
+var baseConfigSouthCentralUS = loadJsonContent('../../base/config/base-southcentralus.json')
 
 var domainConfig = loadJsonContent('../../base/config/domain.json')
 
 // vms
 
-module primaryDMZVM '../../modules/vm.bicep' = {
-  name: 'deploy-primary-hub-dmz-vm'
-  scope: resourceGroup(baseConfigPrimary.rg.name)
+module eastusDMZVM '../../modules/vm.bicep' = {
+  name: 'deploy-eastus-hub-dmz-vm'
+  scope: resourceGroup(baseConfigEastUS.rg.name)
   params: {
-    vNetName: baseConfigPrimary.hub.name
-    sNetName: baseConfigPrimary.hub.subnets.aaddsSubnet.name
-    location: baseConfigPrimary.rg.location
-    vmName: 'aadds-proxy-vm1' // maxlength = 15
+    vNetName: baseConfigEastUS.hub.name
+    sNetName: baseConfigEastUS.hub.subnets.aaddsSubnet.name
+    location: baseConfigEastUS.rg.location
+    vmName: 'eastus-dmz-vm1' // maxlength = 15
     adminUsername: domainConfig.localVMAdminUsername
     adminPassword: domainConfig.defaultPassword
     networkJoin: 'None'
@@ -43,14 +43,14 @@ module primaryDMZVM '../../modules/vm.bicep' = {
   }
 }
 
-module secondaryDMZVM '../../modules/vm.bicep' = if (deploySecondary) {
-  name: 'deploy-secondary-hub-dmz-vm'
-  scope: resourceGroup(baseConfigSecondary.rg.name)
+module westusDMZVM '../../modules/vm.bicep' = if (deployWestUS) {
+  name: 'deploy-westus-hub-dmz-vm'
+  scope: resourceGroup(baseConfigWestUS.rg.name)
   params: {
-    vNetName: baseConfigSecondary.hub.name
-    sNetName: baseConfigSecondary.hub.subnets.dmzSubnet.name
-    location: baseConfigSecondary.rg.location
-    vmName: 'sec-dmz-vm1' // maxlength = 15
+    vNetName: baseConfigWestUS.hub.name
+    sNetName: baseConfigWestUS.hub.subnets.dmzSubnet.name
+    location: baseConfigWestUS.rg.location
+    vmName: 'westus-dmz-vm1' // maxlength = 15
     adminUsername: domainConfig.localVMAdminUsername
     adminPassword: domainConfig.defaultPassword
     networkJoin: 'AD'
@@ -61,14 +61,14 @@ module secondaryDMZVM '../../modules/vm.bicep' = if (deploySecondary) {
   }
 }
 
-module tertiaryDMZVM '../../modules/vm.bicep' = if (deployTertiary) {
-  name: 'deploy-tertiary-hub-dmz-vm'
-  scope: resourceGroup(baseConfigTertiary.rg.name)
+module southcentralusDMZVM '../../modules/vm.bicep' = if (deploySouthCentralUS) {
+  name: 'deploy-southcentralus-hub-dmz-vm'
+  scope: resourceGroup(baseConfigSouthCentralUS.rg.name)
   params: {
-    vNetName: baseConfigTertiary.hub.name
-    sNetName: baseConfigTertiary.hub.subnets.dmzSubnet.name
-    location: baseConfigTertiary.rg.location
-    vmName: 'ter-dmz-vm1' // maxlength = 15
+    vNetName: baseConfigSouthCentralUS.hub.name
+    sNetName: baseConfigSouthCentralUS.hub.subnets.dmzSubnet.name
+    location: baseConfigSouthCentralUS.rg.location
+    vmName: 'scus-dmz-vm1' // maxlength = 15
     adminUsername: domainConfig.localVMAdminUsername
     adminPassword: domainConfig.defaultPassword
     networkJoin: 'AD'

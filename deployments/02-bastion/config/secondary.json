@@ -1,9 +1,0 @@
-{
-    "deploymentName": "secondary",
-    "pip": {
-        "name":"secondary-bastion-pip"
-    },
-    "host": {
-        "name": "secondary-bastion"
-    }
-}

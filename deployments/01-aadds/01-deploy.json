@@ -4,23 +4,23 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.28.1.47646",
-      "templateHash": "16649954243134530441"
+      "version": "0.33.93.31351",
+      "templateHash": "820872703783345006"
     }
   },
   "variables": {
     "$fxv#0": {
-      "deploymentName": "primary",
+      "deploymentName": "eastus",
       "addressPrefix": "10.1.0.0/16",
       "rg": {
-        "name": "ubhims-primary-rg",
+        "name": "ubhims-eastus-rg",
         "location": "eastus"
       },
       "nsg": {
-        "name": "default-nsg"
+        "name": "ubhims-eastus-default-nsg"
       },
       "hub": {
-        "name": "primary-hub-vnet",
+        "name": "ubhims-eastus-hub-vnet",
         "addressPrefixes": [
           "10.1.0.0/20"
         ],
@@ -62,17 +62,17 @@
       }
     },
     "$fxv#1": {
-      "deploymentName": "secondary",
+      "deploymentName": "westus",
       "addressPrefix": "10.2.0.0/16",
       "rg": {
-        "name": "ubhims-secondary-rg",
+        "name": "ubhims-westus-rg",
         "location": "westus"
       },
       "nsg": {
-        "name": "default-nsg"
+        "name": "ubhims-westus-default-nsg"
       },
       "hub": {
-        "name": "secondary-hub-vnet",
+        "name": "ubhims-westus-hub-vnet",
         "addressPrefixes": [
           "10.2.0.0/20"
         ],
@@ -114,17 +114,17 @@
       }
     },
     "$fxv#2": {
-      "deploymentName": "tertiary",
+      "deploymentName": "southcentralus",
       "addressPrefix": "10.3.0.0/16",
       "rg": {
-        "name": "ubhims-tertiary-rg",
+        "name": "ubhims-southcentralus-rg",
         "location": "southcentralus"
       },
       "nsg": {
-        "name": "default-nsg"
+        "name": "ubhims-southcentralus-default-nsg"
       },
       "hub": {
-        "name": "tertiary-hub-vnet",
+        "name": "ubhims-southcentralus-hub-vnet",
         "addressPrefixes": [
           "10.3.0.0/20"
         ],
@@ -167,11 +167,11 @@
     },
     "$fxv#3": {
       "rg": {
-        "name": "ubhims-primary-rg",
+        "name": "ubhims-eastus-rg",
         "location": "eastus"
       },
       "nsg": {
-        "name": "aadds-nsg"
+        "name": "ubhims-eastus-aadds-nsg"
       },
       "notificationRecipients": [
         "tubhi@microsoft.com"
@@ -217,9 +217,9 @@
       "defaultPassword": "CoolBicep!1@2",
       "defaultEmail": "tubhi@microsoft.com"
     },
-    "baseConfigPrimary": "[variables('$fxv#0')]",
-    "baseConfigSecondary": "[variables('$fxv#1')]",
-    "baseConfigTertiary": "[variables('$fxv#2')]",
+    "baseConfigEastUS": "[variables('$fxv#0')]",
+    "baseConfigWestUS": "[variables('$fxv#1')]",
+    "baseConfigSouthCentralUS": "[variables('$fxv#2')]",
     "aaddsConfig": "[variables('$fxv#3')]",
     "domainConfig": "[variables('$fxv#4')]"
   },
@@ -246,8 +246,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.28.1.47646",
-              "templateHash": "5757063864965512468"
+              "version": "0.33.93.31351",
+              "templateHash": "18402624017903101109"
             }
           },
           "parameters": {
@@ -301,8 +301,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.28.1.47646",
-              "templateHash": "7098953928263651533"
+              "version": "0.33.93.31351",
+              "templateHash": "12212520587122376218"
             }
           },
           "parameters": {
@@ -367,8 +367,8 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "deploy-primary-hub-aadds-subnet-nsg-update",
-      "resourceGroup": "[variables('baseConfigPrimary').rg.name]",
+      "name": "deploy-eastus-hub-aadds-subnet-nsg-update",
+      "resourceGroup": "[variables('baseConfigEastUS').rg.name]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -376,13 +376,13 @@
         "mode": "Incremental",
         "parameters": {
           "config": {
-            "value": "[variables('baseConfigPrimary')]"
+            "value": "[variables('baseConfigEastUS')]"
           },
           "aaadsNsgId": {
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds-nsg'), '2022-09-01').outputs.id.value]"
           },
           "dmzNsgId": {
-            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigPrimary').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigPrimary').nsg.name)]"
+            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigEastUS').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigEastUS').nsg.name)]"
           }
         },
         "template": {
@@ -391,8 +391,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.28.1.47646",
-              "templateHash": "7143646752320845266"
+              "version": "0.33.93.31351",
+              "templateHash": "16272383203417301487"
             }
           },
           "parameters": {
@@ -510,7 +510,7 @@
         "mode": "Incremental",
         "parameters": {
           "baseConfig": {
-            "value": "[variables('baseConfigPrimary')]"
+            "value": "[variables('baseConfigEastUS')]"
           },
           "domainConfig": {
             "value": "[variables('domainConfig')]"
@@ -519,7 +519,7 @@
             "value": "[variables('aaddsConfig')]"
           },
           "aaddsSubnetId": {
-            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigPrimary').rg.name), 'Microsoft.Network/virtualNetworks/subnets', variables('baseConfigPrimary').hub.name, variables('baseConfigPrimary').hub.subnets.aaddsSubnet.name)]"
+            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigEastUS').rg.name), 'Microsoft.Network/virtualNetworks/subnets', variables('baseConfigEastUS').hub.name, variables('baseConfigEastUS').hub.subnets.aaddsSubnet.name)]"
           }
         },
         "template": {
@@ -528,8 +528,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.28.1.47646",
-              "templateHash": "8577898321771737217"
+              "version": "0.33.93.31351",
+              "templateHash": "5324410294371878954"
             }
           },
           "parameters": {
@@ -597,8 +597,8 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "deploy-primary-hub-update",
-      "resourceGroup": "[variables('baseConfigPrimary').rg.name]",
+      "name": "deploy-eastus-hub-update",
+      "resourceGroup": "[variables('baseConfigEastUS').rg.name]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -606,7 +606,7 @@
         "mode": "Incremental",
         "parameters": {
           "config": {
-            "value": "[variables('baseConfigPrimary')]"
+            "value": "[variables('baseConfigEastUS')]"
           },
           "dnsServerIps": {
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds'), '2022-09-01').outputs.aaddsServerIps.value]"
@@ -615,7 +615,7 @@
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds-nsg'), '2022-09-01').outputs.id.value]"
           },
           "dmzNsgId": {
-            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigPrimary').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigPrimary').nsg.name)]"
+            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigEastUS').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigEastUS').nsg.name)]"
           }
         },
         "template": {
@@ -624,8 +624,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.28.1.47646",
-              "templateHash": "7143646752320845266"
+              "version": "0.33.93.31351",
+              "templateHash": "16272383203417301487"
             }
           },
           "parameters": {
@@ -735,8 +735,8 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "deploy-secondary-hub-update",
-      "resourceGroup": "[variables('baseConfigSecondary').rg.name]",
+      "name": "deploy-westus-hub-update",
+      "resourceGroup": "[variables('baseConfigWestUS').rg.name]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -744,13 +744,13 @@
         "mode": "Incremental",
         "parameters": {
           "config": {
-            "value": "[variables('baseConfigSecondary')]"
+            "value": "[variables('baseConfigWestUS')]"
           },
           "dnsServerIps": {
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds'), '2022-09-01').outputs.aaddsServerIps.value]"
           },
           "dmzNsgId": {
-            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigSecondary').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigSecondary').nsg.name)]"
+            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigWestUS').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigWestUS').nsg.name)]"
           }
         },
         "template": {
@@ -759,8 +759,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.28.1.47646",
-              "templateHash": "7143646752320845266"
+              "version": "0.33.93.31351",
+              "templateHash": "16272383203417301487"
             }
           },
           "parameters": {
@@ -869,8 +869,8 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "deploy-tertiary-hub-update",
-      "resourceGroup": "[variables('baseConfigTertiary').rg.name]",
+      "name": "deploy-southcentralus-hub-update",
+      "resourceGroup": "[variables('baseConfigSouthCentralUS').rg.name]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -878,13 +878,13 @@
         "mode": "Incremental",
         "parameters": {
           "config": {
-            "value": "[variables('baseConfigTertiary')]"
+            "value": "[variables('baseConfigSouthCentralUS')]"
           },
           "dnsServerIps": {
             "value": "[reference(extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('aaddsConfig').rg.name), 'Microsoft.Resources/deployments', 'deploy-aadds'), '2022-09-01').outputs.aaddsServerIps.value]"
           },
           "dmzNsgId": {
-            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigTertiary').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigTertiary').nsg.name)]"
+            "value": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, variables('baseConfigSouthCentralUS').rg.name), 'Microsoft.Network/networkSecurityGroups', variables('baseConfigSouthCentralUS').nsg.name)]"
           }
         },
         "template": {
@@ -893,8 +893,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.28.1.47646",
-              "templateHash": "7143646752320845266"
+              "version": "0.33.93.31351",
+              "templateHash": "16272383203417301487"
             }
           },
           "parameters": {

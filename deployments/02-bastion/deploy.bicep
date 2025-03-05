@@ -2,46 +2,46 @@
 
 // -------------------------
 
-var deploySecondary = false
-var deployTertiary = false
+var deployWestUS = true
+var deploySouthCentralUS = true
 
 // =========================
 
 
 
-var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
-var baseConfigSecondary = loadJsonContent('../../base/config/base-secondary.json')
-var baseConfigTertiary = loadJsonContent('../../base/config/base-tertiary.json')
+var baseConfigEastUS = loadJsonContent('../../base/config/base-eastus.json')
+var baseConfigWestUS = loadJsonContent('../../base/config/base-westus.json')
+var baseConfigSouthCentralUS = loadJsonContent('../../base/config/base-southcentralus.json')
 
-var configPrimary = loadJsonContent('./config/primary.json')
-var configSecondary = loadJsonContent('./config/secondary.json')
-var configTertiary = loadJsonContent('./config/tertiary.json')
+var configEastUS = loadJsonContent('./config/eastus.json')
+var configWestUS = loadJsonContent('./config/westus.json')
+var configSouthCentralUS = loadJsonContent('./config/southcentralus.json')
 
 // resource groups
 
-module primaryBastion './modules/bastion.bicep' = {
-  name: 'deploy-primary-bastion'
-  scope: resourceGroup(baseConfigPrimary.rg.name)
+module eastusBastion './modules/bastion.bicep' = {
+  name: 'deploy-eastus-bastion'
+  scope: resourceGroup(baseConfigEastUS.rg.name)
   params: {
-    baseConfig: baseConfigPrimary
-    config: configPrimary
+    baseConfig: baseConfigEastUS
+    config: configEastUS
   }
 }
 
-module secondaryBastion './modules/bastion.bicep' = if (deploySecondary) {
-  name: 'deploy-secondary-bastion'
-  scope: resourceGroup(baseConfigSecondary.rg.name)
+module westusBastion './modules/bastion.bicep' = if (deployWestUS) {
+  name: 'deploy-westus-bastion'
+  scope: resourceGroup(baseConfigWestUS.rg.name)
   params: {
-    baseConfig: baseConfigSecondary
-    config: configSecondary
+    baseConfig: baseConfigWestUS
+    config: configWestUS
   }
 }
 
-module tertiaryBastion './modules/bastion.bicep' = if (deployTertiary) {
-  name: 'deploy-tertiary-bastion'
-  scope: resourceGroup(baseConfigTertiary.rg.name)
+module southcentralusBastion './modules/bastion.bicep' = if (deploySouthCentralUS) {
+  name: 'deploy-southcentralus-bastion'
+  scope: resourceGroup(baseConfigSouthCentralUS.rg.name)
   params: {
-    baseConfig: baseConfigTertiary
-    config: configTertiary
+    baseConfig: baseConfigSouthCentralUS
+    config: configSouthCentralUS
   }
 }

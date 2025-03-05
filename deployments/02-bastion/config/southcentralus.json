@@ -1,0 +1,9 @@
+{
+    "deploymentName": "southcentralus",
+    "pip": {
+        "name":"southcentralus-bastion-pip"
+    },
+    "host": {
+        "name": "southcentralus-bastion"
+    }
+}

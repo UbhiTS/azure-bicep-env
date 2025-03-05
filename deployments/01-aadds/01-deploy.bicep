@@ -23,37 +23,37 @@
 // Either expire the passwords for all cloud users in the tenant who need to use Azure AD DS, which forces a password change on next sign-in, or instruct cloud users to manually change their passwords.
 
 
-var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
-var baseConfigSecondary = loadJsonContent('../../base/config/base-secondary.json')
-var baseConfigTertiary = loadJsonContent('../../base/config/base-tertiary.json')
+var baseConfigEastUS = loadJsonContent('../../base/config/base-eastus.json')
+var baseConfigWestUS = loadJsonContent('../../base/config/base-westus.json')
+var baseConfigSouthCentralUS = loadJsonContent('../../base/config/base-southcentralus.json')
 
 var aaddsConfig = loadJsonContent('../../base/config/aadds.json')
 var domainConfig = loadJsonContent('../../base/config/domain.json')
 
 
-resource primaryHub 'Microsoft.Network/virtualNetworks@2022-01-01' existing = {
-  name: baseConfigPrimary.hub.name
-  scope: resourceGroup(baseConfigPrimary.rg.name)
+resource eastusHub 'Microsoft.Network/virtualNetworks@2022-01-01' existing = {
+  name: baseConfigEastUS.hub.name
+  scope: resourceGroup(baseConfigEastUS.rg.name)
 }
 
-resource primaryHubAAADSSubnet 'Microsoft.Network/virtualNetworks/subnets@2022-01-01' existing = {
-  name: baseConfigPrimary.hub.subnets.aaddsSubnet.name
-  parent: primaryHub
+resource eastusHubAAADSSubnet 'Microsoft.Network/virtualNetworks/subnets@2022-01-01' existing = {
+  name: baseConfigEastUS.hub.subnets.aaddsSubnet.name
+  parent: eastusHub
 }
 
-resource primaryDefaultNSG 'Microsoft.Network/networkSecurityGroups@2021-02-01' existing = {
-  name: baseConfigPrimary.nsg.name
-  scope: resourceGroup(baseConfigPrimary.rg.name)
+resource eastusDefaultNSG 'Microsoft.Network/networkSecurityGroups@2021-02-01' existing = {
+  name: baseConfigEastUS.nsg.name
+  scope: resourceGroup(baseConfigEastUS.rg.name)
 }
 
-resource secondaryDefaultNSG 'Microsoft.Network/networkSecurityGroups@2021-02-01' existing = {
-  name: baseConfigSecondary.nsg.name
-  scope: resourceGroup(baseConfigSecondary.rg.name)
+resource westusDefaultNSG 'Microsoft.Network/networkSecurityGroups@2021-02-01' existing = {
+  name: baseConfigWestUS.nsg.name
+  scope: resourceGroup(baseConfigWestUS.rg.name)
 }
 
-resource tertiaryDefaultNSG 'Microsoft.Network/networkSecurityGroups@2021-02-01' existing = {
-  name: baseConfigTertiary.nsg.name
-  scope: resourceGroup(baseConfigTertiary.rg.name)
+resource southcentralusDefaultNSG 'Microsoft.Network/networkSecurityGroups@2021-02-01' existing = {
+  name: baseConfigSouthCentralUS.nsg.name
+  scope: resourceGroup(baseConfigSouthCentralUS.rg.name)
 }
 
 module aaddsRG '../../modules/rg.bicep' = {
@@ -73,14 +73,14 @@ module aaddsNSG './modules/nsg-aadds.bicep' = {
   }
 }
 
-module primaryHubAADDSSubnetNSGUpdate '../../modules/hub.bicep' = {
-  name: 'deploy-primary-hub-aadds-subnet-nsg-update'
-  scope: resourceGroup(baseConfigPrimary.rg.name)
+module eastusHubAADDSSubnetNSGUpdate '../../modules/hub.bicep' = {
+  name: 'deploy-eastus-hub-aadds-subnet-nsg-update'
+  scope: resourceGroup(baseConfigEastUS.rg.name)
   dependsOn: [ aaddsNSG ]
   params:{
-    config: baseConfigPrimary
+    config: baseConfigEastUS
     aaadsNsgId: aaddsNSG.outputs.id
-    dmzNsgId: primaryDefaultNSG.id
+    dmzNsgId: eastusDefaultNSG.id
   }
 }
 
@@ -89,43 +89,43 @@ module aadds './modules/aadds.bicep' = {
   scope: resourceGroup(aaddsConfig.rg.name)
   dependsOn: [ aaddsNSG ]
   params:{
-    baseConfig: baseConfigPrimary
+    baseConfig: baseConfigEastUS
     domainConfig: domainConfig
     aaddsConfig: aaddsConfig
-    aaddsSubnetId: primaryHubAAADSSubnet.id
+    aaddsSubnetId: eastusHubAAADSSubnet.id
   }
 }
 
-module primaryHubDNSNSGUpdate '../../modules/hub.bicep' = {
-  name: 'deploy-primary-hub-update'
-  scope: resourceGroup(baseConfigPrimary.rg.name)
+module eastusHubDNSNSGUpdate '../../modules/hub.bicep' = {
+  name: 'deploy-eastus-hub-update'
+  scope: resourceGroup(baseConfigEastUS.rg.name)
   dependsOn: [ aadds ]
   params:{
-    config: baseConfigPrimary
+    config: baseConfigEastUS
     dnsServerIps: aadds.outputs.aaddsServerIps
     aaadsNsgId: aaddsNSG.outputs.id
-    dmzNsgId: primaryDefaultNSG.id
+    dmzNsgId: eastusDefaultNSG.id
   }
 }
 
-module secondaryHubDNSNSGUpdate '../../modules/hub.bicep' = {
-  name: 'deploy-secondary-hub-update'
-  scope: resourceGroup(baseConfigSecondary.rg.name)
+module westusHubDNSNSGUpdate '../../modules/hub.bicep' = {
+  name: 'deploy-westus-hub-update'
+  scope: resourceGroup(baseConfigWestUS.rg.name)
   dependsOn: [ aadds ]
   params:{
-    config: baseConfigSecondary
+    config: baseConfigWestUS
     dnsServerIps: aadds.outputs.aaddsServerIps
-    dmzNsgId: secondaryDefaultNSG.id
+    dmzNsgId: westusDefaultNSG.id
   }
 }
 
-module tertiaryHubDNSNSGUpdate '../../modules/hub.bicep' = {
-  name: 'deploy-tertiary-hub-update'
-  scope: resourceGroup(baseConfigTertiary.rg.name)
+module southcentralusHubDNSNSGUpdate '../../modules/hub.bicep' = {
+  name: 'deploy-southcentralus-hub-update'
+  scope: resourceGroup(baseConfigSouthCentralUS.rg.name)
   dependsOn: [ aadds ]
   params:{
-    config: baseConfigTertiary
+    config: baseConfigSouthCentralUS
     dnsServerIps: aadds.outputs.aaddsServerIps
-    dmzNsgId: tertiaryDefaultNSG.id
+    dmzNsgId: southcentralusDefaultNSG.id
   }
 }

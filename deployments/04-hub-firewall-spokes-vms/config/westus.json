@@ -1,12 +1,12 @@
 {
-    "deploymentName": "secondary",
+    "deploymentName": "westus",
     "rg": {
-        "name": "ubhims-secondary-workload-rg",
+        "name": "ubhims-westus-workload-rg",
         "location": "westus"
     },
     "spokes": {
         "spoke1": {
-            "name": "spoke1-secure-vnet",
+            "name": "westus-spoke1-secure-vnet",
             "addressPrefix": "10.2.24.0/23",
             "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.2.24.0/24",
@@ -15,7 +15,7 @@
         },
 
         "spoke2": {
-            "name": "spoke2-secure-vnet",
+            "name": "westus-spoke2-secure-vnet",
             "addressPrefix": "10.2.26.0/23",
             "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.2.26.0/24",
@@ -25,10 +25,10 @@
     },
     "firewall": {
         "pip": {
-            "name":"secondary-fw-pip"
+            "name":"westus-fw-pip"
         },
         "firewall": {
-            "name": "secondary-fw"
+            "name": "westus-fw"
         }
     }
 }

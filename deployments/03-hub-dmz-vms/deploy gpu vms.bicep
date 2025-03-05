@@ -10,29 +10,29 @@
 
 // -------------------------
 
-var deployPrimary = true
-var deploySecondary = true
-var deployTertiary = true
+var deployEastUS = true
+var deployWestUS = true
+var deploySouthCentralUS = true
 
 // =========================
 
 
 
-var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
-var baseConfigSecondary = loadJsonContent('../../base/config/base-secondary.json')
-var baseConfigTertiary = loadJsonContent('../../base/config/base-tertiary.json')
+var baseConfigEastUS = loadJsonContent('../../base/config/base-eastus.json')
+var baseConfigWestUS = loadJsonContent('../../base/config/base-westus.json')
+var baseConfigSouthCentralUS = loadJsonContent('../../base/config/base-southcentralus.json')
 
 var domainConfig = loadJsonContent('../../base/config/domain.json')
 
 // vms
 
-module secondaryNVv3DMZVM '../../modules/vm.bicep' = if (deploySecondary) {
-  name: 'deploy-secondary-nvv3-hub-dmz-vm'
-  scope: resourceGroup(baseConfigSecondary.rg.name)
+module westusNVv3DMZVM '../../modules/vm.bicep' = if (deployWestUS) {
+  name: 'deploy-westus-nvv3-hub-dmz-vm'
+  scope: resourceGroup(baseConfigWestUS.rg.name)
   params: {
-    vNetName: baseConfigSecondary.hub.name
-    sNetName: baseConfigSecondary.hub.subnets.dmzSubnet.name
-    location: baseConfigSecondary.rg.location
+    vNetName: baseConfigWestUS.hub.name
+    sNetName: baseConfigWestUS.hub.subnets.dmzSubnet.name
+    location: baseConfigWestUS.rg.location
     vmName: 'sec-dmz-gpu-vm1' // maxlength = 15
     vmSize: 'Standard_NV12s_v3'
     networkJoin: 'AD'
@@ -45,13 +45,13 @@ module secondaryNVv3DMZVM '../../modules/vm.bicep' = if (deploySecondary) {
   }
 }
 
-module secondaryNVv4DMZVM '../../modules/vm.bicep' = if (deploySecondary) {
-  name: 'deploy-secondary-nvv4-hub-dmz-vm'
-  scope: resourceGroup(baseConfigSecondary.rg.name)
+module westusNVv4DMZVM '../../modules/vm.bicep' = if (deployWestUS) {
+  name: 'deploy-westus-nvv4-hub-dmz-vm'
+  scope: resourceGroup(baseConfigWestUS.rg.name)
   params: {
-    vNetName: baseConfigSecondary.hub.name
-    sNetName: baseConfigSecondary.hub.subnets.dmzSubnet.name
-    location: baseConfigSecondary.rg.location
+    vNetName: baseConfigWestUS.hub.name
+    sNetName: baseConfigWestUS.hub.subnets.dmzSubnet.name
+    location: baseConfigWestUS.rg.location
     vmName: 'sec-dmz-gpu-vm2' // maxlength = 15
     vmSize: 'Standard_NV32as_v4'
     networkJoin: 'AD'
@@ -64,13 +64,13 @@ module secondaryNVv4DMZVM '../../modules/vm.bicep' = if (deploySecondary) {
   }
 }
 
-// module tertiaryNVA10v5DMZVM '../../modules/vm.bicep' = if (deployTertiary) {
-//   name: 'deploy-tertiary-nv10v5-hub-dmz-vm'
-//   scope: resourceGroup(baseConfigTertiary.rg.name)
+// module southcentralusNVA10v5DMZVM '../../modules/vm.bicep' = if (deploySouthCentralUS) {
+//   name: 'deploy-southcentralus-nv10v5-hub-dmz-vm'
+//   scope: resourceGroup(baseConfigSouthCentralUS.rg.name)
 //   params: {
-//     vNetName: baseConfigTertiary.hub.name
-//     sNetName: baseConfigTertiary.hub.subnets.dmzSubnet.name
-//     location: baseConfigTertiary.rg.location
+//     vNetName: baseConfigSouthCentralUS.hub.name
+//     sNetName: baseConfigSouthCentralUS.hub.subnets.dmzSubnet.name
+//     location: baseConfigSouthCentralUS.rg.location
 //     vmName: 'ter-dmz-gpu-vm1' // maxlength = 15
 //     vmSize: 'Standard_NV36ads_A10_v5'
 //     networkJoin: 'AD'

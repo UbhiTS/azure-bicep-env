@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.26.54.24096",
-      "templateHash": "6817220826737638127"
+      "version": "0.33.13.18514",
+      "templateHash": "14894214595825530586"
     }
   },
   "variables": {
@@ -14,7 +14,7 @@
       "addressPrefix": "10.1.0.0/16",
       "rg": {
         "name": "ubhims-primary-rg",
-        "location": "westus2"
+        "location": "eastus"
       },
       "nsg": {
         "name": "default-nsg"
@@ -66,7 +66,7 @@
       "addressPrefix": "10.2.0.0/16",
       "rg": {
         "name": "ubhims-secondary-rg",
-        "location": "eastus2"
+        "location": "westus"
       },
       "nsg": {
         "name": "default-nsg"
@@ -234,7 +234,7 @@
             "value": "[variables('baseConfigPrimary').rg.location]"
           },
           "vmName": {
-            "value": "aadds-proxy-vm1"
+            "value": "pri-dmz-vm1"
           },
           "adminUsername": {
             "value": "[variables('domainConfig').localVMAdminUsername]"
@@ -264,8 +264,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.26.54.24096",
-              "templateHash": "6872845522402341420"
+              "version": "0.33.13.18514",
+              "templateHash": "9436978826895253842"
             }
           },
           "parameters": {
@@ -714,8 +714,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.26.54.24096",
-              "templateHash": "6872845522402341420"
+              "version": "0.33.13.18514",
+              "templateHash": "9436978826895253842"
             }
           },
           "parameters": {
@@ -1164,8 +1164,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.26.54.24096",
-              "templateHash": "6872845522402341420"
+              "version": "0.33.13.18514",
+              "templateHash": "9436978826895253842"
             }
           },
           "parameters": {

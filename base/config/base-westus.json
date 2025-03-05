@@ -1,15 +1,15 @@
 {
-    "deploymentName": "secondary",
+    "deploymentName": "westus",
     "addressPrefix": "10.2.0.0/16",
     "rg": {
-        "name": "ubhims-secondary-rg",
+        "name": "ubhims-westus-rg",
         "location": "westus"
     },
     "nsg": {
-        "name": "default-nsg"
+        "name": "ubhims-westus-default-nsg"
     },
     "hub": {
-        "name": "secondary-hub-vnet",
+        "name": "ubhims-westus-hub-vnet",
         "addressPrefixes": [ "10.2.0.0/20" ],
         "addressPrefixInfo": "https://jodies.de/ipcalc?host=10.2.0.0&mask1=20&mask2=",
         "subnets": {

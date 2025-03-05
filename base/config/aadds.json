@@ -1,10 +1,10 @@
 {
     "rg": {
-        "name":"ubhims-primary-rg",
+        "name":"ubhims-eastus-rg",
         "location":"eastus"
     },
     "nsg": {
-        "name":"aadds-nsg"
+        "name":"ubhims-eastus-aadds-nsg"
     },
     "notificationRecipients": [ "tubhi@microsoft.com" ]
 }

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.33.93.31351",
+      "templateHash": "18337427255382664859"
+    }
+  },
+  "parameters": {
+    "baseConfig": {
+      "type": "object"
+    },
+    "config": {
+      "type": "object"
+    }
+  },
+  "variables": {
+    "location": "[parameters('baseConfig').rg.location]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2020-08-01",
+      "name": "[parameters('config').pip.name]",
+      "location": "[variables('location')]",
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static"
+      }
+    },
+    {
+      "type": "Microsoft.Network/bastionHosts",
+      "apiVersion": "2020-06-01",
+      "name": "[parameters('config').host.name]",
+      "location": "[variables('location')]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "IpConf",
+            "properties": {
+              "subnet": {
+                "id": "[extensionResourceId(format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('baseConfig').rg.name), 'Microsoft.Network/virtualNetworks/subnets', parameters('baseConfig').hub.name, parameters('baseConfig').hub.subnets.azureBastionSubnet.name)]"
+              },
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('config').pip.name)]"
+              }
+            }
+          }
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', parameters('config').pip.name)]"
+      ]
+    }
+  ],
+  "outputs": {
+    "id": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Network/bastionHosts', parameters('config').host.name)]"
+    },
+    "name": {
+      "type": "string",
+      "value": "[parameters('config').host.name]"
+    }
+  }
+}
