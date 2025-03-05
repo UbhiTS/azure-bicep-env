@@ -1,9 +1,9 @@
 {
     "deploymentName": "southcentralus",
     "pip": {
-        "name":"southcentralus-bastion-pip"
+        "name":"ubhims-southcentralus-bastion-pip"
     },
     "host": {
-        "name": "southcentralus-bastion"
+        "name": "ubhims-southcentralus-bastion"
     }
 }

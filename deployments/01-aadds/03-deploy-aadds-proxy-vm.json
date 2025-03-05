@@ -4,23 +4,23 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.32.4.45862",
-      "templateHash": "11671805543218013969"
+      "version": "0.33.93.31351",
+      "templateHash": "4391979717298104094"
     }
   },
   "variables": {
     "$fxv#0": {
-      "deploymentName": "primary",
+      "deploymentName": "eastus",
       "addressPrefix": "10.1.0.0/16",
       "rg": {
-        "name": "ubhims-primary-rg",
+        "name": "ubhims-eastus-rg",
         "location": "eastus"
       },
       "nsg": {
-        "name": "default-nsg"
+        "name": "ubhims-eastus-default-nsg"
       },
       "hub": {
-        "name": "primary-hub-vnet",
+        "name": "ubhims-eastus-hub-vnet",
         "addressPrefixes": [
           "10.1.0.0/20"
         ],
@@ -101,15 +101,15 @@
       "defaultPassword": "CoolBicep!1@2",
       "defaultEmail": "tubhi@microsoft.com"
     },
-    "baseConfigPrimary": "[variables('$fxv#0')]",
+    "baseConfigEastUS": "[variables('$fxv#0')]",
     "domainConfig": "[variables('$fxv#1')]"
   },
   "resources": [
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2022-09-01",
-      "name": "deploy-primary-hub-aadds-proxy-vm",
-      "resourceGroup": "[variables('baseConfigPrimary').rg.name]",
+      "name": "deploy-eastus-hub-aadds-proxy-vm",
+      "resourceGroup": "[variables('baseConfigEastUS').rg.name]",
       "properties": {
         "expressionEvaluationOptions": {
           "scope": "inner"
@@ -117,13 +117,13 @@
         "mode": "Incremental",
         "parameters": {
           "vNetName": {
-            "value": "[variables('baseConfigPrimary').hub.name]"
+            "value": "[variables('baseConfigEastUS').hub.name]"
           },
           "sNetName": {
-            "value": "[variables('baseConfigPrimary').hub.subnets.aaddsSubnet.name]"
+            "value": "[variables('baseConfigEastUS').hub.subnets.aaddsSubnet.name]"
           },
           "location": {
-            "value": "[variables('baseConfigPrimary').rg.location]"
+            "value": "[variables('baseConfigEastUS').rg.location]"
           },
           "vmName": {
             "value": "aadds-proxy-vm"
@@ -156,8 +156,8 @@
           "metadata": {
             "_generator": {
               "name": "bicep",
-              "version": "0.32.4.45862",
-              "templateHash": "8353822837474924638"
+              "version": "0.33.93.31351",
+              "templateHash": "2702289742659053157"
             }
           },
           "parameters": {

@@ -23,7 +23,7 @@ var configSouthCentralUS = loadJsonContent('./config/southcentralus.json')
 // resource groups
 
 module eastusSecuredRG '../../modules/rg.bicep' = {
-  name: 'deploy-eastus-secured-rg'
+  name: 'deploy-eastus-spokes-rg'
   scope: subscription()
   params: {
     config: configEastUS
@@ -31,7 +31,7 @@ module eastusSecuredRG '../../modules/rg.bicep' = {
 }
 
 module westusSecuredRG '../../modules/rg.bicep' = if (deployWestUS) {
-  name: 'deploy-westus-secured-rg'
+  name: 'deploy-westus-spokes-rg'
   scope: subscription()
   params: {
     config: configWestUS
@@ -39,7 +39,7 @@ module westusSecuredRG '../../modules/rg.bicep' = if (deployWestUS) {
 }
 
 module southcentralusSecuredRG '../../modules/rg.bicep' = if (deploySouthCentralUS) {
-  name: 'deploy-southcentralus-secured-rg'
+  name: 'deploy-southcentralus-spokes-rg'
   scope: subscription()
   params: {
     config: configSouthCentralUS
@@ -49,7 +49,7 @@ module southcentralusSecuredRG '../../modules/rg.bicep' = if (deploySouthCentral
 // network - hub firewalls, secured spokes
 
 module eastusSecuredNetworkDeployment './modules/blueprint.bicep' = {
-  name: 'deploy-eastus-secured-network'
+  name: 'deploy-eastus-spokes-network'
   scope: resourceGroup(configEastUS.rg.name)
   dependsOn: [ eastusSecuredRG ]
   params:{
@@ -63,7 +63,7 @@ module eastusSecuredNetworkDeployment './modules/blueprint.bicep' = {
 }
 
 module westusSecuredNetworkDeployment './modules/blueprint.bicep' = if (deployWestUS) {
-  name: 'deploy-westus-secured-network'
+  name: 'deploy-westus-spokes-network'
   scope: resourceGroup(configWestUS.rg.name)
   dependsOn: [ westusSecuredRG ]
   params:{
@@ -77,7 +77,7 @@ module westusSecuredNetworkDeployment './modules/blueprint.bicep' = if (deployWe
 }
 
 module southcentralusSecuredNetworkDeployment './modules/blueprint.bicep' = if (deploySouthCentralUS) {
-  name: 'deploy-southcentralus-secured-network'
+  name: 'deploy-southcentralus-spokes-network'
   scope: resourceGroup(configSouthCentralUS.rg.name)
   dependsOn: [ southcentralusSecuredRG ]
   params:{

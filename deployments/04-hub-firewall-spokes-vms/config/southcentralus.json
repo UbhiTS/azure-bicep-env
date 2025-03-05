@@ -1,12 +1,12 @@
 {
     "deploymentName": "southcentralus",
     "rg": {
-        "name": "ubhims-southcentralus-workload-rg",
+        "name": "ubhims-southcentralus-rg",
         "location": "southcentralus"
     },
     "spokes": {
         "spoke1": {
-            "name": "southcentralus-spoke1-secure-vnet",
+            "name": "ubhims-southcentralus-spoke1-vnet",
             "addressPrefix": "10.3.24.0/23",
             "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.3.24.0/24",
@@ -15,7 +15,7 @@
         },
 
         "spoke2": {
-            "name": "southcentralus-spoke2-secure-vnet",
+            "name": "ubhims-southcentralus-spoke2-vnet",
             "addressPrefix": "10.3.26.0/23",
             "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.3.26.0/24",
@@ -25,10 +25,10 @@
     },
     "firewall": {
         "pip": {
-            "name":"southcentralus-fw-pip"
+            "name":"ubhims-southcentralus-fw-pip"
         },
         "firewall": {
-            "name": "southcentralus-fw"
+            "name": "ubhims-southcentralus-fw"
         }
     }
 }

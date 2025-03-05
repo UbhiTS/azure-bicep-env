@@ -6,7 +6,7 @@
     },
     "spokes": {
         "spoke1": {
-            "name": "westus-spoke1-secure-vnet",
+            "name": "ubhims-westus-spoke1-vnet",
             "addressPrefix": "10.2.24.0/23",
             "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.2.24.0/24",
@@ -15,7 +15,7 @@
         },
 
         "spoke2": {
-            "name": "westus-spoke2-secure-vnet",
+            "name": "ubhims-westus-spoke2-vnet",
             "addressPrefix": "10.2.26.0/23",
             "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.2.26.0/24",
@@ -25,10 +25,10 @@
     },
     "firewall": {
         "pip": {
-            "name":"westus-fw-pip"
+            "name":"ubhims-westus-fw-pip"
         },
         "firewall": {
-            "name": "westus-fw"
+            "name": "ubhims-westus-fw"
         }
     }
 }

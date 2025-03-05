@@ -1,13 +1,13 @@
-var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
+var baseConfigEastUS = loadJsonContent('../../base/config/base-eastus.json')
 var domainConfig = loadJsonContent('../../base/config/domain.json')
 
-module primaryDMZVM '../../modules/vm.bicep' = {
+module eastusDMZVM '../../modules/vm.bicep' = {
   name: 'deploy-eastus-hub-aadds-proxy-vm'
-  scope: resourceGroup(baseConfigPrimary.rg.name)
+  scope: resourceGroup(baseConfigEastUS.rg.name)
   params: {
-    vNetName: baseConfigPrimary.hub.name
-    sNetName: baseConfigPrimary.hub.subnets.aaddsSubnet.name
-    location: baseConfigPrimary.rg.location
+    vNetName: baseConfigEastUS.hub.name
+    sNetName: baseConfigEastUS.hub.subnets.aaddsSubnet.name
+    location: baseConfigEastUS.rg.location
     vmName: 'aadds-proxy-vm' // maxlength = 15
     adminUsername: domainConfig.localVMAdminUsername
     adminPassword: domainConfig.defaultPassword

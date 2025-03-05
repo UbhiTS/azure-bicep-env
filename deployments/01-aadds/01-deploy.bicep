@@ -1,6 +1,6 @@
 // deployment time ~35 mins
 // + activation time ~35 mins
-// = total time ~110 mins
+// = total time ~70 mins
 
 // #################################################################################
 // make sure your custom domain is registered in Azure AD before running this script
