@@ -1,12 +1,12 @@
 {
-    "deploymentName": "westus",
+    "deploymentName": "wus",
     "rg": {
-        "name": "ubhims-westus-workload-rg",
+        "name": "ubhims-wus-fw-rg",
         "location": "westus"
     },
     "spokes": {
         "spoke1": {
-            "name": "ubhims-westus-spoke1-vnet",
+            "name": "ubhims-wus-spoke1-vnet",
             "addressPrefix": "10.2.24.0/23",
             "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.2.24.0/24",
@@ -15,7 +15,7 @@
         },
 
         "spoke2": {
-            "name": "ubhims-westus-spoke2-vnet",
+            "name": "ubhims-wus-spoke2-vnet",
             "addressPrefix": "10.2.26.0/23",
             "managementSubnetName": "management-subnet",
             "managementSubnetCIDR": "10.2.26.0/24",
@@ -25,10 +25,10 @@
     },
     "firewall": {
         "pip": {
-            "name":"ubhims-westus-fw-pip"
+            "name":"ubhims-wus-fw-pip"
         },
         "firewall": {
-            "name": "ubhims-westus-fw"
+            "name": "ubhims-wus-fw"
         }
     }
 }

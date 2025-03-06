@@ -1,4 +1,4 @@
-var baseConfigEastUS = loadJsonContent('../../base/config/base-eastus.json')
+var baseConfigEastUS = loadJsonContent('../../base/config/base-eus.json')
 var domainConfig = loadJsonContent('../../base/config/domain.json')
 
 module eastusDMZVM '../../modules/vm.bicep' = {
@@ -18,4 +18,3 @@ module eastusDMZVM '../../modules/vm.bicep' = {
     autoShutDownNoticeEmail: domainConfig.defaultEmail
   }
 }
-

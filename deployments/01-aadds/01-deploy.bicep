@@ -23,9 +23,9 @@
 // Either expire the passwords for all cloud users in the tenant who need to use Azure AD DS, which forces a password change on next sign-in, or instruct cloud users to manually change their passwords.
 
 
-var baseConfigEastUS = loadJsonContent('../../base/config/base-eastus.json')
-var baseConfigWestUS = loadJsonContent('../../base/config/base-westus.json')
-var baseConfigSouthCentralUS = loadJsonContent('../../base/config/base-southcentralus.json')
+var baseConfigEastUS = loadJsonContent('../../base/config/base-eus.json')
+var baseConfigWestUS = loadJsonContent('../../base/config/base-wus.json')
+var baseConfigSouthCentralUS = loadJsonContent('../../base/config/base-scus.json')
 
 var aaddsConfig = loadJsonContent('../../base/config/aadds.json')
 var domainConfig = loadJsonContent('../../base/config/domain.json')

@@ -2,9 +2,9 @@
 
 // az bicep decompile -f .\pathtoexportarmfile to create the biCep file 
 
-var configEastUS = loadJsonContent('./config/base-eastus.json')
-var configWestUS = loadJsonContent('./config/base-westus.json')
-var configSouthCentralUS = loadJsonContent('./config/base-southcentralus.json')
+var configEastUS = loadJsonContent('./config/base-eus.json')
+var configWestUS = loadJsonContent('./config/base-wus.json')
+var configSouthCentralUS = loadJsonContent('./config/base-scus.json')
 
 var deployWestUS = true
 var deploySouthCentralUS = true

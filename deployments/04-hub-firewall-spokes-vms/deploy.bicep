@@ -10,15 +10,15 @@ var deploySpokeVMs = true
 
 // =========================
 
-var baseConfigEastUS = loadJsonContent('../../base/config/base-eastus.json')
-var baseConfigWestUS = loadJsonContent('../../base/config/base-westus.json')
-var baseConfigSouthCentralUS = loadJsonContent('../../base/config/base-southcentralus.json')
+var baseConfigEastUS = loadJsonContent('../../base/config/base-eus.json')
+var baseConfigWestUS = loadJsonContent('../../base/config/base-wus.json')
+var baseConfigSouthCentralUS = loadJsonContent('../../base/config/base-scus.json')
 
 var domainConfig = loadJsonContent('../../base/config/domain.json')
 
-var configEastUS = loadJsonContent('./config/eastus.json')
-var configWestUS = loadJsonContent('./config/westus.json')
-var configSouthCentralUS = loadJsonContent('./config/southcentralus.json')
+var configEastUS = loadJsonContent('./config/eus.json')
+var configWestUS = loadJsonContent('./config/wus.json')
+var configSouthCentralUS = loadJsonContent('./config/scus.json')
 
 // resource groups
 

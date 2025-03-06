@@ -11,13 +11,13 @@ param hubFWPvtIPAddress string
 // ========================================================================
 
 resource rt 'Microsoft.Network/routeTables@2022-01-01' = {
-  name: 'secured-spoke-subnets-to-hub-nva-rt'
+  name: 'ubhims-${config.deploymentName}-spokes-rt'
   location: config.rg.location
   properties: {
     disableBgpRoutePropagation: false
     routes: [
       {
-        name: 'all-${config.deploymentName}-spoke-traffic-to-hub-fw'
+        name: 'all-traffic-to-${config.deploymentName}-hub-fw'
         properties: {
           addressPrefix: '0.0.0.0/0'
           nextHopType: 'VirtualAppliance'

@@ -5,22 +5,22 @@
     "_generator": {
       "name": "bicep",
       "version": "0.33.93.31351",
-      "templateHash": "4391979717298104094"
+      "templateHash": "7949777769929733431"
     }
   },
   "variables": {
     "$fxv#0": {
-      "deploymentName": "eastus",
+      "deploymentName": "eus",
       "addressPrefix": "10.1.0.0/16",
       "rg": {
-        "name": "ubhims-eastus-rg",
+        "name": "ubhims-eus-rg",
         "location": "eastus"
       },
       "nsg": {
-        "name": "ubhims-eastus-default-nsg"
+        "name": "ubhims-eus-default-nsg"
       },
       "hub": {
-        "name": "ubhims-eastus-hub-vnet",
+        "name": "ubhims-eus-hub-vnet",
         "addressPrefixes": [
           "10.1.0.0/20"
         ],

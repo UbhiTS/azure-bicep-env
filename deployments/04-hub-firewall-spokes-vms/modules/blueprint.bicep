@@ -37,7 +37,7 @@ module hubFW './firewall.bicep' = {
   // https://docs.microsoft.com/en-us/azure/firewall/firewall-faq#are-there-any-firewall-resource-group-restrictions
   // Are there any firewall resource group restrictions?
   // Yes. The firewall, VNet, and the public IP address all must be in the same resource group.
-  scope: resourceGroup(baseConfig.rg.name) 
+  scope: resourceGroup(config.rg.name) 
   params: {
     baseConfig: baseConfig
     config: config
@@ -130,13 +130,13 @@ module hubToSpoke2Peering '../../../modules/peering.bicep' = {
 // vms
 
 module spoke1WorkloadVM '../../../modules/vm.bicep' = if (deploySpokeWorkloadVMs) {
-  name: 'deploy-${config.deploymentName}-spoke1-workload-vm'
+  name: 'deploy-${config.deploymentName}-spoke1-vm'
   dependsOn: [ spokeVnet1 ]
   params: {
     vNetName: config.spokes.spoke1.name
     sNetName: config.spokes.spoke1.workloadSubnetName
     location: location
-    vmName: 'spoke1-vm1' // maxlength = 15
+    vmName: '${config.deploymentName}-spoke1-vm1' // maxlength = 15
     vmSize: 'Standard_D2s_v5'
     adminUsername: domainConfig.localVMAdminUsername
     adminPassword: domainConfig.defaultPassword
@@ -146,13 +146,13 @@ module spoke1WorkloadVM '../../../modules/vm.bicep' = if (deploySpokeWorkloadVMs
 }
 
 module spoke2WorkloadVM '../../../modules/vm.bicep' = if (deploySpokeWorkloadVMs) {
-  name: 'deploy-${config.deploymentName}-spoke2-workload-vm'
+  name: 'deploy-${config.deploymentName}-spoke2-vm'
   dependsOn: [ spokeVnet2 ]
   params: {
     vNetName: config.spokes.spoke2.name
     sNetName: config.spokes.spoke2.workloadSubnetName
     location: location
-    vmName: 'spoke2-vm1' // maxlength = 15
+    vmName: '${config.deploymentName}-spoke2-vm1' // maxlength = 15
     vmSize: 'Standard_D2s_v5'
     adminUsername: domainConfig.localVMAdminUsername
     adminPassword: domainConfig.defaultPassword

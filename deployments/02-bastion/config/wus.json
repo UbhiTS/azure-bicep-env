@@ -1,0 +1,13 @@
+{
+    "deploymentName": "wus",
+    "rg": {
+        "name": "ubhims-wus-bastion-rg",
+        "location": "westus"
+    },
+    "pip": {
+        "name":"ubhims-wus-bastion-pip"
+    },
+    "host": {
+        "name": "ubhims-wus-bastion"
+    }
+}

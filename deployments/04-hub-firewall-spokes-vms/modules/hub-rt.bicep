@@ -20,7 +20,7 @@ param extHub2FWPvtIpAddress string
 
 
 resource rt 'Microsoft.Network/routeTables@2022-01-01' = {
-  name: '${config.deploymentName}-to-network-egress-rt'
+  name: 'ubhims-${config.deploymentName}-fw-rt'
   location: baseConfig.rg.location
   properties: {
     disableBgpRoutePropagation: false

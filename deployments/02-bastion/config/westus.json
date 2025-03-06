@@ -1,9 +1,0 @@
-{
-    "deploymentName": "westus",
-    "pip": {
-        "name":"ubhims-westus-bastion-pip"
-    },
-    "host": {
-        "name": "ubhims-westus-bastion"
-    }
-}

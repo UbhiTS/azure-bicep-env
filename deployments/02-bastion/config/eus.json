@@ -1,0 +1,13 @@
+{
+    "deploymentName": "eus",
+    "rg": {
+        "name": "ubhims-eus-bastion-rg",
+        "location": "eastus"
+    },
+    "pip": {
+        "name":"ubhims-eus-bastion-pip"
+    },
+    "host": {
+        "name": "ubhims-eus-bastion"
+    }
+}

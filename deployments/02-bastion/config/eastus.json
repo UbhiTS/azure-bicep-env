@@ -1,9 +1,0 @@
-{
-    "deploymentName": "eastus",
-    "pip": {
-        "name":"ubhims-eastus-bastion-pip"
-    },
-    "host": {
-        "name": "ubhims-eastus-bastion"
-    }
-}

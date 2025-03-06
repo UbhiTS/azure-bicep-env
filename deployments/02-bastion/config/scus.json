@@ -1,0 +1,13 @@
+{
+    "deploymentName": "scus",
+    "rg": {
+        "name": "ubhims-scus-bastion-rg",
+        "location": "southcentralus"
+    },
+    "pip": {
+        "name":"ubhims-scus-bastion-pip"
+    },
+    "host": {
+        "name": "ubhims-scus-bastion"
+    }
+}
