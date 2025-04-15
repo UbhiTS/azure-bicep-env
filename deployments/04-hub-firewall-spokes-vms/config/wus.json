@@ -1,7 +1,7 @@
 {
     "deploymentName": "wus",
     "rg": {
-        "name": "ubhims-wus-fw-rg",
+        "name": "ubhims-wus-spokes-rg",
         "location": "westus"
     },
     "spokes": {

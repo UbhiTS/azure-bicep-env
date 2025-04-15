@@ -17,13 +17,14 @@
 
 // https://github.com/pauldotyu/azure-virtual-desktop-bicep/tree/main/modules
 
-var baseConfigPrimary = loadJsonContent('../../base/config/base-primary.json')
-var baseConfigSecondary = loadJsonContent('../../base/config/base-secondary.json')
-var baseConfigTertiary = loadJsonContent('../../base/config/base-tertiary.json')
+var baseConfigEastUS = loadJsonContent('../../base/config/base-eus.json')
+var baseConfigWestUS = loadJsonContent('../../base/config/base-wus.json')
+var baseConfigSouthCentralUS = loadJsonContent('../../base/config/base-scus.json')
 
-var configPrimary = loadJsonContent('./config/primary.json')
-var configSecondary = loadJsonContent('./config/secondary.json')
-var configTertiary = loadJsonContent('./config/tertiary.json')
+
+var configEastUS = loadJsonContent('./config/eus.json')
+var configWestUS = loadJsonContent('./config/wus.json')
+var configSouthCentralUS = loadJsonContent('./config/scus.json')
 
 var avdConfig = loadJsonContent('../../base/config/avd.json')
 var domainConfig = loadJsonContent('../../base/config/domain.json')
@@ -47,57 +48,74 @@ module profilesStorage './modules/storage.bicep' = {
 }
 
 module primaryAVD './modules/avd-control-plane.bicep' = {
-  name: 'deploy-avd-control-plane-${configPrimary.deploymentName}'
+  name: 'deploy-avd-control-plane-${configEastUS.deploymentName}'
   dependsOn: [ profilesStorage ]
-  scope: resourceGroup(baseConfigPrimary.rg.name)
+  scope: resourceGroup(baseConfigEastUS.rg.name)
   params: {
-    baseConfig: baseConfigPrimary
+    baseConfig: baseConfigEastUS
     domainConfig: domainConfig
-    config: configPrimary
+    config: configEastUS
   }
 }
 
 module secondaryAVD './modules/avd-control-plane.bicep' = {
-  name: 'deploy-avd-control-plane-${configSecondary.deploymentName}'
+  name: 'deploy-avd-control-plane-${configWestUS.deploymentName}'
   dependsOn: [ profilesStorage ]
-  scope: resourceGroup(baseConfigSecondary.rg.name)
+  scope: resourceGroup(baseConfigWestUS.rg.name)
   params: {
-    baseConfig: baseConfigSecondary
+    baseConfig: baseConfigWestUS
     domainConfig: domainConfig
-    config: configSecondary
+    config: configWestUS
   }
 }
 
 module tertiaryAVD './modules/avd-control-plane.bicep' = {
-  name: 'deploy-avd-control-plane-${configTertiary.deploymentName}'
+  name: 'deploy-avd-control-plane-${configSouthCentralUS.deploymentName}'
   dependsOn: [ profilesStorage ]
-  scope: resourceGroup(baseConfigTertiary.rg.name)
+  scope: resourceGroup(baseConfigSouthCentralUS.rg.name)
   params: {
-    baseConfig: baseConfigTertiary
+    baseConfig: baseConfigSouthCentralUS
     domainConfig: domainConfig
-    config: configTertiary
+    config: configSouthCentralUS
   }
 }
 
 // module saNTFSPermissions './modules/avd-storage-account-ntfs-permissions.bicep' = {
 //   name: 'sa-ntfs-permissions'
 //   dependsOn: [ primaryAVD ]
-//   scope: resourceGroup(baseConfigPrimary.rg.name)
+//   scope: resourceGroup(baseConfigEastUS.rg.name)
 //   params: {
 //     sessionHostName: primaryAVD.outputs.sessionHostVM1Name
 //   }
 // }
 
-module vmLoginRoles './modules/avd-vm-login-roles-assignment.bicep' = {
-  name: 'deploy-vm-login-roles-assignment'
+module vmLoginRolesEastUS './modules/avd-vm-login-roles-assignment.bicep' = {
+  name: 'deploy-vm-login-roles-assignment-eus'
   dependsOn: [ rg ]
   params: {
-    baseConfigPrimary: baseConfigPrimary
-    baseConfigTertiary: baseConfigSecondary
-    baseConfigSecondary: baseConfigTertiary
+    baseConfig: baseConfigEastUS
     domainConfig: domainConfig
   }
 }
+
+module vmLoginRolesWestUS './modules/avd-vm-login-roles-assignment.bicep' = {
+  name: 'deploy-vm-login-roles-assignment-wus'
+  dependsOn: [ rg ]
+  params: {
+    baseConfig: baseConfigWestUS
+    domainConfig: domainConfig
+  }
+}
+
+module vmLoginRolesSouthCentralUS './modules/avd-vm-login-roles-assignment.bicep' = {
+  name: 'deploy-vm-login-roles-assignment-scus'
+  dependsOn: [ rg ]
+  params: {
+    baseConfig: baseConfigSouthCentralUS
+    domainConfig: domainConfig
+  }
+}
+
 
 //Create Diagnotic Setting for WVD components
 // module avdMonitor './modules/monitor.bicep' = {

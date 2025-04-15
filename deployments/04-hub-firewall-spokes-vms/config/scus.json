@@ -1,7 +1,7 @@
 {
     "deploymentName": "scus",
     "rg": {
-        "name": "ubhims-scus-fw-rg",
+        "name": "ubhims-scus-spokes-rg",
         "location": "southcentralus"
     },
     "spokes": {

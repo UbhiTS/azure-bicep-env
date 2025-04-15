@@ -12,7 +12,7 @@
             "vmSize": "Standard_D2s_v5",
             "namePrefix": "dev-host-vm",
             "vmImageOffer": "Office-365",
-            "vmImageSku": "win11-21h2-avd-m365"
+            "vmImageSku": "win11-24h2-avd-m365"
         },
         "workspace": {
             "name": "contoso-dev-workspace",

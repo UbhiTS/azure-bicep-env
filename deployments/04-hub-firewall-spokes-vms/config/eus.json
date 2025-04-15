@@ -1,7 +1,7 @@
 {
     "deploymentName": "eus",
     "rg": {
-        "name": "ubhims-eus-fw-rg",
+        "name": "ubhims-eus-spokes-rg",
         "location": "eastus"
     },
     "spokes": {

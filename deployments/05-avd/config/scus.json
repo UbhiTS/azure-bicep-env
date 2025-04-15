@@ -14,7 +14,7 @@
             "DUMMY_vmSizeGPU_ForReference": "Standard_NV12s_v3",
             "namePrefix": "mkt-host-vm",
             "vmImageOffer": "Office-365",
-            "vmImageSku": "win11-21h2-avd-m365"
+            "vmImageSku": "win11-24h2-avd-m365"
         },
         "workspace": {
             "name": "contoso-marketing-designers-workspace",

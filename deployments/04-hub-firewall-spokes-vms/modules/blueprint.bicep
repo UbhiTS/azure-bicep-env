@@ -37,7 +37,7 @@ module hubFW './firewall.bicep' = {
   // https://docs.microsoft.com/en-us/azure/firewall/firewall-faq#are-there-any-firewall-resource-group-restrictions
   // Are there any firewall resource group restrictions?
   // Yes. The firewall, VNet, and the public IP address all must be in the same resource group.
-  scope: resourceGroup(config.rg.name) 
+  scope: resourceGroup(baseConfig.rg.name) 
   params: {
     baseConfig: baseConfig
     config: config

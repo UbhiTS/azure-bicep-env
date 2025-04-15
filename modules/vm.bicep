@@ -49,6 +49,8 @@ param vmImageOffer string = 'Windows-10'
   'win10-21h2-avd-g2'
   'win10-21h2-avd-m365-g2'
   'win11-21h2-avd-m365'
+  'win11-23h2-avd-m365'
+  'win11-24h2-avd-m365'
 ])
 param vmImageSku string = 'win10-21h2-avd-g2'
 
